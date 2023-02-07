@@ -1,7 +1,7 @@
 library(testthat)
 library(dplyr)
 
-# testing -----------------------------------------------------------------
+# testing fcs-----------------------------------------------------------------
 
 testthat::test_that("Check_fcs",{
 
@@ -82,5 +82,33 @@ testthat::test_that("Check make_fcs",{
 
   testthat::expect_equal(food_consumption_df |> ncol()+2, ncol(res$result) )
 
+})
+
+
+# test HHS ----------------------------------------------------------------
+
+testthat::test_that("add_hhs",{
+
+  add_result <- evaluate_promise(
+    add_hhs(dataset = food_consumption_df,new_colname = "hhs",
+            hhs1a = "no_food_to_eat_because_of_lack_of_resources",
+            hhs1b = "how_often_no_food_to_eat_because_of_lack_of_resources",
+            hhs2a = "hh_memeber_sleep_hungry",
+            hhs2b = "how_often_hh_memeber_sleep_hungry",
+            hhs3a = "hh_member_go_a_whole_day_and_night_without_eating",
+            hhs3b = "how_often_hh_member_go_a_whole_day_and_night_without_eating",
+            frequency_choice = c("rarely_1_2_times", "sometimes_3_10_times", "often_10_plus_times"))
+  )
+
+  expect_true("hhs_cat" %in% names(add_result$result))
+  expect_true("hhs_score" %in% names(add_result$result))
+  expect_error(add_hhs(dataset = food_consumption_df,new_colname = "hhs",
+                       hhs1a = "no_food_to_eat_because_of_lack_of_resourc",
+                       hhs1b = "how_often_no_food_to_eat_because_of_lack_of_resources",
+                       hhs2a = "hh_memeber_sleep_hungry",
+                       hhs2b = "how_often_hh_memeber_sleep_hungry",
+                       hhs3a = "hh_member_go_a_whole_day_and_night_without_eating",
+                       hhs3b = "how_often_hh_member_go_a_whole_day_and_night_without_eating",
+                       frequency_choice = c("rarely_1_2_times", "sometimes_3_10_times", "often_10_plus_times")))
 })
 
