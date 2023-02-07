@@ -8,7 +8,7 @@
 
 ## Overview
 
-addindicators is designed for creating and checking (occasionally)
+`addindicators` is designed for creating and checking (occasionally)
 composite indicators like Food Consumption Score (FCS) or Household
 Hunger Score (HHS)
 
@@ -20,4 +20,41 @@ You can install the development version from
 ``` r
 # install.packages("devtools")
 devtools::install_github("impact-initiatives/addindicators")
+```
+
+## example
+
+The recommendated steps for calculating FCS and HHS are given below.
+
+**Step 1:** Reading the dataset
+
+``` r
+df <- read.csv("[file path].csv")
+```
+
+**Step 2:** Adding HHS
+
+``` r
+df_with_hhs <- df %>%  add_hhs(new_colname = "hhs",
+          hhs1a = "no_food_to_eat_because_of_lack_of_resources", 
+          hhs1b = "how_often_no_food_to_eat_because_of_lack_of_resources", 
+          hhs2a = "hh_memeber_sleep_hungry",
+          hhs2b = "how_often_hh_memeber_sleep_hungry",
+          hhs3a = "hh_member_go_a_whole_day_and_night_without_eating",
+          hhs3b = "how_often_hh_member_go_a_whole_day_and_night_without_eating",
+          frequency_choice = c("rarely_1_2_times", "sometimes_3_10_times", "often_10_plus_times"))
+```
+
+**Step 2:** Adding FCS
+
+``` r
+df_with_hhs_and_fcs <- df_with_hhs %>%  make_fcs(var_name = "fcs",
+              cereals = "cereals_grains_roots_tubers",
+              pulses = "beans_legumes_pulses_nuts",
+              dairy = "milk_dairy_products",
+              meat ="meat_fish_eggs",
+              vegetables ="vegetables", 
+              fruits ="fruite",
+              oil ="oil_fat_butter",
+              sugar= "sugar_sugary_food")
 ```
