@@ -1,11 +1,13 @@
 Package: addindicators
 Type: Package
-Title: What the Package Does (Title Case)
+Title: The addindicators Package Focuses on Adding Indicators to a Dataset and  Reviews the Added Indicator
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: c(
+    person("Mehedi", "Khan", email= "mh.khan@reach-initiative.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4276-4485")),
+    person("Yann", "Say",  email= "yann.say@impact-initiatives.org",role = "aut",
+           comment = c(ORCID = "xxxxxxxxxxxx")))
+Description: The addindicators package focuses on adding indicators such as Food Consumption Score (FCS), Household Hunger Score(HHS) etc to a dataset and reviews the added indicator.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

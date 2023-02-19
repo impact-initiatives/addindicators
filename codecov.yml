@@ -1,0 +1,15 @@
+comment: false
+codecov:
+ token: 10e621ce-9ac1-4827-b5d3-47e636bb1acb
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+        informational: true
+    patch:
+      default:
+        target: auto
+        threshold: 1%
+        informational: true
