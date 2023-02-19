@@ -2,8 +2,9 @@
 ## addindicators
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/mhkhan27/addindicators/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mhkhan27/addindicators/actions/workflows/R-CMD-check.yaml)
-[![codecov](https://codecov.io/gh/mhkhan27/addindicators/branch/master/graph/badge.svg?token=RlTJbum32D)](https://codecov.io/gh/mhkhan27/addindicators)
+[![R-CMD-check](https://github.com/impact-initiatives/addindicators/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/impact-initiatives/addindicators/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/impact-initiatives/addindicators/branch/master/graph/badge.svg?token=RlTJbum32D)](https://codecov.io/gh/impact-initiatives/addindicators)
+
 <!-- badges: end -->
 
 ## Overview
