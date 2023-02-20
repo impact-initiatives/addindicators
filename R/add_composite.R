@@ -184,8 +184,6 @@ make_fcs <- function(dataset,
                      oil = "fs_fcs_fat",
                      sugar = "fs_fcs_sugar",
                      threshold = c(28, 42)) {
-
-
   # check FC values ---------------------------------------------------------
 
 
