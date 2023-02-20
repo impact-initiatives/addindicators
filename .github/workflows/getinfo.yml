@@ -1,8 +1,10 @@
 on:
   push:
-    paths: ["**.[rR]", "**.[qrR]md", "**.[rR]markdown", "**.[rR]nw"]
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
 
-name: Style
+name: getinfo
 
 jobs:
   style:
