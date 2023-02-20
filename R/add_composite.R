@@ -191,7 +191,7 @@ make_fcs <- function(dataset,
 
   fcs_cols <- c(cereals, pulses, dairy, meat, vegetables, fruits, oil, sugar)
 
-  check_df <- dataset %>% filter(pmax(!!!syms(fcs_cols), na.rm = T) == pmin(!!!syms(fcs_cols), na.rm = T))
+  check_df <- dataset %>% dplyr::filter(pmax(!!!syms(fcs_cols), na.rm = T) == pmin(!!!syms(fcs_cols), na.rm = T))
   warring_ma <- paste0("Potential issue:: There are ", nrow(check_df), " observations where all the variables of food consumption score are the same.")
 
   if (nrow(check_df) > 0) {
