@@ -54,7 +54,7 @@ df_with_hhs <- df %>%  add_hhs(new_colname = "hhs",
 **Step 2:** Adding FCS
 
 ``` {r, eval=FALSE}
-df_with_hhs_and_fcs <- df_with_hhs %>%  make_fcs(var_name = "fcs",
+df_with_hhs_and_fcs <- df_with_hhs %>%  add_fcs(var_name = "fcs",
               cereals = "cereals_grains_roots_tubers",
               pulses = "beans_legumes_pulses_nuts",
               dairy = "milk_dairy_products",
