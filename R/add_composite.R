@@ -121,16 +121,16 @@ recoding_hhs <- function(hhs_yesno, hhs_freq, yesno_choice, frequency_choice) {
 
 
 add_fcs <- function(dataset,
-                     var_name = "fcs",
-                     cereals = "fs_fcs_cerealgrainroottuber",
-                     pulses = "fs_fcs_beansnuts",
-                     dairy = "fs_fcs_dairy",
-                     meat = "fs_fcs_meatfishegg",
-                     vegetables = "fs_fcs_vegetableleave",
-                     fruits = "fs_fcs_fruit",
-                     oil = "fs_fcs_fat",
-                     sugar = "fs_fcs_sugar",
-                     threshold = c(28, 42)) {
+                    var_name = "fcs",
+                    cereals = "fs_fcs_cerealgrainroottuber",
+                    pulses = "fs_fcs_beansnuts",
+                    dairy = "fs_fcs_dairy",
+                    meat = "fs_fcs_meatfishegg",
+                    vegetables = "fs_fcs_vegetableleave",
+                    fruits = "fs_fcs_fruit",
+                    oil = "fs_fcs_fat",
+                    sugar = "fs_fcs_sugar",
+                    threshold = c(28, 42)) {
   # check FC values ---------------------------------------------------------
 
 
