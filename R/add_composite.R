@@ -26,8 +26,8 @@
 #'
 #' @return It returns the dataframe with 5 extras columns: score for the 3 sets of questions
 #' (from 0 to 2), the HHS score (from 0 to 6) and the HHS category.
+#' @importFrom rlang :=
 #' @export
-#' @importFrom dplyr case_when mutate
 
 
 
@@ -50,19 +50,19 @@ add_hhs <- function(dataset,
 
   dataset %>%
     # individual scores are calculated to be able to deal with NA in the score creation
-    mutate(
-      !!sym(score1) := recoding_hhs(!!sym(hhs1a), !!sym(hhs1b), yesno_choice, frequency_choice),
-      !!sym(score2) := recoding_hhs(!!sym(hhs2a), !!sym(hhs2b), yesno_choice, frequency_choice),
-      !!sym(score3) := recoding_hhs(!!sym(hhs3a), !!sym(hhs3b), yesno_choice, frequency_choice),
-      !!sym(score_name) := rowSums(across(c(!!sym(score1), !!sym(score2), !!sym(score3))),
+    dplyr::mutate(
+      !!rlang::sym(score1) := recoding_hhs(!!rlang::sym(hhs1a), !!rlang::sym(hhs1b), yesno_choice, frequency_choice),
+      !!rlang::sym(score2) := recoding_hhs(!!rlang::sym(hhs2a), !!rlang::sym(hhs2b), yesno_choice, frequency_choice),
+      !!rlang::sym(score3) := recoding_hhs(!!rlang::sym(hhs3a), !!rlang::sym(hhs3b), yesno_choice, frequency_choice),
+      !!rlang::sym(score_name) := rowSums(across(c(!!rlang::sym(score1), !!rlang::sym(score2), !!rlang::sym(score3))),
         na.rm = F
       ), # not calculating if there is NA
-      !!sym(cat_name) := case_when(
-        !!sym(score_name) == 0 ~ new_category_label[1],
-        !!sym(score_name) == 1 ~ new_category_label[2],
-        !!sym(score_name) <= 3 ~ new_category_label[3],
-        !!sym(score_name) == 4 ~ new_category_label[4],
-        !!sym(score_name) <= 6 ~ new_category_label[5],
+      !!rlang::sym(cat_name) := dplyr::case_when(
+        !!rlang::sym(score_name) == 0 ~ new_category_label[1],
+        !!rlang::sym(score_name) == 1 ~ new_category_label[2],
+        !!rlang::sym(score_name) <= 3 ~ new_category_label[3],
+        !!rlang::sym(score_name) == 4 ~ new_category_label[4],
+        !!rlang::sym(score_name) <= 6 ~ new_category_label[5],
         TRUE ~ NA_character_
       )
     )
@@ -82,11 +82,10 @@ add_hhs <- function(dataset,
 #' @return
 #' A vector of the same length from 0 to 2.
 #' @export
-#' @importFrom dplyr case_when
 
 
 recoding_hhs <- function(hhs_yesno, hhs_freq, yesno_choice, frequency_choice) {
-  case_when(
+  dplyr::case_when(
     {{ hhs_yesno }} == yesno_choice[2] ~ 0,
     {{ hhs_freq }} %in% frequency_choice[1:2] ~ 1,
     {{ hhs_freq }} %in% frequency_choice[3] ~ 2,
@@ -111,8 +110,7 @@ recoding_hhs <- function(hhs_yesno, hhs_freq, yesno_choice, frequency_choice) {
 #' @return dataset with potential issues
 #' @export
 #' @importFrom dplyr filter select mutate case_when
-
-
+#' @importFrom rlang :=
 
 
 
@@ -136,7 +134,7 @@ add_fcs <- function(dataset,
 
   fcs_cols <- c(cereals, pulses, dairy, meat, vegetables, fruits, oil, sugar)
 
-  check_df <- dataset %>% dplyr::filter(pmax(!!!syms(fcs_cols), na.rm = T) == pmin(!!!syms(fcs_cols), na.rm = T))
+  check_df <- dataset %>% dplyr::filter(pmax(!!!rlang::syms(fcs_cols), na.rm = T) == pmin(!!!rlang::syms(fcs_cols), na.rm = T))
   warring_ma <- paste0("Potential issue:: There are ", nrow(check_df), " observations where all the variables of food consumption score are the same.")
 
   if (nrow(check_df) > 0) {
@@ -152,13 +150,13 @@ add_fcs <- function(dataset,
   var_score <- paste0(var_name, "_score")
   var_cat <- paste0(var_name, "_category")
   dataset <- dataset %>%
-    mutate(
-      !!sym(var_score) := !!sym(cereals) * 2 + !!sym(pulses) * 3 + !!sym(dairy) * 4 +
-        !!sym(meat) * 4 + !!sym(vegetables) + !!sym(fruits) + !!sym(oil) * 0.5 + !!sym(sugar) * 0.5,
-      !!sym(var_cat) := case_when(
-        !!sym(var_score) <= threshold[1] ~ "poor",
-        !!sym(var_score) <= threshold[2] ~ "bordeline",
-        !!sym(var_score) < 112 ~ "acceptable",
+    dplyr::mutate(
+      !!rlang::sym(var_score) := !!rlang::sym(cereals) * 2 + !!rlang::sym(pulses) * 3 + !!rlang::sym(dairy) * 4 +
+        !!rlang::sym(meat) * 4 + !!rlang::sym(vegetables) + !!rlang::sym(fruits) + !!rlang::sym(oil) * 0.5 + !!rlang::sym(sugar) * 0.5,
+      !!rlang::sym(var_cat) := case_when(
+        !!rlang::sym(var_score) <= threshold[1] ~ "poor",
+        !!rlang::sym(var_score) <= threshold[2] ~ "bordeline",
+        !!rlang::sym(var_score) < 112 ~ "acceptable",
         TRUE ~ NA_character_
       )
     )
