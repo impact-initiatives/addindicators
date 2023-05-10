@@ -1,4 +1,3 @@
-
 #' Add LCSI
 #'
 #' Function to calculate Livelihood Coping Strategy Index (LCSI)
@@ -177,3 +176,4 @@ df <- .dataset
 
 
 }
+
