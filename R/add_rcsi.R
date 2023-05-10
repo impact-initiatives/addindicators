@@ -87,4 +87,3 @@ data |> dplyr::select(-c(dplyr::all_of(score1),dplyr::all_of(score2),
 
 
 }
-
