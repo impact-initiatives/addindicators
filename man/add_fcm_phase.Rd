@@ -6,26 +6,52 @@
 \usage{
 add_fcm_phase(
   dataset,
-  fews_vars = c("fcs_cat", "rcsi_cat", "hhs_cat"),
-  fcs_categories = c("Acceptable", "Poor", "Borderline"),
-  rcsi_categories = c("No to Low", "Medium", "Severe"),
-  hhs_categories = c("None", "Little", "Moderate", "Severe", "Very Severe")
+  fcs_column_name = "fcs_cat",
+  rcsi_column_name = "rcsi_cat",
+  hhs_column_name = "hhs_cat",
+  fcs_categories_acceptable = "Acceptable",
+  fcs_categories_poor = "Poor",
+  fcs_categories_borderline = "Borderline",
+  rcsi_categories_low = "No to Low",
+  rcsi_categories_medium = "Medium",
+  rcsi_categories_high = "High",
+  hhs_categories_none = "None",
+  hhs_categories_little = "Little",
+  hhs_categories_moderate = "Moderate",
+  hhs_categories_severe = "Severe",
+  hhs_categories_very_severe = "Very Severe"
 )
 }
 \arguments{
 \item{dataset}{A dataframe}
 
-\item{fews_vars}{A vector of 3 strings for the column names of fcs, hhs, and rcsi categories from the dataframe
-it has to include all "fcs_cat", "rcsi_cat" and "hhs_cat"}
+\item{fcs_column_name}{A string specifying the column name of the food consumption score in the dataset}
 
-\item{fcs_categories}{A vector of 3 strings for the values included in the fcs_cat column
-It have to be a character and include "Acceptable", "Poor" and "Borderline"}
+\item{rcsi_column_name}{A string specifying the column name of the reduced coping strategy index in the dataset}
 
-\item{rcsi_categories}{A vector of 3 strings for the values included in the rcsi_cat column
-It have to be a character and include "No to Low", "Medium" and "Severe"}
+\item{hhs_column_name}{A string specifying the column name of the household hunger scale in the dataset}
 
-\item{hhs_categories}{A vector of 5 strings for the values included in the hhs_cat column
-It have to be a character and include "None","Little","Moderate"," Severe","Very Severe"}
+\item{fcs_categories_acceptable}{The name of the value "Acceptable" (by default) in the fcs categories}
+
+\item{fcs_categories_poor}{The name of the value "Poor" (by default) in the fcs categories}
+
+\item{fcs_categories_borderline}{The name of the value "Borderline" (by default) in the fcs categories}
+
+\item{rcsi_categories_low}{The name of the value "No to Low" (by default) in the rcsi categories}
+
+\item{rcsi_categories_medium}{The name of the value "Medium" (by default) in the rcsi categories}
+
+\item{rcsi_categories_high}{The name of the value "High" (by default) in the rcsi categories}
+
+\item{hhs_categories_none}{The name of the value "None" (by default) in the hhs categories}
+
+\item{hhs_categories_little}{The name of the value "Little" (by default) in the hhs categories}
+
+\item{hhs_categories_moderate}{The name of the value "Moderate" (by default) in the hhs categories}
+
+\item{hhs_categories_severe}{The name of the value "Severe" (by default) in the hhs categories}
+
+\item{hhs_categories_very_severe}{The name of the value "Very Severe" (by default) in the hhs categories}
 }
 \value{
 this function returns a dataframe with a column called fc_cell that includes values from 1 to 45

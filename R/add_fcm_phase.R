@@ -1,103 +1,148 @@
 
 #' Add the food consumption matrix to the dataset
 #'
-#'
 #' @param dataset A dataframe
-#' @param fews_vars A vector of 3 strings for the column names of fcs, hhs, and rcsi categories from the dataframe
-#' it has to include all "fcs_cat", "rcsi_cat" and "hhs_cat"
-#' @param fcs_categories A vector of 3 strings for the values included in the fcs_cat column
-#' It have to be a character and include "Acceptable", "Poor" and "Borderline"
-#' @param rcsi_categories A vector of 3 strings for the values included in the rcsi_cat column
-#' It have to be a character and include "No to Low", "Medium" and "Severe"
-#' @param hhs_categories A vector of 5 strings for the values included in the hhs_cat column
-#' It have to be a character and include "None","Little","Moderate"," Severe","Very Severe"
+#' @param fcs_column_name A string specifying the column name of the food consumption score in the dataset
+#' @param rcsi_column_name A string specifying the column name of the reduced coping strategy index in the dataset
+#' @param hhs_column_name A string specifying the column name of the household hunger scale in the dataset
+#' @param fcs_categories_acceptable The name of the value "Acceptable" (by default) in the fcs categories
+#' @param fcs_categories_poor The name of the value "Poor" (by default) in the fcs categories
+#' @param fcs_categories_borderline The name of the value "Borderline" (by default) in the fcs categories
+#' @param rcsi_categories_low The name of the value "No to Low" (by default) in the rcsi categories
+#' @param rcsi_categories_medium The name of the value "Medium" (by default) in the rcsi categories
+#' @param rcsi_categories_high The name of the value "High" (by default) in the rcsi categories
+#' @param hhs_categories_none The name of the value "None" (by default) in the hhs categories
+#' @param hhs_categories_little The name of the value "Little" (by default) in the hhs categories
+#' @param hhs_categories_moderate The name of the value "Moderate" (by default) in the hhs categories
+#' @param hhs_categories_severe The name of the value "Severe" (by default) in the hhs categories
+#' @param hhs_categories_very_severe The name of the value "Very Severe" (by default) in the hhs categories
+#'
 #'
 #' @return this function returns a dataframe with a column called fc_cell that includes values from 1 to 45
 #' representing the Food Consumption Score Matrix and the fc_phase column that includes the different 5 phases
 #' of food consumption
 #' @export
 #' @importFrom dplyr case_when mutate
+#'
+#'
+#' @example
+#' test_data <- data.frame(
+#' fcs_cat = c("Acceptable","Poor","Borderline","Acceptable").
+#' rcsi_cat = c("No to Low","Medium","No to Low","High"),
+#' hhs_cat = c("None","Little","Severe","Very Severe")
+#' )
+#' add_fcm_phase(dataset,
+#'               fcs_column_name = "fcs_cat",
+#'               rcsi_column_name = "rcsi_cat",
+#'               hhs_column_name = "hhs_cat",
+#'               fcs_categories_acceptable = "Acceptable",
+#'               fcs_categories_poor = "Poor",
+#'               fcs_categories_borderline ="Borderline",
+#'               rcsi_categories_low = "No to Low",
+#'               rcsi_categories_medium = "Medium",
+#'               rcsi_categories_high = "High",
+#'               hhs_categories_none = "None",
+#'               hhs_categories_little = "Little",
+#'               hhs_categories_moderate = "Moderate",
+#'               hhs_categories_severe = "Severe",
+#'               hhs_categories_very_severe = "Very Severe")
+#'
+#'
+
 add_fcm_phase <- function(dataset,
-                          fews_vars = c("fcs_cat","rcsi_cat","hhs_cat"),
-                          fcs_categories = c("Acceptable", "Poor", "Borderline"),
-                          rcsi_categories = c("No to Low", "Medium", "Severe"),
-                          hhs_categories = c("None","Little","Moderate","Severe","Very Severe")) {
+                          fcs_column_name = "fcs_cat",
+                          rcsi_column_name = "rcsi_cat",
+                          hhs_column_name = "hhs_cat",
+                          fcs_categories_acceptable = "Acceptable",
+                          fcs_categories_poor = "Poor",
+                          fcs_categories_borderline ="Borderline",
+                          rcsi_categories_low = "No to Low",
+                          rcsi_categories_medium = "Medium",
+                          rcsi_categories_high = "High",
+                          hhs_categories_none = "None",
+                          hhs_categories_little = "Little",
+                          hhs_categories_moderate = "Moderate",
+                          hhs_categories_severe = "Severe",
+                          hhs_categories_very_severe = "Very Severe") {
+
+  fews_vars <-  c(fcs_column_name,rcsi_column_name,hhs_column_name)
+
   ## Check if columns in dataset
   if(!all(fews_vars %in% names(dataset))) {
       warning("Please check if the fcs, rcsi, and hhs categories columns are avaialble in the data")
   }
 
   ## Check if fcs values are correct
-  fcs_col <- dataset$fcs_cat
+  fcs_categories <- c(fcs_categories_acceptable,fcs_categories_poor,fcs_categories_borderline)
 
-  if(!all(fcs_categories %in% fcs_col)){
+  if(!all(fcs_categories %in% dataset[[fcs_column_name]])){
     warning("Please check if the fcs categories parameter passes is matching the values in your data")
   }
 
   ## Check if hhs values are correct
-  hhs_col <- dataset$hhs_cat
+  hhs_categories <- c(hhs_categories_none,hhs_categories_little,hhs_categories_moderate,hhs_categories_severe,hhs_categories_very_severe)
 
-  if(!all(hhs_categories %in% hhs_col)){
+  if(!all(hhs_categories %in% dataset[[hhs_column_name]])){
     warning("Please check if the hhs categories parameter passes is matching the values in your data")
   }
 
   ## Check if rcsi values are correct
-  rcsi_col <- dataset$rcsi_cat
+  rcsi_categories <- c(rcsi_categories_low,rcsi_categories_medium,rcsi_categories_high)
 
-  if(!all(rcsi_categories %in% rcsi_col)){
+  if(!all(rcsi_categories %in% dataset[[rcsi_column_name]])){
     warning("Please check if the rcsi categories parameter passes is matching the values in your data")
   }
 
-  dataset <- dataset %>%
-    dplyr::mutate(fc_cell = dplyr::case_when(fcs_cat == "Acceptable" & rcsi_cat == "No to Low" & hhs_cat =="None" ~ 1,
-                                             fcs_cat == "Poor" & rcsi_cat == "No to Low" & hhs_cat =="None" ~ 11,
-                                             fcs_cat == "Borderline" & rcsi_cat == "No to Low" & hhs_cat =="None" ~ 6,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Medium" & hhs_cat =="None" ~ 16,
-                                             fcs_cat == "Poor" & rcsi_cat == "Medium" & hhs_cat =="None" ~ 26,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Medium" & hhs_cat =="None" ~ 21,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Severe" & hhs_cat =="None" ~ 31,
-                                             fcs_cat == "Poor" & rcsi_cat == "Severe" & hhs_cat =="None" ~ 41,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Severe" & hhs_cat =="None" ~ 36,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "No to Low" & hhs_cat =="Little" ~ 2,
-                                             fcs_cat == "Poor" & rcsi_cat == "No to Low" & hhs_cat =="Little" ~ 12,
-                                             fcs_cat == "Borderline" & rcsi_cat == "No to Low" & hhs_cat =="Little" ~ 7,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Medium" & hhs_cat =="Little" ~ 17,
-                                             fcs_cat == "Poor" & rcsi_cat == "Medium" & hhs_cat =="Little" ~ 27,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Medium" & hhs_cat =="Little" ~ 22,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Severe" & hhs_cat =="Little" ~ 32,
-                                             fcs_cat == "Poor" & rcsi_cat == "Severe" & hhs_cat =="Little" ~ 42,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Severe" & hhs_cat =="Little" ~ 37,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "No to Low" & hhs_cat =="Moderate" ~ 3,
-                                             fcs_cat == "Poor" & rcsi_cat == "No to Low" & hhs_cat =="Moderate" ~ 13,
-                                             fcs_cat == "Borderline" & rcsi_cat == "No to Low" & hhs_cat =="Moderate" ~ 8,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Medium" & hhs_cat =="Very Severe" ~ 18,
-                                             fcs_cat == "Poor" & rcsi_cat == "Medium" & hhs_cat =="Moderate" ~ 28,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Medium" & hhs_cat =="Moderate" ~ 23,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Severe" & hhs_cat =="Moderate" ~ 33,
-                                             fcs_cat == "Poor" & rcsi_cat == "Severe" & hhs_cat =="VModerate" ~ 43,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Severe" & hhs_cat =="Moderate" ~ 38,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "No to Low" & hhs_cat =="Severe" ~ 4,
-                                             fcs_cat == "Poor" & rcsi_cat == "No to Low" & hhs_cat =="Severe" ~ 14,
-                                             fcs_cat == "Borderline" & rcsi_cat == "No to Low" & hhs_cat =="Severe" ~ 9,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Medium" & hhs_cat =="Severe" ~ 19,
-                                             fcs_cat == "Poor" & rcsi_cat == "Medium" & hhs_cat =="Severe" ~ 29,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Medium" & hhs_cat =="Severe" ~ 24,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Severe" & hhs_cat =="Severe" ~ 34,
-                                             fcs_cat == "Poor" & rcsi_cat == "Severe" & hhs_cat =="Severe" ~ 44,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Severe" & hhs_cat =="Severe" ~ 39,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "No to Low" & hhs_cat =="Very Severe" ~ 5,
-                                             fcs_cat == "Poor" & rcsi_cat == "No to Low" & hhs_cat =="Very Severe" ~ 15,
-                                             fcs_cat == "Borderline" & rcsi_cat == "No to Low" & hhs_cat =="Very Severe" ~ 10,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Medium" & hhs_cat =="Very Severe" ~ 20,
-                                             fcs_cat == "Poor" & rcsi_cat == "Medium" & hhs_cat =="Very Severe" ~ 30,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Medium" & hhs_cat =="Very Severe" ~ 25,
-                                             fcs_cat == "Acceptable" & rcsi_cat == "Severe" & hhs_cat =="Very Severe" ~ 35,
-                                             fcs_cat == "Poor" & rcsi_cat == "Severe" & hhs_cat =="Very Severe" ~ 45,
-                                             fcs_cat == "Borderline" & rcsi_cat == "Severe" & hhs_cat =="Very Severe" ~ 40,
+  dataset <- dataset |>
+    dplyr::mutate(fc_cell = dplyr::case_when(!!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 1,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 11,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 6,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 16,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 26,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 21,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 31,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 41,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_none ~ 36,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 2,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 12,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 7,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 17,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 27,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 22,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 32,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 42,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_little ~ 37,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 3,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 13,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 8,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 18,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 28,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 23,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 33,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 43,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_moderate ~ 38,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 4,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 14,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 9,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 19,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 29,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 24,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 34,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 44,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_severe ~ 39,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 5,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 15,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_low & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 10,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 20,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 30,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_medium & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 25,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_acceptable & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 35,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_poor & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 45,
+                                             !!rlang::sym(fcs_column_name) == fcs_categories_borderline & !!rlang::sym(rcsi_column_name) == rcsi_categories_high & !!rlang::sym(hhs_column_name) == hhs_categories_very_severe ~ 40,
                                              TRUE ~ NA_real_))
 
   # create the fc_phase columns
-  dataset <- dataset %>%
+  dataset <- dataset |>
     dplyr::mutate(fc_phase = dplyr::case_when(fc_cell %in% c(1,6) ~ "Phase 1 FC",
                                               fc_cell %in% c(2,3,7,11,12,16,17,18,21,22,26,31,32,36) ~ "Phase 2 FC",
                                               fc_cell %in% c(4,5,8,9,13,19,20,23,24,27,28,33,34,37,38,41,42,43) ~ "Phase 3 FC",
