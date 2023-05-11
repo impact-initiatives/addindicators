@@ -89,4 +89,16 @@ testthat::test_that("test error", {
   testthat::expect_equal(actual,expected)
 
 
+  ### check range
+  test_data <- data.frame(
+    rCSILessQlty = c(10,2,3),
+    rCSIBorrow = c(0,0,3),
+    rCSIMealSize = c(4,12,6),
+    rCSIMealAdult = c(4,3,5),
+    rCSIMealNb = c(2,5,NA_integer_)
+  )
+
+  testthat::expect_error(test_data |> add_rcsi())
+
+
 })

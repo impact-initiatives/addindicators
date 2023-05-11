@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-# # Calculate reduced Coping Strategies Index
-#
-# rcsi_vars <- c("rcsi_lesspreferred_1", "rcsi_borrowfood_2", "rcsi_limitportion_3", "rcsi_restrict_4", "rcsi_reducemeals5")
-#
-# if(length(setdiff(rcsi_vars, colnames(df)))==0) {
-#
-#   df <- df %>%
-#     dplyr::mutate(rcsi_weight1 = .data$rcsi_lesspreferred_1*1,
-#                   rcsi_weight2 = .data$rcsi_borrowfood_2*2,
-#                   rcsi_weight3 = .data$rcsi_limitportion_3*1,
-#                   rcsi_weight4 = .data$rcsi_restrict_4*3,
-#                   rcsi_weight5 = .data$rcsi_reducemeals5*1) %>%
-#     dplyr::rowwise() %>%
-#     dplyr::mutate(rcsi_score = sum(.data$rcsi_weight1, .data$rcsi_weight2, .data$rcsi_weight3, .data$rcsi_weight4, .data$rcsi_weight5, na.rm = TRUE)) %>%
-#     dplyr::ungroup() %>%
-#     dplyr::mutate(rcsi_cat = ifelse(is.na(.data$rcsi_score), NA, ifelse(.data$rcsi_score <=3, "No to Low", ifelse(.data$rcsi_score>=4 & .data$rcsi_score<=18, "Medium", ifelse(.data$rcsi_score>18 & .data$rcsi_score <=1000, "High", NA)))),
-#     )
-#
-# }
-=======
 #' Add indicator for reduced Household CSI Score(rcsi)
 #'
 #' @param data dataset
@@ -67,7 +46,7 @@ add_rcsi <- function(data,
   if(any(all_newly_created %in% names(data))) {
     print(all_newly_created[all_newly_created %in% names(data)])
     warning("The above(s) column are existing in the dataset. These columns will be replaced by the function. Please change `new_colname` parameter to keep them.")
-}
+  }
 
   all_names <- c(rCSILessQlty,rCSIBorrow,rCSIMealSize,rCSIMealAdult,rCSIMealNb)
 
@@ -85,6 +64,16 @@ add_rcsi <- function(data,
   }
 
 
+  check_value <- data |> tidyr::pivot_longer(cols = dplyr::all_of(all_names),
+                                             names_to = "question",values_to = "old_value") |>
+    dplyr::filter(!old_value %in% 0:7 & !is.na(old_value))
+
+  if(nrow(check_value) > 0) {
+    message(paste(unique(check_value$question),collapse = ", "))
+    stop("please check the above column(s) as they contain value(s) outside 0-7 range.")
+  }
+
+
   data <- data |>
     dplyr::mutate( !!rlang::sym(score1) := !!rlang::sym(rCSILessQlty)*1,
                    !!rlang::sym(score2) := !!rlang::sym(rCSIBorrow)*2,
@@ -95,18 +84,16 @@ add_rcsi <- function(data,
   data <- data |>
     dplyr::mutate( !!rlang::sym(score_name) :=  rowSums(data[rowsum_col])) |>
     dplyr::mutate( !!rlang::sym(cat_name) := dplyr::case_when(!!rlang::sym(score_name) <=3 ~ "No to Low",
-                                                       !!rlang::sym(score_name) %in% 4:18 ~ "Medium",
-                                                       !!rlang::sym(score_name) > 18 ~ "High",
-                                              T ~ NA_character_)
+                                                              !!rlang::sym(score_name) %in% 4:18 ~ "Medium",
+                                                              !!rlang::sym(score_name) > 18 ~ "High",
+                                                              T ~ NA_character_)
     )
 
   message(paste0("Variable name for rcsi score is ", score_name))
   message(paste0("Variable name for rcsi category is ", cat_name))
 
-data |> dplyr::select(-c(dplyr::all_of(score1),dplyr::all_of(score2),
-                         dplyr::all_of(score3),dplyr::all_of(score4),dplyr::all_of(score5)))
+  data |> dplyr::select(-c(dplyr::all_of(score1),dplyr::all_of(score2),
+                           dplyr::all_of(score3),dplyr::all_of(score4),dplyr::all_of(score5)))
 
 
 }
-
->>>>>>> 0e78736 (adding rcsi)

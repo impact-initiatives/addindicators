@@ -14,7 +14,9 @@ LazyData: true
 Imports:
     dplyr,
     rlang,
-    magrittr
+    tidyr,
+    magrittr,
+    rlang
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
