@@ -2,6 +2,7 @@
 
 export("%>%")
 export(add_fcm_phase)
+export(add_fcs)
 export(add_hhs)
 export(add_lcsi)
 export(add_rcsi)

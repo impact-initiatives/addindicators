@@ -37,11 +37,11 @@ Add indicator for reduced Household CSI Score(rcsi)
 }
 \examples{
 test_data <- data.frame(
-  rCSILessQlty = c(1, 2, 3, 1),
-  rCSIBorrow = c(0, 0, 3, 0),
-  rCSIMealSize = c(4, 2, 6, 1),
-  rCSIMealAdult = c(4, 3, 5, 0),
-  rCSIMealNb = c(2, 5, NA_integer_, 1)
+rCSILessQlty = c(1,2,3,1),
+rCSIBorrow = c(0,0,3,0),
+rCSIMealSize = c(4,2,6,1),
+rCSIMealAdult = c(4,3,5,0),
+rCSIMealNb = c(2,5,NA_integer_,1)
 )
 add_rcsi(test_data)
 }
