@@ -2,4 +2,15 @@
 
 export("%>%")
 export(add_fcs)
+<<<<<<< HEAD
+=======
+export(add_hhs)
+export(add_rcsi)
+export(recoding_hhs)
+importFrom(dplyr,case_when)
+importFrom(dplyr,filter)
+importFrom(dplyr,mutate)
+importFrom(dplyr,select)
+>>>>>>> 0e78736 (adding rcsi)
 importFrom(magrittr,"%>%")
+importFrom(rlang,":=")
