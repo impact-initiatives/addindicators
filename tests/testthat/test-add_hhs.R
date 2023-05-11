@@ -3,7 +3,7 @@ library(dplyr)
 ##### Sad Path #####
 
 testthat::test_that("Check input type -- dataset", {
-  load(testthat::test_path("testdata", "test_df.rda"))
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
   testthat::expect_error(add_hhs(.dataset = 0))
   testthat::expect_error(add_hhs(.dataset = "x"))
   testthat::expect_error(add_hhs(.dataset = 1.0))
@@ -13,7 +13,7 @@ testthat::test_that("Check input type -- dataset", {
 
 testthat::test_that("Check missing columns", {
 
-  load(testthat::test_path("testdata", "test_df.rda"))
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   testthat::expect_error(add_hhs(.dataset = test_df %>% dplyr::select(-fs_hhs_nofood_yn),
                        hhs_nofoodhh_1 = "fs_hhs_nofood_yn"))
@@ -39,7 +39,7 @@ testthat::test_that("Check missing columns", {
 
 testthat::test_that("Check columns values - Yes/No", {
 
-  load(testthat::test_path("testdata", "test_df.rda"))
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   set.seed(30);test_df[sample.int(nrow(test_df),3),c("fs_hhs_nofood_yn","fs_hhs_sleephungry_yn","fs_hhs_daynoteating_yn")] = "YES"
   set.seed(29);test_df[sample.int(nrow(test_df),3),c("fs_hhs_nofood_yn","fs_hhs_sleephungry_yn","fs_hhs_daynoteating_yn")] = "NO"
@@ -64,7 +64,7 @@ testthat::test_that("Check columns values - Yes/No", {
 
 testthat::test_that("Check columns values - Frequencies", {
 
-  load(testthat::test_path("testdata", "test_df.rda"))
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   set.seed(30);test_df[sample.int(nrow(test_df),3),c("fs_hhs_nofood_freq","fs_hhs_sleephungry_freq","fs_hhs_daynoteating_freq")] = "rarely"
   set.seed(29);test_df[sample.int(nrow(test_df),3),c("fs_hhs_nofood_freq","fs_hhs_sleephungry_freq","fs_hhs_daynoteating_freq")] = "sometimes"
@@ -95,8 +95,8 @@ testthat::test_that("Check columns values - Frequencies", {
 
 testthat::test_that("Check calculation", {
 
-  load(testthat::test_path("testdata", "test_df.rda"))
-  load(testthat::test_path("testdata", "test_df_with_calculation.rda"))
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  load(testthat::test_path("testdata", "test_df_with_calculation_hhs.rda"))
 
 
   testthat::expect_equal(object = add_hhs(.dataset = test_df,

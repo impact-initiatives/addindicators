@@ -23,11 +23,33 @@
 #' @param often_answer Value used for "Often (10+ times)
 #'
 #' @return It returns the dataframe with 12 extras columns: recoded hhs questions, score for the 3 sets of questions
-#' (from 0 to 2), the HHS score (from 0 to 6) and the HHS category.
+#' (from 0 to 2), the HHS score (from 0 to 6), the HHS category and the HHS IPC category
 #'
 #' @export
 #'
-#' @examples
+#' @examples {
+#'
+#' input_data <- data.frame(
+#' fs_hhs_nofood_yn = c("no","yes","no","no","no"),
+#' fs_hhs_nofood_freq = c(NA_character_,"rarely_1_2",NA_character_,NA_character_,NA_character_),
+#' fs_hhs_sleephungry_yn = c("no","no","yes","no","no"),
+#' fs_hhs_sleephungry_freq = c(NA_character_,NA_character_,"often_10_times",NA_character_,NA_character_),
+#' fs_hhs_daynoteating_yn = c("no","no","yes","yes","yes"),
+#' fs_hhs_daynoteating_freq= c(NA_character_,NA_character_,"often_10_times","rarely_1_2","sometimes_3_10"))
+#'
+#' add_hhs(.dataset = input_data,
+#'         hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
+#'         hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
+#'         hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
+#'         hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
+#'         hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
+#'         hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+#'         yes_answer = "yes",
+#'         no_answer = "no",
+#'         rarely_answer = "rarely_1_2",
+#'         sometimes_answer = "sometimes_3_10",
+#'         often_answer = "often_10_times")
+#' }
 
 add_hhs <- function(.dataset,
                     hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
