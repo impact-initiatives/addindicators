@@ -3,6 +3,7 @@
 export("%>%")
 export(add_fcm_phase)
 export(add_hhs)
+export(add_lcsi)
 export(add_rcsi)
 importFrom(dplyr,case_when)
 importFrom(dplyr,mutate)
