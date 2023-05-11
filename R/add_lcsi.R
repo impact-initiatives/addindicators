@@ -51,24 +51,24 @@ df <- .dataset
 
   #If NULL, set a standard default values for LCSI responses.
 
-  if(is.null(yes_val)) {yes_val = "1"}
-  if(is.null(yes_val)) {no_val = "2"}
-  if(is.null(yes_val)) {exhausted_val = "3"}
-  if(is.null(yes_val)) {not_applicable_val = "4"}
+  if(is.null(yes_val)) {yes_val = "yes"}
+  if(is.null(no_val)) {no_val = "no_had_no_need"}
+  if(is.null(exhausted_val)) {exhausted_val = "no_exhausted"}
+  if(is.null(not_applicable_val)) {not_applicable_val = "not_applicable"}
 
   # Check 1: correct # of stress vars
-  if(length(lcsi_stress_vars) != 4) {
-    stop(paste0("Need 4 seperate 'stress' livelihood coping strategies. There were ", length(lcsi_stress_vars), " variables were given for 'stress'." ))
+  if(length(unique(lcsi_stress_vars)) != 4) {
+    stop(paste0("Need 4 seperate, unique 'stress' livelihood coping strategies. There were ", length(lcsi_stress_vars), " variables were given for 'stress'." ))
   }
 
   # Check 2: correct # of crisis vars
-  if(length(lcsi_crisis_vars) != 3) {
-    stop(paste0("Need 3 seperate 'crisis' livelihood coping strategies. There were ", length(lcsi_crisis_vars), " variables were given for 'crisis'." ))
+  if(length(unique(lcsi_crisis_vars)) != 3) {
+    stop(paste0("Need 3 seperate, unique 'crisis' livelihood coping strategies. There were ", length(lcsi_crisis_vars), " variables were given for 'crisis'." ))
   }
 
   # Check 3: correct # of emergency vars
-  if(length(lcsi_emergency_vars) != 3) {
-    stop(paste0("Need 3 seperate 'emergency' livelihood coping strategies. There were ", length(lcsi_emergency_vars), " variables were given for 'emergency'." ))
+  if(length(unique(lcsi_emergency_vars)) != 3) {
+    stop(paste0("Need 3 seperate, unique 'emergency' livelihood coping strategies. There were ", length(lcsi_emergency_vars), " variables were given for 'emergency'." ))
   }
 
   lcs_codes <- df %>% dplyr::select(c(lcsi_stress_vars, lcsi_crisis_vars, lcsi_emergency_vars)) %>% t %>% c %>% unique
@@ -103,6 +103,14 @@ df <- .dataset
     stop("Please check your expected, or default, values match what is in your dataset.")
   }
 
+  # Check 6: Check there is no duplication in inputted response values.
+
+  expected_values <- c(yes_val, no_val, exhausted_val, not_applicable_val)
+
+  if(length(unique(expected_values)) != 4) {
+    stop("There is duplication in the resposne values you input for yes, no, exhausted, and not applicable. Please verifiy your inputs.")
+  }
+
   # Warning 1: If < 4 unique responses observed, and
 
   if(length(lcs_codes) < 4 & !all(a,b,c,d)) {
@@ -130,22 +138,22 @@ df <- .dataset
   df <- df %>%
     dplyr::mutate_at(
       dplyr::vars(c("lcsi_stress1", "lcsi_stress2", "lcsi_stress3", "lcsi_stress4", "lcsi_crisis1", "lcsi_crisis2", "lcsi_crisis3", "lcsi_emergency1", "lcsi_emergency2", "lcsi_emergency3")),
-      list(~dplyr::case_when(. == yes_val ~ "1",
-                                   . == no_val ~ "2",
-                                   . == exhausted_val ~ "3",
-                                   . == not_applicable_val ~ "4",
+      list(~dplyr::case_when(. == yes_val ~ "yes",
+                                   . == no_val ~ "no_had_no_need",
+                                   . == exhausted_val ~ "no_exhausted",
+                                   . == not_applicable_val ~ "not_applicable",
                                    TRUE ~ NA_character_)))
   # Step 3: Calculate indicators
 
   df <- df %>%
-    dplyr::mutate(lcsi_stress_yes = dplyr::case_when(lcsi_stress1 == "1" | lcsi_stress2 == "1" | lcsi_stress3 == "1" | lcsi_stress4 == "1" ~ "1", TRUE ~ "0"),
-                  lcsi_stress_exhaust = dplyr::case_when(lcsi_stress1 == "3" | lcsi_stress2 == "3" | lcsi_stress3 == "3" | lcsi_stress4 == "3" ~ "1", TRUE ~ "0"),
+    dplyr::mutate(lcsi_stress_yes = dplyr::case_when(lcsi_stress1 == "yes" | lcsi_stress2 == "yes" | lcsi_stress3 == "yes" | lcsi_stress4 == "yes" ~ "1", TRUE ~ "0"),
+                  lcsi_stress_exhaust = dplyr::case_when(lcsi_stress1 == "no_exhausted" | lcsi_stress2 == "no_exhausted" | lcsi_stress3 == "no_exhausted" | lcsi_stress4 == "no_exhausted" ~ "1", TRUE ~ "0"),
                   lcsi_stress = dplyr::case_when(lcsi_stress_yes == "1" | lcsi_stress_exhaust == "1" ~ "1", TRUE ~ "0"),
-                  lcsi_crisis_yes = dplyr::case_when(lcsi_crisis1 == "1" | lcsi_crisis2 == "1" | lcsi_crisis3 == "1" ~ "1", TRUE ~ "0"),
-                  lcsi_crisis_exhaust = dplyr::case_when(lcsi_crisis1 == "3" | lcsi_crisis2 == "3" | lcsi_crisis3 == "3" ~ "1", TRUE ~ "0"),
+                  lcsi_crisis_yes = dplyr::case_when(lcsi_crisis1 == "yes" | lcsi_crisis2 == "yes" | lcsi_crisis3 == "yes" ~ "1", TRUE ~ "0"),
+                  lcsi_crisis_exhaust = dplyr::case_when(lcsi_crisis1 == "no_exhausted" | lcsi_crisis2 == "no_exhausted" | lcsi_crisis3 == "no_exhausted" ~ "1", TRUE ~ "0"),
                   lcsi_crisis = dplyr::case_when(lcsi_crisis_yes == "1" | lcsi_crisis_exhaust == "1" ~ "1", TRUE ~ "0"),
-                  lcsi_emergency_yes = dplyr::case_when(lcsi_emergency1 == "1" | lcsi_emergency2 == "1" | lcsi_emergency3 == "1" ~ "1", TRUE ~ "0"),
-                  lcsi_emergency_exhaust = dplyr::case_when(lcsi_emergency1 == "3" | lcsi_emergency2 == "3" | lcsi_emergency3 == "3" ~ "1", TRUE ~ "0"),
+                  lcsi_emergency_yes = dplyr::case_when(lcsi_emergency1 == "yes" | lcsi_emergency2 == "yes" | lcsi_emergency3 == "yes" ~ "1", TRUE ~ "0"),
+                  lcsi_emergency_exhaust = dplyr::case_when(lcsi_emergency1 == "no_exhausted" | lcsi_emergency2 == "no_exhausted" | lcsi_emergency3 == "no_exhausted" ~ "1", TRUE ~ "0"),
                   lcsi_emergency = dplyr::case_when(lcsi_emergency_yes == "1" | lcsi_emergency_exhaust == "1" ~ "1", TRUE ~ "0"),
                   lcsi_cat_yes = dplyr::case_when(
                     lcsi_stress_yes != "1" & lcsi_crisis_yes != "1" & lcsi_emergency_yes != "1" ~ "None",
@@ -168,8 +176,6 @@ df <- .dataset
                     lcsi_emergency == "1" ~ "Emergency",
                     TRUE ~ NA_character_
                   ))
-
-  # Step 4: Add data quality flags (optionally to include in future iterations)
 
   return(df)
 
