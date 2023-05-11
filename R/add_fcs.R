@@ -39,11 +39,12 @@ add_fcs <- function(df,
 
   #TO DO if dataset inputted is a list, select the dataset
 
-  # if (fcs_score %in% names(df))
-  #   warning("There is already a variable called fcs_score in your dataset, it will be overwritten")
-  # if (fcs_cat %in% names(df))
-  #   warning("There is already a variable called fcs_cat in your dataset, it will be overwritten")
-
+  if ("fcs_score" %in% names(df)) {
+    warning("There is already a variable called fcs_score in your dataset, it will be overwritten")
+    }
+  if ("fcs_cat" %in% names(df)) {
+    warning("There is already a variable called fcs_cat in your dataset, it will be overwritten")
+  }
   fcs_vars <- c(fcs_cereal, fcs_legumes, fcs_dairy, fcs_meat, fcs_veg, fcs_fruit, fcs_oil, fcs_sugar)
 
     #make numeric.
