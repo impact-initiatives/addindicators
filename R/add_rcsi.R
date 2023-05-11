@@ -64,6 +64,16 @@ add_rcsi <- function(data,
   }
 
 
+  check_value <- data |> tidyr::pivot_longer(cols = dplyr::all_of(all_names),
+                              names_to = "question",values_to = "old_value") |>
+    dplyr::filter(!old_value %in% 0:7 & !is.na(old_value))
+
+  if(nrow(check_value) > 0) {
+    message(paste(unique(check_value$question),collapse = ", "))
+    stop("please check the above column(s) as they contain value(s) outside 0-7 range.")
+  }
+
+
   data <- data |>
     dplyr::mutate( !!rlang::sym(score1) := !!rlang::sym(rCSILessQlty)*1,
                    !!rlang::sym(score2) := !!rlang::sym(rCSIBorrow)*2,
