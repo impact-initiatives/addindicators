@@ -78,3 +78,9 @@
 #' @rdname food_consumption_df
 #' @format NULL
 "food_consumption_df"
+
+#' @title MSNA template dataset (example)
+#' @name addindicators_MSNA_template_data
+#' @rdname addindicators_MSNA_template_data
+#' @format NULL
+"addindicators_MSNA_template_data"
