@@ -16,6 +16,7 @@ Imports:
     rlang,
     tidyr,
     magrittr,
+    glue,
     rlang
 Suggests: 
     testthat (>= 3.0.0)
