@@ -12,7 +12,7 @@ add_fclcm_phase(
   fc_phase_3 = "Phase 3 FC",
   fc_phase_4 = "Phase 4 FC",
   fc_phase_5 = "Phase 5 FC",
-  lcs_cat_var = "lcs_cat_yes",
+  lcs_cat_var = "lcsi_cat",
   lcs_cat_none = "None",
   lcs_cat_stress = "Stress",
   lcs_cat_crisis = "Crisis",
@@ -54,7 +54,7 @@ Returns a dataframe with a additional column for FCLC phase.
 Calculating FEWSNET Food Consumption-Livelihood Coping Matrix
 }
 \examples{
-test_df <- data.frame(lcs_cat_yes = c("None", "Stress"),
+test_df <- data.frame(lcsi_cat = c("None", "Stress"),
 fc_phase = c("Phase 1 FC","Phase 2 FC"))
 test_df |> add_fclcm_phase()
 }
