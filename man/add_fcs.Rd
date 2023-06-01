@@ -45,15 +45,19 @@ the dataset with fcs_score and fcs_cat computed, as well as  the 8 weighted food
 add_fcs
 }
 \examples{
-df1 <- data.frame(cereal = c(1,2,3,2,5,6,7),
-pulses = c(3,4,5,6,1,6,5),
-vegetables = c(3,2,1,6,5,4,3),
-fruits = c(1,4,6,2,2,2,4),
-meat = c(5,4,3,2,7,4,5),
-milk = c(1,2,6,7,3,4,2),
-sugar = c(1,7,6,5,2,3,4),
-oil = c(2,3,6,5,1,7,4))
-add_fcs(df1, cutoffs="normal 21.5-35", fcs_cereal="cereal", fcs_legumes="pulses", fcs_veg="vegetables",
- fcs_fruit = "fruits", fcs_meat = "meat", fcs_dairy="milk", fcs_sugar="sugar", fcs_oil="oil")
+df1 <- data.frame(
+  cereal = c(1, 2, 3, 2, 5, 6, 7),
+  pulses = c(3, 4, 5, 6, 1, 6, 5),
+  vegetables = c(3, 2, 1, 6, 5, 4, 3),
+  fruits = c(1, 4, 6, 2, 2, 2, 4),
+  meat = c(5, 4, 3, 2, 7, 4, 5),
+  milk = c(1, 2, 6, 7, 3, 4, 2),
+  sugar = c(1, 7, 6, 5, 2, 3, 4),
+  oil = c(2, 3, 6, 5, 1, 7, 4)
+)
+add_fcs(df1,
+  cutoffs = "normal 21.5-35", fcs_cereal = "cereal", fcs_legumes = "pulses", fcs_veg = "vegetables",
+  fcs_fruit = "fruits", fcs_meat = "meat", fcs_dairy = "milk", fcs_sugar = "sugar", fcs_oil = "oil"
+)
 
 }

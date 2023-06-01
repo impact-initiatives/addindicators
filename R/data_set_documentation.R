@@ -10,74 +10,74 @@
 #'
 #' @format NULL
 #' @examples
-#' analysis_by_group
-#' raw_data
-#' cleaning_log
-#' clean_data
-#' survey
-#' choices
-#' overall_analysis
+#' addindicators_analysis_by_group
+#' addindicators_raw_data
+#' addindicators_cleaning_log
+#' addindicators_clean_data
+#' addindicators_survey
+#' addindicators_choices
+#' addindicators_overall_analysis
 
-#' @name analysis_by_group
+#' @name addindicators_analysis_by_group
 #' @title Analysis by population group
-#' @rdname analysis_by_group
+#' @rdname addindicators_analysis_by_group
 #' @format NULL
-"analysis_by_group"
+"addindicators_analysis_by_group"
 
 #' @title Raw data
-#' @name raw_data
-#' @rdname raw_data
+#' @name addindicators_raw_data
+#' @rdname addindicators_raw_data
 #' @format NULL
-"raw_data"
+"addindicators_raw_data"
 
 
 
 #' @title Cleaning log
-#' @name cleaning_log
-#' @rdname cleaning_log
+#' @name addindicators_cleaning_log
+#' @rdname addindicators_cleaning_log
 #' @format NULL
-"cleaning_log"
+"addindicators_cleaning_log"
 
 
 
 
 #' @title Clean data
-#' @name clean_data
-#' @rdname clean_data
+#' @name addindicators_clean_data
+#' @rdname addindicators_clean_data
 #' @format NULL
-"clean_data"
+"addindicators_clean_data"
 
 
 
 
 #' @title Survey tab of kobo tool
-#' @name survey
-#' @rdname survey
+#' @name addindicators_survey
+#' @rdname addindicators_survey
 #' @format NULL
-"survey"
+"addindicators_survey"
 
 
 
 #' @title Choices tab of kobo tool
-#' @name choices
-#' @rdname choices
+#' @name addindicators_choices
+#' @rdname addindicators_choices
 #' @format NULL
-"choices"
+"addindicators_choices"
 
 
 
 
 #' @title Nation/all population level analysis.
-#' @name overall_analysis
-#' @rdname overall_analysis
+#' @name addindicators_overall_analysis
+#' @rdname addindicators_overall_analysis
 #' @format NULL
-"overall_analysis"
+"addindicators_overall_analysis"
 
 #' @title Dataset with food consumption, household hunger Score component
-#' @name food_consumption_df
-#' @rdname food_consumption_df
+#' @name addindicators_food_consumption_df
+#' @rdname addindicators_food_consumption_df
 #' @format NULL
-"food_consumption_df"
+"addindicators_food_consumption_df"
 
 #' @title MSNA template dataset (example)
 #' @name addindicators_MSNA_template_data
