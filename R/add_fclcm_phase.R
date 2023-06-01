@@ -68,12 +68,12 @@ add_fclcm_phase <- function(dataset,
 
   if(!all(lcs_cat_all_phase %in% dataset[[lcs_cat_var]])){
     print(lcs_cat_all_phase[!lcs_cat_all_phase %in% dataset[[lcs_cat_var]]])
-    warning("The above perameter(s) are not found in the dataset")
+    warning("The above parameter(s) are not found in the dataset")
   }
 
   if(!all(fc_phase_all_phase %in% dataset[[fc_phase_var]])){
     print(fc_phase_all_phase[!fc_phase_all_phase %in% dataset[[fc_phase_var]]])
-    warning("The above perameter(s) are not found in the dataset")
+    warning("The above parameter(s) are not found in the dataset")
   }
 
 
