@@ -18,7 +18,7 @@
 #' @export
 #'
 #' @examples
-#' test_df <- data.frame(lcs_cat_yes = c("None", "Stress"),
+#' test_df <- data.frame(lcsi_cat = c("None", "Stress"),
 #' fc_phase = c("Phase 1 FC","Phase 2 FC"))
 #' test_df |> add_fclcm_phase()
 
@@ -29,7 +29,7 @@ add_fclcm_phase <- function(dataset,
                             fc_phase_3 = "Phase 3 FC",
                             fc_phase_4 = "Phase 4 FC",
                             fc_phase_5 = "Phase 5 FC",
-                            lcs_cat_var = "lcs_cat_yes", # need to cross check with saeaad/ yann
+                            lcs_cat_var = "lcsi_cat",
                             lcs_cat_none = "None" ,
                             lcs_cat_stress = "Stress",
                             lcs_cat_crisis = "Crisis",
@@ -56,24 +56,28 @@ add_fclcm_phase <- function(dataset,
 
 
   if(!all(unique(na.omit(dataset[[lcs_cat_var]])) %in% lcs_cat_all_phase)){
-    print(unique(dataset[[lcs_cat_var]])[!unique(dataset[[lcs_cat_var]]) %in% lcs_cat_all_phase])
-    stop("The above value(s) are not specified/possibile wrong entry")
+    msg <- unique(dataset[[lcs_cat_var]])[!unique(dataset[[lcs_cat_var]]) %in% lcs_cat_all_phase] |>
+      glue::glue_collapse(", ") %>% glue::glue("The following lcs phases: ", ., " are present in the dataset but are not defined in the function arguments.")
+    stop(msg)
   }
 
   if(!all(unique(na.omit(dataset[[fc_phase_var]])) %in% fc_phase_all_phase)){
-    print(unique(dataset[[fc_phase_var]])[!unique(dataset[[fc_phase_var]]) %in% fc_phase_all_phase])
-    stop("The above value(s) are not specified/possibile wrong entry")
+    msg <- unique(dataset[[fc_phase_var]])[!unique(dataset[[fc_phase_var]]) %in% fc_phase_all_phase] |>
+      glue::glue_collapse(", ") %>% glue::glue("The following fc phases: ", ., " are present in the dataset but are not defined in the function arguments.")
+    stop(msg)
   }
 
 
   if(!all(lcs_cat_all_phase %in% dataset[[lcs_cat_var]])){
-    print(lcs_cat_all_phase[!lcs_cat_all_phase %in% dataset[[lcs_cat_var]]])
-    warning("The above perameter(s) are not found in the dataset")
+    msg <-lcs_cat_all_phase[!lcs_cat_all_phase %in% dataset[[lcs_cat_var]]]|>
+      glue::glue_collapse(", ") %>% glue::glue("The following values: ", ., " are defined as arguments in the function but cannot be found in the dataset")
+    warning(msg)
   }
 
   if(!all(fc_phase_all_phase %in% dataset[[fc_phase_var]])){
-    print(fc_phase_all_phase[!fc_phase_all_phase %in% dataset[[fc_phase_var]]])
-    warning("The above perameter(s) are not found in the dataset")
+    msg <- fc_phase_all_phase[!fc_phase_all_phase %in% dataset[[fc_phase_var]]]|>
+      glue::glue_collapse(", ") %>% glue::glue("The following fc phases: ", ., " are defined as arguments in the function but cannot be found in the dataset.")
+    warning(msg)
   }
 
 
@@ -82,14 +86,14 @@ add_fclcm_phase <- function(dataset,
   dataset %>% dplyr::mutate(
     !!rlang::sym(fclcm_phase_var) := dplyr::case_when( is.na(!!rlang::sym(fc_phase_var)) ~ NA_character_,
                                                        is.na(!!rlang::sym(lcs_cat_var)) ~ NA_character_,
-                                                       !!rlang::sym(fc_phase_var) == "Phase 1 FC" & !!rlang::sym(lcs_cat_var) %in% c("None", "Stress")  ~ "Phase 1 FCLC",
-                                                       (!!rlang::sym(fc_phase_var) == "Phase 1 FC" & !!rlang::sym(lcs_cat_var) == "Crisis") |
-                                                         !!rlang::sym(fc_phase_var) == "Phase 2 FC" & !!rlang::sym(lcs_cat_var) %in% c("None", "Stress") ~ "Phase 2 FCLC",
-                                                       (!!rlang::sym(fc_phase_var) == "Phase 1 FC" & !!rlang::sym(lcs_cat_var) == "Emergency") |
-                                                         (!!rlang::sym(fc_phase_var) == "Phase 2 FC" & !!rlang::sym(lcs_cat_var) %in% c("Crisis", "Emergency")) |
-                                                         (!!rlang::sym(fc_phase_var) == "Phase 3 FC" & !!rlang::sym(lcs_cat_var) %in% c("None", "Stress", "Crisis")) ~ "Phase 3 FCLC",
-                                                       (!!rlang::sym(fc_phase_var) == "Phase 3 FC" & !!rlang::sym(lcs_cat_var) == "Emergency") | !!rlang::sym(fc_phase_var) == "Phase 4 FC"  ~ "Phase 4 FCLC",
-                                                       !!rlang::sym(fc_phase_var) == "Phase 5 FC"  ~ "Phase 5 FCLC",
+                                                       !!rlang::sym(fc_phase_var) == fc_phase_1 & !!rlang::sym(lcs_cat_var) %in% c(lcs_cat_none, lcs_cat_stress)  ~ "Phase 1 FCLC",
+                                                       (!!rlang::sym(fc_phase_var) == fc_phase_1 & !!rlang::sym(lcs_cat_var) == lcs_cat_crisis) |
+                                                         !!rlang::sym(fc_phase_var) == fc_phase_2 & !!rlang::sym(lcs_cat_var) %in% c(lcs_cat_none, lcs_cat_stress) ~ "Phase 2 FCLC",
+                                                       (!!rlang::sym(fc_phase_var) == fc_phase_1 & !!rlang::sym(lcs_cat_var) == lcs_cat_emergency) |
+                                                         (!!rlang::sym(fc_phase_var) == fc_phase_2& !!rlang::sym(lcs_cat_var) %in% c(lcs_cat_crisis, lcs_cat_emergency)) |
+                                                         (!!rlang::sym(fc_phase_var) == fc_phase_3  & !!rlang::sym(lcs_cat_var) %in% c(lcs_cat_none, lcs_cat_stress, lcs_cat_crisis)) ~ "Phase 3 FCLC",
+                                                       (!!rlang::sym(fc_phase_var) == fc_phase_3 & !!rlang::sym(lcs_cat_var) == lcs_cat_emergency) | !!rlang::sym(fc_phase_var) == fc_phase_4  ~ "Phase 4 FCLC",
+                                                       !!rlang::sym(fc_phase_var) == fc_phase_5  ~ "Phase 5 FCLC",
                                                        TRUE ~ NA_character_))
 
 
