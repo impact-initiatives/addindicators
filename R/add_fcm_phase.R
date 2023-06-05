@@ -24,13 +24,13 @@
 #' @importFrom dplyr case_when mutate
 #'
 #'
-#' @example
+#' @examples
 #' test_data <- data.frame(
-#' fcs_cat = c("Acceptable","Poor","Borderline","Acceptable").
+#' fcs_cat = c("Acceptable","Poor","Borderline","Acceptable"),
 #' rcsi_cat = c("No to Low","Medium","No to Low","High"),
 #' hhs_cat = c("None","Little","Severe","Very Severe")
 #' )
-#' add_fcm_phase(dataset,
+#' add_fcm_phase(test_data,
 #'               fcs_column_name = "fcs_cat",
 #'               rcsi_column_name = "rcsi_cat",
 #'               hhs_column_name = "hhs_cat",
