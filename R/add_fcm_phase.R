@@ -26,28 +26,27 @@
 #'
 #' @examples
 #' test_data <- data.frame(
-#' fcs_cat = c("Acceptable","Poor","Borderline","Acceptable"),
-#' rcsi_cat = c("No to Low","Medium","No to Low","High"),
-#' hhs_cat = c("None","Little","Severe","Very Severe")
+#'   fcs_cat = c("Acceptable", "Poor", "Borderline", "Acceptable"),
+#'   rcsi_cat = c("No to Low", "Medium", "No to Low", "High"),
+#'   hhs_cat = c("None", "Little", "Severe", "Very Severe")
 #' )
 #' add_fcm_phase(test_data,
-#'               fcs_column_name = "fcs_cat",
-#'               rcsi_column_name = "rcsi_cat",
-#'               hhs_column_name = "hhs_cat",
-#'               fcs_categories_acceptable = "Acceptable",
-#'               fcs_categories_poor = "Poor",
-#'               fcs_categories_borderline ="Borderline",
-#'               rcsi_categories_low = "No to Low",
-#'               rcsi_categories_medium = "Medium",
-#'               rcsi_categories_high = "High",
-#'               hhs_categories_none = "None",
-#'               hhs_categories_little = "Little",
-#'               hhs_categories_moderate = "Moderate",
-#'               hhs_categories_severe = "Severe",
-#'               hhs_categories_very_severe = "Very Severe")
+#'   fcs_column_name = "fcs_cat",
+#'   rcsi_column_name = "rcsi_cat",
+#'   hhs_column_name = "hhs_cat",
+#'   fcs_categories_acceptable = "Acceptable",
+#'   fcs_categories_poor = "Poor",
+#'   fcs_categories_borderline = "Borderline",
+#'   rcsi_categories_low = "No to Low",
+#'   rcsi_categories_medium = "Medium",
+#'   rcsi_categories_high = "High",
+#'   hhs_categories_none = "None",
+#'   hhs_categories_little = "Little",
+#'   hhs_categories_moderate = "Moderate",
+#'   hhs_categories_severe = "Severe",
+#'   hhs_categories_very_severe = "Very Severe"
+#' )
 #'
-#'
-
 add_fcm_phase <- function(dataset,
                           fcs_column_name = "fcs_cat",
                           rcsi_column_name = "rcsi_cat",
