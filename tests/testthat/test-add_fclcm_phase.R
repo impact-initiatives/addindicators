@@ -67,15 +67,15 @@ testthat::test_that("test expect equal",{
 
     #with renamed columns
     renamed_test_df <- test_df |>
-      dplyr::rename(lcsi_cat =lcsi_cat,
+      dplyr::rename(LCSI_cat = lcsi_cat,
                     FC_phase = fc_phase)
 
     renamed_expected_output <- expected_output %>%
-      dplyr::rename(lcsi_cat =lcsi_cat,
+      dplyr::rename(LCSI_cat =lcsi_cat,
                     FC_phase = fc_phase,
                     FCLCM_phase = fclcm_phase)
     renamed_actual_df <- renamed_test_df |> add_fclcm_phase(fc_phase_var = "FC_phase",
-                                                            lcs_cat_var = "lcsi_cat",
+                                                            lcs_cat_var = "LCSI_cat",
                                                             fclcm_phase_var = "FCLCM_phase")
     testthat::expect_equal(renamed_actual_df,renamed_expected_output)
 
