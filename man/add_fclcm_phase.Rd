@@ -54,7 +54,9 @@ Returns a dataframe with a additional column for FCLC phase.
 Calculating FEWSNET Food Consumption-Livelihood Coping Matrix
 }
 \examples{
-test_df <- data.frame(lcsi_cat = c("None", "Stress"),
-fc_phase = c("Phase 1 FC","Phase 2 FC"))
+test_df <- data.frame(
+  lcsi_cat = c("None", "Stress"),
+  fc_phase = c("Phase 1 FC", "Phase 2 FC")
+)
 test_df |> add_fclcm_phase()
 }
