@@ -10,8 +10,7 @@
 ## Overview
 
 `addindicators` is designed for creating and checking (occasionally)
-composite indicators like Food Consumption Score (FCS) or Household
-Hunger Score (HHS)
+composite indicators such as Food Consumption Indicators and others.
 
 ## Installation
 
@@ -23,43 +22,105 @@ You can install the development version from
 devtools::install_github("impact-initiatives/addindicators")
 ```
 
-## example
+## Examples
 
-The recommendated steps for calculating FCS and HHS are given below.
-
-**Step 1:** Reading the dataset
+### Example:: Add Food Consumption Score (FCS)
 
 ``` r
+library(addindicators)
 df <- read.csv("[file path].csv")
+
+df_with_fcs <- df %>% add_fcs(
+  cutoffs = "normal 21.5-35",
+  fcs_cereal = "cereal",
+  fcs_legumes = "pulses",
+  fcs_veg = "vegetables",
+  fcs_fruit = "fruits",
+  fcs_meat = "meat", 
+  fcs_dairy = "milk",
+  fcs_sugar = "sugar",
+  fcs_oil = "oil"
+ )
 ```
 
-**Step 2:** Adding HHS
+### Example:: Add Household Hunger Scale (HHS)
 
 ``` r
 df_with_hhs <- df %>% add_hhs(
-  new_colname = "hhs",
-  hhs1a = "no_food_to_eat_because_of_lack_of_resources",
-  hhs1b = "how_often_no_food_to_eat_because_of_lack_of_resources",
-  hhs2a = "hh_memeber_sleep_hungry",
-  hhs2b = "how_often_hh_memeber_sleep_hungry",
-  hhs3a = "hh_member_go_a_whole_day_and_night_without_eating",
-  hhs3b = "how_often_hh_member_go_a_whole_day_and_night_without_eating",
-  frequency_choice = c("rarely_1_2_times", "sometimes_3_10_times", "often_10_plus_times")
+     hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
+     hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
+     hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
+     hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
+     hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
+     hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+     yes_answer = "yes",
+     no_answer = "no",
+     rarely_answer = "rarely_1_2",
+     sometimes_answer = "sometimes_3_10",
+     often_answer = "often_10_times"
 )
 ```
 
-**Step 2:** Adding FCS
+### Example:: Add Livelihood Coping Strategy score (LCSI)
 
 ``` r
-df_with_hhs_and_fcs <- df_with_hhs %>% add_fcs(
-  var_name = "fcs",
-  cereals = "cereals_grains_roots_tubers",
-  pulses = "beans_legumes_pulses_nuts",
-  dairy = "milk_dairy_products",
-  meat = "meat_fish_eggs",
-  vegetables = "vegetables",
-  fruits = "fruite",
-  oil = "oil_fat_butter",
-  sugar = "sugar_sugary_food"
+df_with_lcsi <- df %>% add_lcsi(
+ lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
+ lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
+ lcsi_emergency_vars = c("emergency1", "emergency2", "emergency3"),
+ yes_val = "Yes",
+ no_val = "No",
+ exhausted_val = "Exhausted",
+ not_applicable_val = "Not Applicable"
 )
+```
+
+### Example:: Add Reduced Household Coping Strategy score (rCSI)
+
+``` r
+df_with_rcsi <- df %>% add_rcsi(
+  rCSILessQlty = "rCSILessQlty",
+  rCSIBorrow = "rCSIBorrow",
+  rCSIMealSize = "rCSIMealSize",
+  rCSIMealAdult = "rCSIMealAdult",
+  rCSIMealNb = "rCSIMealNb",
+  new_colname = "rcsi"
+)
+```
+
+### Example:: Add Food Consumption Matrix (FCM)
+
+**Notice that these functions are also pipable**
+
+``` r
+df_with_fcm <- df %>%
+  add_fcs() %>% 
+  add_hhs() %>% 
+  add_rcsi() %>% 
+  add_lcsi() %>% 
+  add_fcm_phase(
+   fcs_column_name = "fcs_cat",
+   rcsi_column_name = "rcsi_cat",
+   hhs_column_name = "hhs_cat",
+   fcs_categories_acceptable = "Acceptable",
+   fcs_categories_poor = "Poor",
+   fcs_categories_borderline = "Borderline",
+   rcsi_categories_low = "No to Low",
+   rcsi_categories_medium = "Medium",
+   rcsi_categories_high = "High",
+   hhs_categories_none = "None",
+   hhs_categories_little = "Little",
+   hhs_categories_moderate = "Moderate",
+   hhs_categories_severe = "Severe",
+   hhs_categories_very_severe = "Very Severe"
+)
+```
+
+### Example:: Add FEWSNET Food Consumption-Livelihood Matrix (FCLCM)
+
+**Notice that these functions are also pipable**
+
+``` r
+df_with_fclcm <- df_with_fcm %>% ## Taken from previous Example
+  add_fclcm_phase()
 ```
