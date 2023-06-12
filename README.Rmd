@@ -107,7 +107,7 @@ df_with_fcm <- df_with_rcsi %>%
   add_fcm_phase(
    fcs_column_name = "fcs_cat",
    rcsi_column_name = "rcsi_cat",
-   hhs_column_name = "hhs_cat",
+   hhs_column_name = "hhs_cat_ipc",
    fcs_categories_acceptable = "Acceptable",
    fcs_categories_poor = "Poor",
    fcs_categories_borderline = "Borderline",

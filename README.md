@@ -248,7 +248,7 @@ df_with_fcm <- df_with_rcsi %>%
   add_fcm_phase(
    fcs_column_name = "fcs_cat",
    rcsi_column_name = "rcsi_cat",
-   hhs_column_name = "hhs_cat",
+   hhs_column_name = "hhs_cat_ipc",
    fcs_categories_acceptable = "Acceptable",
    fcs_categories_poor = "Poor",
    fcs_categories_borderline = "Borderline",
@@ -265,24 +265,24 @@ df_with_fcm %>% dplyr::select(uuid,fc_cell,fc_phase)%>% head(20)
 ```
 
     ##                                        uuid fc_cell   fc_phase
-    ## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a      NA       <NA>
-    ## 2  89e706c3-53d8-4a4049-898586-4926085db71e      NA       <NA>
+    ## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a      31 Phase 2 FC
+    ## 2  89e706c3-53d8-4a4049-898586-4926085db71e      32 Phase 2 FC
     ## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a      33 Phase 3 FC
-    ## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1      NA       <NA>
-    ## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142      NA       <NA>
+    ## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1      31 Phase 2 FC
+    ## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142      16 Phase 2 FC
     ## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02      33 Phase 3 FC
-    ## 7  95ea286d-ae86-47404a-828487-feba6d1503c9      NA       <NA>
-    ## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0      NA       <NA>
+    ## 7  95ea286d-ae86-47404a-828487-feba6d1503c9      31 Phase 2 FC
+    ## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0      36 Phase 2 FC
     ## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e      33 Phase 3 FC
     ## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd      18 Phase 2 FC
-    ## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902      NA       <NA>
+    ## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902      16 Phase 2 FC
     ## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a      23 Phase 3 FC
-    ## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13      NA       <NA>
-    ## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041      NA       <NA>
+    ## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13      32 Phase 2 FC
+    ## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041      16 Phase 2 FC
     ## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f      33 Phase 3 FC
-    ## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b      NA       <NA>
-    ## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a      NA       <NA>
-    ## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e      NA       <NA>
+    ## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b      31 Phase 2 FC
+    ## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a      31 Phase 2 FC
+    ## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e      16 Phase 2 FC
     ## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c      33 Phase 3 FC
     ## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e      44 Phase 4 FC
 
@@ -297,23 +297,23 @@ df_with_fclcm %>% dplyr::select(uuid,fclcm_phase)%>% head(20)
 ```
 
     ##                                        uuid  fclcm_phase
-    ## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a         <NA>
-    ## 2  89e706c3-53d8-4a4049-898586-4926085db71e         <NA>
+    ## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a Phase 3 FCLC
+    ## 2  89e706c3-53d8-4a4049-898586-4926085db71e Phase 3 FCLC
     ## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a Phase 4 FCLC
-    ## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1         <NA>
-    ## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142         <NA>
+    ## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1 Phase 3 FCLC
+    ## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142 Phase 3 FCLC
     ## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02 Phase 4 FCLC
-    ## 7  95ea286d-ae86-47404a-828487-feba6d1503c9         <NA>
-    ## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0         <NA>
+    ## 7  95ea286d-ae86-47404a-828487-feba6d1503c9 Phase 3 FCLC
+    ## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0 Phase 3 FCLC
     ## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e Phase 4 FCLC
     ## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd Phase 3 FCLC
-    ## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902         <NA>
+    ## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902 Phase 3 FCLC
     ## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a Phase 3 FCLC
-    ## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13         <NA>
-    ## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041         <NA>
+    ## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13 Phase 3 FCLC
+    ## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041 Phase 3 FCLC
     ## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f Phase 4 FCLC
-    ## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b         <NA>
-    ## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a         <NA>
-    ## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e         <NA>
+    ## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b Phase 3 FCLC
+    ## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a Phase 3 FCLC
+    ## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e Phase 3 FCLC
     ## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c Phase 4 FCLC
     ## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e Phase 4 FCLC
