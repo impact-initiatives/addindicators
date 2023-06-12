@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ## Overview
-`addindicators` is designed for creating and checking (occasionally) composite indicators like Food Consumption Score (FCS) or Household Hunger Score (HHS) 
+`addindicators` is designed for creating and checking (occasionally) composite indicators such as Food Consumption Indicators and others.
 
 ## Installation
 
@@ -29,46 +29,104 @@ devtools::install_github("impact-initiatives/addindicators")
 ```
 
 
-## example
+## Examples
 
-The recommendated steps for calculating FCS and HHS are given below. 
-
-**Step 1:** Reading the dataset
-``` {r, eval=FALSE}
-df <- read.csv("[file path].csv")
+```{r include=T,eval=T}
+library(addindicators)
+df <- addindicators_MSNA_template_data
 ```
 
-**Step 2:** Adding HHS
+### Example:: Add Food Consumption Score (FCS)
+``` {r eval=T,warning=F}
+df_with_fcs <- df %>% add_fcs(
+  cutoffs = "normal 21.5-35",
+  fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
+  fcs_legumes = "fs_fcs_beans_nuts",
+  fcs_veg = "fs_fcs_vegetables_leaves",
+  fcs_fruit = "fs_fcs_fruit",
+  fcs_meat = "fs_fcs_meat_fish_eggs",
+  fcs_dairy = "fs_fcs_dairy",
+  fcs_sugar = "fs_fcs_sugar",
+  fcs_oil = "fs_fcs_oil_fat_butter"
+ )
+df_with_fcs %>% dplyr::select(uuid,fcs_score,fcs_cat,fcs_weight_cereal1,fcs_weight_legume2,
+                       fcs_weight_dairy3,fcs_weight_meat4,fcs_weight_veg5,
+                       fcs_weight_fruit6,fcs_weight_oil7,fcs_weight_sugar8) %>% head(20)
+```
 
-``` {r, eval=FALSE}
-df_with_hhs <- df %>% add_hhs(
-  new_colname = "hhs",
-  hhs1a = "no_food_to_eat_because_of_lack_of_resources",
-  hhs1b = "how_often_no_food_to_eat_because_of_lack_of_resources",
-  hhs2a = "hh_memeber_sleep_hungry",
-  hhs2b = "how_often_hh_memeber_sleep_hungry",
-  hhs3a = "hh_member_go_a_whole_day_and_night_without_eating",
-  hhs3b = "how_often_hh_member_go_a_whole_day_and_night_without_eating",
-  frequency_choice = c("rarely_1_2_times", "sometimes_3_10_times", "often_10_plus_times")
+### Example:: Add Household Hunger Scale (HHS)
+``` {r, eval=TRUE, warning=F}
+df_with_hhs <- df_with_fcs %>% add_hhs(
+     hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
+     hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
+     hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
+     hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
+     hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
+     hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+     yes_answer = "yes",
+     no_answer = "no",
+     rarely_answer = "rarely_1_2",
+     sometimes_answer = "sometimes_3_10",
+     often_answer = "often_10_times"
 )
+df_with_hhs %>% dplyr::select(uuid, hhs_comp1, hhs_comp2,hhs_comp3,
+                       hhs_score, hhs_cat_ipc, hhs_cat, hh_size) %>% head(20)
 ```
 
-**Step 2:** Adding FCS
-
-``` {r, eval=FALSE}
-df_with_hhs_and_fcs <- df_with_hhs %>% add_fcs(
-  var_name = "fcs",
-  cereals = "cereals_grains_roots_tubers",
-  pulses = "beans_legumes_pulses_nuts",
-  dairy = "milk_dairy_products",
-  meat = "meat_fish_eggs",
-  vegetables = "vegetables",
-  fruits = "fruite",
-  oil = "oil_fat_butter",
-  sugar = "sugar_sugary_food"
+### Example:: Add Livelihood Coping Strategy score (LCSI)
+``` {r, eval=TRUE, warning=F}
+df_with_lcsi <- df_with_hhs %>% add_lcsi(
+ lcsi_stress_vars = c("liv_stress_lcsi_1", "liv_stress_lcsi_2", "liv_stress_lcsi_3", "liv_stress_lcsi_4"),
+ lcsi_crisis_vars = c("liv_crisis_lcsi_1", "liv_crisis_lcsi_2", "liv_crisis_lcsi_3"),
+ lcsi_emergency_vars = c("liv_emerg_lcsi_1", "liv_emerg_lcsi_2", "liv_emerg_lcsi_3"),
+ yes_val = "yes",
+ no_val = "no_had_no_need",
+ exhausted_val = "no_exhausted",
+ not_applicable_val = "not_applicable"
 )
+df_with_lcsi %>% dplyr::select(uuid, lcsi_cat,lcsi_cat_exhaust,lcsi_cat_yes)%>% head(20)
 ```
 
+### Example:: Add Reduced Household Coping Strategy score (rCSI)
+``` {r, eval=TRUE, warning=F}
+df_with_rcsi <- df_with_lcsi %>% add_rcsi(
+  rCSILessQlty = "rCSILessQlty",
+  rCSIBorrow = "rCSIBorrow",
+  rCSIMealSize = "rCSIMealSize",
+  rCSIMealAdult = "rCSIMealAdult",
+  rCSIMealNb = "rCSIMealNb",
+  new_colname = "rcsi"
+)
+df_with_rcsi %>% dplyr::select(uuid,rcsi_score,rcsi_cat)%>% head(20)
+```
 
+### Example:: Add Food Consumption Matrix (FCM)
+**Notice that these functions are also pipable**
+``` {r, eval=TRUE, warning=F}
+df_with_fcm <- df_with_rcsi %>%
+  add_fcm_phase(
+   fcs_column_name = "fcs_cat",
+   rcsi_column_name = "rcsi_cat",
+   hhs_column_name = "hhs_cat_ipc",
+   fcs_categories_acceptable = "Acceptable",
+   fcs_categories_poor = "Poor",
+   fcs_categories_borderline = "Borderline",
+   rcsi_categories_low = "No to Low",
+   rcsi_categories_medium = "Medium",
+   rcsi_categories_high = "High",
+   hhs_categories_none = "None",
+   hhs_categories_little = "Little",
+   hhs_categories_moderate = "Moderate",
+   hhs_categories_severe = "Severe",
+   hhs_categories_very_severe = "Very Severe"
+)
+df_with_fcm %>% dplyr::select(uuid,fc_cell,fc_phase)%>% head(20)
+```
 
-
+### Example:: Add FEWSNET Food Consumption-Livelihood Matrix (FCLCM)
+**Notice that these functions are also pipable**
+``` {r, eval=TRUE, warning=F}
+df_with_fclcm <- df_with_fcm %>% ## Taken from previous Example
+  add_fclcm_phase()
+df_with_fclcm %>% dplyr::select(uuid,fclcm_phase)%>% head(20)
+```
