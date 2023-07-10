@@ -44,7 +44,8 @@ add_lcsi <- function(.dataset,
                      yes_val = NULL,
                      no_val = NULL,
                      exhausted_val = NULL,
-                     not_applicable_val = NULL) {
+                     not_applicable_val = NULL,
+                     ignore_NA = FALSE) {
   df <- .dataset
 
   # If NULL, set a standard default values for LCSI responses.
@@ -82,6 +83,7 @@ add_lcsi <- function(.dataset,
     t() %>%
     c() %>%
     unique()
+  lcs_codes <- lcs_codes[!is.na(lcs_codes)]
 
   # Check 4: Number of unique values across LCSI variables must be <= 4.
 
@@ -195,6 +197,21 @@ add_lcsi <- function(.dataset,
         TRUE ~ NA_character_
       )
     )
+
+  if(ignore_NA == FALSE) {
+    which_na <- df %>%
+      dplyr::select(lcsi_stress1:lcsi_emergency3) %>%
+      is.na() %>%
+      rowSums() %>%
+      as.logical()
+
+    lcsi_added_cols <- c("lcsi_stress_yes", "lcsi_stress_exhaust", "lcsi_stress", "lcsi_crisis_yes",
+                         "lcsi_crisis_exhaust", "lcsi_crisis", "lcsi_emergency_yes",
+                         "lcsi_emergency_exhaust", "lcsi_emergency", "lcsi_cat_yes","lcsi_cat_exhaust",
+                         "lcsi_cat")
+
+    df[which_na,lcsi_added_cols] <- NA
+    }
 
   return(df)
 }
