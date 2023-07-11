@@ -206,20 +206,22 @@ add_lcsi <- function(.dataset,
       )
     )
 
-  if(ignore_NA == FALSE) {
+  if (ignore_NA == FALSE) {
     which_na <- df %>%
       dplyr::select(lcsi_stress1:lcsi_emergency3) %>%
       is.na() %>%
       rowSums() %>%
       as.logical()
 
-    lcsi_added_cols <- c("lcsi_stress_yes", "lcsi_stress_exhaust", "lcsi_stress", "lcsi_crisis_yes",
-                         "lcsi_crisis_exhaust", "lcsi_crisis", "lcsi_emergency_yes",
-                         "lcsi_emergency_exhaust", "lcsi_emergency", "lcsi_cat_yes","lcsi_cat_exhaust",
-                         "lcsi_cat")
+    lcsi_added_cols <- c(
+      "lcsi_stress_yes", "lcsi_stress_exhaust", "lcsi_stress", "lcsi_crisis_yes",
+      "lcsi_crisis_exhaust", "lcsi_crisis", "lcsi_emergency_yes",
+      "lcsi_emergency_exhaust", "lcsi_emergency", "lcsi_cat_yes", "lcsi_cat_exhaust",
+      "lcsi_cat"
+    )
 
-    df[which_na,lcsi_added_cols] <- NA
-    }
+    df[which_na, lcsi_added_cols] <- NA
+  }
 
   return(df)
 }
