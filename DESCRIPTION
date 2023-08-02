@@ -3,9 +3,9 @@ Type: Package
 Title: The addindicators Package Focuses on Adding Indicators to a Dataset and  Reviews the Added Indicator
 Version: 0.1.0
 Authors@R: c(
-    person("Mehedi", "Khan", email= "mh.khan@reach-initiative.org", role = c("aut", "cre"),
+    person("Mehedi", "Khan", email= "mh.khan@reach-initiative.org", role = "aut",
            comment = c(ORCID = "0000-0002-4276-4485")),
-    person("Yann", "Say",  email= "yann.say@impact-initiatives.org",role = "aut",
+    person("Yann", "Say",  email= "yann.say@impact-initiatives.org",role = c("aut", "cre") ,
            comment = c(ORCID = "0000-0002-7390-4209")))
 Description: The addindicators package focuses on adding indicators such as Food Consumption Score (FCS), Household Hunger Score(HHS) etc to a dataset and reviews the added indicator.
 License: MIT + file LICENSE
