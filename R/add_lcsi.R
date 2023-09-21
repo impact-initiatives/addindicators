@@ -10,8 +10,16 @@
 #' @param no_val A character value in the dataset associated with "No, have not used this coping strategy in the last 30 days."
 #' @param exhausted_val A character value in the dataset associated with "No, haven't used in the last 30 days because I've exhausted this coping strategy in the last 6 or 12 months."
 #' @param not_applicable_val A character value in the dataset associated with "This coping strategy is not applicable for the household.
+#' @param ignore_NA Default is FALSE. If set to TRUE, the missing values will be ignored.
 #'
 #' @return Returns a dataframe with added columns for LCSI indicators.
+#' - lcsi_x_yes : 1 means one of the of the x strategies was used (*yes_val*)
+#' - lcsi_x_exhaust: 1 means one of the x strategies was exhausted and could not be used (*exhausted_val*)
+#' - lcsi_x: 1 means one of the x strategies was if either used (*yes_val*) or exhausted (*exhausted_val*)
+#' Where x is stress, crisis or emergency
+#' - lcsi_cat_yes : the highest category between the lcsi_x_yes
+#' - lcsi_cat_exhast: the highest category between the lcsi_x_exhaust
+#' - lcsi_cat: the highest category between the lcsi_x
 #' @export
 #'
 #' @examples{
@@ -44,7 +52,8 @@ add_lcsi <- function(.dataset,
                      yes_val = NULL,
                      no_val = NULL,
                      exhausted_val = NULL,
-                     not_applicable_val = NULL) {
+                     not_applicable_val = NULL,
+                     ignore_NA = FALSE) {
   df <- .dataset
 
   # If NULL, set a standard default values for LCSI responses.
@@ -82,6 +91,7 @@ add_lcsi <- function(.dataset,
     t() %>%
     c() %>%
     unique()
+  lcs_codes <- lcs_codes[!is.na(lcs_codes)]
 
   # Check 4: Number of unique values across LCSI variables must be <= 4.
 
@@ -195,6 +205,23 @@ add_lcsi <- function(.dataset,
         TRUE ~ NA_character_
       )
     )
+
+  if (ignore_NA == FALSE) {
+    which_na <- df %>%
+      dplyr::select(lcsi_stress1:lcsi_emergency3) %>%
+      is.na() %>%
+      rowSums() %>%
+      as.logical()
+
+    lcsi_added_cols <- c(
+      "lcsi_stress_yes", "lcsi_stress_exhaust", "lcsi_stress", "lcsi_crisis_yes",
+      "lcsi_crisis_exhaust", "lcsi_crisis", "lcsi_emergency_yes",
+      "lcsi_emergency_exhaust", "lcsi_emergency", "lcsi_cat_yes", "lcsi_cat_exhaust",
+      "lcsi_cat"
+    )
+
+    df[which_na, lcsi_added_cols] <- NA
+  }
 
   return(df)
 }

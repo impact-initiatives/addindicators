@@ -12,7 +12,8 @@ add_lcsi(
   yes_val = NULL,
   no_val = NULL,
   exhausted_val = NULL,
-  not_applicable_val = NULL
+  not_applicable_val = NULL,
+  ignore_NA = FALSE
 )
 }
 \arguments{
@@ -31,9 +32,18 @@ add_lcsi(
 \item{exhausted_val}{A character value in the dataset associated with "No, haven't used in the last 30 days because I've exhausted this coping strategy in the last 6 or 12 months."}
 
 \item{not_applicable_val}{A character value in the dataset associated with "This coping strategy is not applicable for the household.}
+
+\item{ignore_NA}{Default is FALSE. If set to TRUE, the missing values will be ignored.}
 }
 \value{
 Returns a dataframe with added columns for LCSI indicators.
+- lcsi_x_yes : 1 means one of the of the x strategies was used (*yes_val*)
+- lcsi_x_exhaust: 1 means one of the x strategies was exhausted and could not be used (*exhausted_val*)
+- lcsi_x: 1 means one of the x strategies was if either used (*yes_val*) or exhausted (*exhausted_val*)
+Where x is stress, crisis or emergency
+- lcsi_cat_yes : the highest category between the lcsi_x_yes
+- lcsi_cat_exhast: the highest category between the lcsi_x_exhaust
+- lcsi_cat: the highest category between the lcsi_x
 }
 \description{
 Function to calculate Livelihood Coping Strategy Index (LCSI)

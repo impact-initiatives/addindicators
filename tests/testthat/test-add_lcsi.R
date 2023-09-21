@@ -89,15 +89,6 @@ testthat::test_that("testing add_lcsi", {
     output_data1
   )
 
-  # a <- add_lcsi(.dataset = input_data1,
-  #               lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
-  #               lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
-  #               lcsi_emergency_vars = c("emergency1", "emergency2", "emergency3"),
-  #               yes_val = "Yes",
-  #               no_val = "No",
-  #               exhausted_val = "Exhausted",
-  #               not_applicable_val = "Not Applicable")
-
   # Test 2 - (happy path) - Correct number of columns and rows are returned.
 
   expect_equal(
@@ -221,4 +212,114 @@ testthat::test_that("testing add_lcsi", {
     exhausted_val = "Exhausted",
     not_applicable_val = "Not Applicable"
   ))
+})
+
+test_that("NA are handle correctly", {
+  #NA will return NA
+  test_data <- data.frame(
+    uuid = letters[1:2],
+    lcsi_option1 = c(NA, "yes"),
+    lcsi_option2 = c("yes", "yes"),
+    lcsi_option3 = c("yes", "yes"),
+    lcsi_option4 = c("yes", "yes"),
+    lcsi_option5 = c("yes", "yes"),
+    lcsi_option6 = c("yes", "yes"),
+    lcsi_option7 = c("yes", "yes"),
+    lcsi_option8 = c("yes", "yes"),
+    lcsi_option9 = c("yes", "yes"),
+    lcsi_option10 = c("yes", "yes")
+  )
+
+  expected_output <- test_data %>%
+    dplyr::mutate(lcsi_stress1 = lcsi_option1,
+                  lcsi_stress2 = lcsi_option2,
+                  lcsi_stress3 = lcsi_option3,
+                  lcsi_stress4 = lcsi_option4,
+                  lcsi_crisis1 = lcsi_option5,
+                  lcsi_crisis2 = lcsi_option6,
+                  lcsi_crisis3 = lcsi_option7,
+                  lcsi_emergency1 = lcsi_option8,
+                  lcsi_emergency2 = lcsi_option9,
+                  lcsi_emergency3 = lcsi_option10,
+                  lcsi_stress_yes = c(NA_character_, "1"),
+                  lcsi_stress_exhaust = c(NA_character_, "0"),
+                  lcsi_stress = c(NA_character_, "1"),
+                  lcsi_crisis_yes = c(NA_character_, "1"),
+                  lcsi_crisis_exhaust = c(NA_character_, "0"),
+                  lcsi_crisis = c(NA_character_, "1"),
+                  lcsi_emergency_yes = c(NA_character_, "1"),
+                  lcsi_emergency_exhaust = c(NA_character_, "0"),
+                  lcsi_emergency = c(NA_character_, "1"),
+                  lcsi_cat_yes = c(NA_character_, "Emergency"),
+                  lcsi_cat_exhaust = c(NA_character_, "None"),
+                  lcsi_cat = c(NA_character_, "Emergency"))
+
+  actual_output <- test_data %>% add_lcsi(
+    lcsi_stress_vars = c("lcsi_option1", "lcsi_option2", "lcsi_option3", "lcsi_option4"),
+    lcsi_crisis_vars = c("lcsi_option5", "lcsi_option6", "lcsi_option7"),
+    lcsi_emergency_vars = c("lcsi_option8", "lcsi_option9", "lcsi_option10"),
+    yes_val = "yes",
+    no_val = "no",
+    exhausted_val = "no_exhausted",
+    not_applicable_val = "not_applicable"
+  ) %>% suppressWarnings()
+
+  expect_equal(actual_output, expected_output)
+
+
+  #NA are ignored
+  test_data <- data.frame(
+    uuid = letters[1:5],
+    lcsi_option1 = c(NA, "yes", "no_had_no_need", "no_exhausted", "not_applicable")
+  )
+  test_data <- test_data %>%
+    dplyr::mutate(
+      lcsi_option2 = c("yes", NA, "no_exhausted", "not_applicable", "yes"),
+      lcsi_option3 = c("yes", "no_had_no_need", NA, "not_applicable", "yes"),
+      lcsi_option4 = c("yes", "no_had_no_need", "no_exhausted", NA, "yes"),
+      lcsi_option5 = c("yes", "no_had_no_need", "no_exhausted", "not_applicable", NA),
+      lcsi_option6 = lcsi_option1,
+      lcsi_option7 = lcsi_option1,
+      lcsi_option8 = lcsi_option1,
+      lcsi_option9 = lcsi_option1,
+      lcsi_option10 = lcsi_option1
+    )
+
+  expected_data <- test_data %>%
+    dplyr::mutate(lcsi_stress1 = lcsi_option1,
+                  lcsi_stress2 = lcsi_option2,
+                  lcsi_stress3 = lcsi_option3,
+                  lcsi_stress4 = lcsi_option4,
+                  lcsi_crisis1 = lcsi_option5,
+                  lcsi_crisis2 = lcsi_option6,
+                  lcsi_crisis3 = lcsi_option7,
+                  lcsi_emergency1 = lcsi_option8,
+                  lcsi_emergency2 = lcsi_option9,
+                  lcsi_emergency3 = lcsi_option10,
+                  lcsi_stress_yes = c("1", "1", "0", "0", "1"),
+                  lcsi_stress_exhaust = c("0", "0", "1", "1", "0"),
+                  lcsi_stress = c("1", "1", "1", "1", "1"),
+                  lcsi_crisis_yes = c("1", "1", "0", "0", "0"),
+                  lcsi_crisis_exhaust = c("0", "0", "1", "1", "0"),
+                  lcsi_crisis = c("1", "1", "1", "1", "0"),
+                  lcsi_emergency_yes = c("0", "1", "0", "0", "0"),
+                  lcsi_emergency_exhaust = c("0", "0", "0", "1", "0"),
+                  lcsi_emergency = c("0", "1", "0", "1", "0"),
+                  lcsi_cat_yes = c("Crisis", "Emergency", "None", "None", "Stress"),
+                  lcsi_cat_exhaust = c("None", "None", "Crisis", "Emergency", "None"),
+                  lcsi_cat = c("Crisis", "Emergency", "Crisis", "Emergency", "Stress"))
+
+  actual_output <- test_data %>% add_lcsi(
+    lcsi_stress_vars = c("lcsi_option1", "lcsi_option2", "lcsi_option3", "lcsi_option4"),
+    lcsi_crisis_vars = c("lcsi_option5", "lcsi_option6", "lcsi_option7"),
+    lcsi_emergency_vars = c("lcsi_option8", "lcsi_option9", "lcsi_option10"),
+    yes_val = "yes",
+    no_val = "no_had_no_need",
+    exhausted_val = "no_exhausted",
+    not_applicable_val = "not_applicable",
+    ignore_NA = TRUE
+  )
+
+  expect_equal(actual_output, expected_data)
+
 })
