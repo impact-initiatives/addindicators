@@ -42,10 +42,14 @@ df_with_fcs <- df %>% add_fcs(
   fcs_dairy = "fs_fcs_dairy",
   fcs_sugar = "fs_fcs_sugar",
   fcs_oil = "fs_fcs_oil_fat_butter"
- )
-df_with_fcs %>% dplyr::select(uuid,fcs_score,fcs_cat,fcs_weight_cereal1,fcs_weight_legume2,
-                       fcs_weight_dairy3,fcs_weight_meat4,fcs_weight_veg5,
-                       fcs_weight_fruit6,fcs_weight_oil7,fcs_weight_sugar8) %>% head(20)
+)
+df_with_fcs %>%
+  dplyr::select(
+    uuid, fcs_score, fcs_cat, fcs_weight_cereal1, fcs_weight_legume2,
+    fcs_weight_dairy3, fcs_weight_meat4, fcs_weight_veg5,
+    fcs_weight_fruit6, fcs_weight_oil7, fcs_weight_sugar8
+  ) %>%
+  head(20)
 ```
 
     ## # A tibble: 20 × 11
@@ -79,20 +83,24 @@ df_with_fcs %>% dplyr::select(uuid,fcs_score,fcs_cat,fcs_weight_cereal1,fcs_weig
 
 ``` r
 df_with_hhs <- df_with_fcs %>% add_hhs(
-     hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
-     hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
-     hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
-     hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
-     hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
-     hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
-     yes_answer = "yes",
-     no_answer = "no",
-     rarely_answer = "rarely_1_2",
-     sometimes_answer = "sometimes_3_10",
-     often_answer = "often_10_times"
+  hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
+  hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
+  hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
+  hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
+  hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
+  hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+  yes_answer = "yes",
+  no_answer = "no",
+  rarely_answer = "rarely_1_2",
+  sometimes_answer = "sometimes_3_10",
+  often_answer = "often_10_times"
 )
-df_with_hhs %>% dplyr::select(uuid, hhs_comp1, hhs_comp2,hhs_comp3,
-                       hhs_score, hhs_cat_ipc, hhs_cat, hh_size) %>% head(20)
+df_with_hhs %>%
+  dplyr::select(
+    uuid, hhs_comp1, hhs_comp2, hhs_comp3,
+    hhs_score, hhs_cat_ipc, hhs_cat, hh_size
+  ) %>%
+  head(20)
 ```
 
     ##                                        uuid hhs_comp1 hhs_comp2 hhs_comp3
@@ -142,15 +150,17 @@ df_with_hhs %>% dplyr::select(uuid, hhs_comp1, hhs_comp2,hhs_comp3,
 
 ``` r
 df_with_lcsi <- df_with_hhs %>% add_lcsi(
- lcsi_stress_vars = c("liv_stress_lcsi_1", "liv_stress_lcsi_2", "liv_stress_lcsi_3", "liv_stress_lcsi_4"),
- lcsi_crisis_vars = c("liv_crisis_lcsi_1", "liv_crisis_lcsi_2", "liv_crisis_lcsi_3"),
- lcsi_emergency_vars = c("liv_emerg_lcsi_1", "liv_emerg_lcsi_2", "liv_emerg_lcsi_3"),
- yes_val = "yes",
- no_val = "no_had_no_need",
- exhausted_val = "no_exhausted",
- not_applicable_val = "not_applicable"
+  lcsi_stress_vars = c("liv_stress_lcsi_1", "liv_stress_lcsi_2", "liv_stress_lcsi_3", "liv_stress_lcsi_4"),
+  lcsi_crisis_vars = c("liv_crisis_lcsi_1", "liv_crisis_lcsi_2", "liv_crisis_lcsi_3"),
+  lcsi_emergency_vars = c("liv_emerg_lcsi_1", "liv_emerg_lcsi_2", "liv_emerg_lcsi_3"),
+  yes_val = "yes",
+  no_val = "no_had_no_need",
+  exhausted_val = "no_exhausted",
+  not_applicable_val = "not_applicable"
 )
-df_with_lcsi %>% dplyr::select(uuid, lcsi_cat,lcsi_cat_exhaust,lcsi_cat_yes)%>% head(20)
+df_with_lcsi %>%
+  dplyr::select(uuid, lcsi_cat, lcsi_cat_exhaust, lcsi_cat_yes) %>%
+  head(20)
 ```
 
     ##                                        uuid  lcsi_cat lcsi_cat_exhaust
@@ -214,7 +224,9 @@ df_with_rcsi <- df_with_lcsi %>% add_rcsi(
     ## Variable name for rcsi category is rcsi_cat
 
 ``` r
-df_with_rcsi %>% dplyr::select(uuid,rcsi_score,rcsi_cat)%>% head(20)
+df_with_rcsi %>%
+  dplyr::select(uuid, rcsi_score, rcsi_cat) %>%
+  head(20)
 ```
 
     ##                                        uuid rcsi_score rcsi_cat
@@ -246,22 +258,24 @@ df_with_rcsi %>% dplyr::select(uuid,rcsi_score,rcsi_cat)%>% head(20)
 ``` r
 df_with_fcm <- df_with_rcsi %>%
   add_fcm_phase(
-   fcs_column_name = "fcs_cat",
-   rcsi_column_name = "rcsi_cat",
-   hhs_column_name = "hhs_cat_ipc",
-   fcs_categories_acceptable = "Acceptable",
-   fcs_categories_poor = "Poor",
-   fcs_categories_borderline = "Borderline",
-   rcsi_categories_low = "No to Low",
-   rcsi_categories_medium = "Medium",
-   rcsi_categories_high = "High",
-   hhs_categories_none = "None",
-   hhs_categories_little = "Little",
-   hhs_categories_moderate = "Moderate",
-   hhs_categories_severe = "Severe",
-   hhs_categories_very_severe = "Very Severe"
-)
-df_with_fcm %>% dplyr::select(uuid,fc_cell,fc_phase)%>% head(20)
+    fcs_column_name = "fcs_cat",
+    rcsi_column_name = "rcsi_cat",
+    hhs_column_name = "hhs_cat_ipc",
+    fcs_categories_acceptable = "Acceptable",
+    fcs_categories_poor = "Poor",
+    fcs_categories_borderline = "Borderline",
+    rcsi_categories_low = "No to Low",
+    rcsi_categories_medium = "Medium",
+    rcsi_categories_high = "High",
+    hhs_categories_none = "None",
+    hhs_categories_little = "Little",
+    hhs_categories_moderate = "Moderate",
+    hhs_categories_severe = "Severe",
+    hhs_categories_very_severe = "Very Severe"
+  )
+df_with_fcm %>%
+  dplyr::select(uuid, fc_cell, fc_phase) %>%
+  head(20)
 ```
 
     ##                                        uuid fc_cell   fc_phase
@@ -293,7 +307,9 @@ df_with_fcm %>% dplyr::select(uuid,fc_cell,fc_phase)%>% head(20)
 ``` r
 df_with_fclcm <- df_with_fcm %>% ## Taken from previous Example
   add_fclcm_phase()
-df_with_fclcm %>% dplyr::select(uuid,fclcm_phase)%>% head(20)
+df_with_fclcm %>%
+  dplyr::select(uuid, fclcm_phase) %>%
+  head(20)
 ```
 
     ##                                        uuid  fclcm_phase
@@ -317,3 +333,10 @@ df_with_fclcm %>% dplyr::select(uuid,fclcm_phase)%>% head(20)
     ## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e Phase 3 FCLC
     ## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c Phase 4 FCLC
     ## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e Phase 4 FCLC
+
+## Code of Conduct
+
+Please note that the addindicators project is released with a
+[Contributor Code of
+Conduct](https://impact-initiatives.github.io/addindicators/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
