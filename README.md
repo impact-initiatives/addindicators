@@ -334,6 +334,120 @@ df_with_fclcm %>%
     ## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c Phase 4 FCLC
     ## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e Phase 4 FCLC
 
+### Example:: Review of indicators
+
+The logic behind *review_variables* is to compare the results from 2
+codes to create the composite variable.
+
+In this example, the Food Consumption Score from the first example will
+be compared.
+
+``` r
+review_df <- addindicators_MSNA_template_data %>% add_fcs(
+  cutoffs = "normal 21.5-35",
+  fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
+  fcs_legumes = "fs_fcs_beans_nuts",
+  fcs_veg = "fs_fcs_vegetables_leaves",
+  fcs_fruit = "fs_fcs_fruit",
+  fcs_meat = "fs_fcs_meat_fish_eggs",
+  fcs_dairy = "fs_fcs_dairy",
+  fcs_sugar = "fs_fcs_sugar",
+  fcs_oil = "fs_fcs_oil_fat_butter"
+)
+```
+
+The new results and the results to be reviewed are bound together by the
+*uuid*.
+
+``` r
+binded_df <- df_with_fcs %>%
+  dplyr::full_join(review_df, by = "uuid")
+```
+
+There are 2 functions to review: - review_one_variable, to review only
+one variable - review_variables, a wrapper around review_one_variable to
+be able to review several variables.
+
+#### review_one_variable
+
+``` r
+review_one_variable <- review_one_variable(binded_df,
+  column_to_review = "fcs_cat.x",
+  column_to_compare_with = "fcs_cat.y"
+)
+
+review_one_variable$review_check_fcs_cat.x %>% mean()
+```
+
+    ## [1] 1
+
+``` r
+review_one_variable$review_comment_fcs_cat.x %>% table(useNA = "ifany")
+```
+
+    ## .
+    ## Same results 
+    ##          100
+
+#### review_variables
+
+``` r
+review_results <- review_variables(binded_df,
+  columns_to_review = c("fcs_score.x", "fcs_cat.x"),
+  columns_to_compare_with = c("fcs_score.y", "fcs_cat.y")
+)
+
+review_results$review_table %>%
+  dplyr::group_by(variable) %>%
+  dplyr::summarise(prop_correction = mean(review_check))
+```
+
+    ## # A tibble: 2 × 2
+    ##   variable    prop_correction
+    ##   <chr>                 <dbl>
+    ## 1 fcs_cat.x                 1
+    ## 2 fcs_score.x               1
+
+``` r
+review_results$review_table %>%
+  dplyr::group_by(variable, review_comment) %>%
+  dplyr::tally(sort = T)
+```
+
+    ## # A tibble: 2 × 3
+    ## # Groups:   variable [2]
+    ##   variable    review_comment     n
+    ##   <chr>       <glue>         <int>
+    ## 1 fcs_cat.x   Same results     100
+    ## 2 fcs_score.x Same results     100
+
+#### Examples when differences exists
+
+``` r
+test_categorical <- data.frame(
+  test = c(
+    "test equality",
+    "test difference",
+    "test Missing in y",
+    "test Missing in x",
+    "test equality missing in both"
+  ),
+  var_x = c("A", "B", "C", NA, NA),
+  var_y = c("A", "A", NA, "D", NA)
+)
+review_one_variable(test_categorical,
+  column_to_review = "var_x",
+  column_to_compare_with = "var_y"
+)
+```
+
+    ##   review_check_var_x review_comment_var_x
+    ## 1               TRUE         Same results
+    ## 2              FALSE    Different results
+    ## 3              FALSE     Missing in var_y
+    ## 4              FALSE     Missing in var_x
+    ## 5               TRUE         Same results
+
 ## Code of Conduct
 
 Please note that the addindicators project is released with a
