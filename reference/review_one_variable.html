@@ -46,6 +46,7 @@
 <span>  <span class="va">dataset</span>,</span>
 <span>  <span class="va">column_to_review</span>,</span>
 <span>  <span class="va">column_to_compare_with</span>,</span>
+<span>  uuid_column <span class="op">=</span> <span class="st">"uuid"</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="st">"review"</span>,</span>
 <span>  return_dataset <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -63,6 +64,10 @@
 
 <dt>column_to_compare_with</dt>
 <dd><p>Name of the column to compare with.</p></dd>
+
+
+<dt>uuid_column</dt>
+<dd><p>uuid column in the dataset. Default is uuid.</p></dd>
 
 
 <dt>prefix</dt>
@@ -94,21 +99,22 @@
 <span class="r-in"><span>    <span class="st">"test difference rounding in y"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span>,</span></span>
 <span class="r-in"><span>  var_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">0.00019</span>, <span class="fl">0.0002</span>, <span class="fl">0.00035</span>, <span class="fl">0.0003</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  var_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">0.0002</span>, <span class="fl">0.00019</span>, <span class="fl">0.0003</span>, <span class="fl">0.00035</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  var_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">0.0002</span>, <span class="fl">0.00019</span>, <span class="fl">0.0003</span>, <span class="fl">0.00035</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  uuid <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">review_one_variable</span><span class="op">(</span><span class="va">test_numeric</span>,</span></span>
 <span class="r-in"><span>  column_to_review <span class="op">=</span> <span class="st">"var_x"</span>,</span></span>
 <span class="r-in"><span>  column_to_compare_with <span class="op">=</span> <span class="st">"var_y"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   review_check_var_x review_comment_var_x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               TRUE         Same results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2              FALSE    Different results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3              FALSE     Missing in var_y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4              FALSE     Missing in var_x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5               TRUE         Same results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6               TRUE         Same results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7              FALSE    Different results</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8              FALSE    Different results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   uuid review_check_var_x review_comment_var_x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    a               TRUE         Same results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    b              FALSE    Different results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    c              FALSE     Missing in var_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    d              FALSE     Missing in var_x</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    e               TRUE         Same results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    f               TRUE         Same results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    g              FALSE    Different results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    h              FALSE    Different results</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

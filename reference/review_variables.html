@@ -46,6 +46,7 @@
 <span>  <span class="va">dataset</span>,</span>
 <span>  <span class="va">columns_to_review</span>,</span>
 <span>  <span class="va">columns_to_compare_with</span>,</span>
+<span>  uuid_column <span class="op">=</span> <span class="st">"uuid"</span>,</span>
 <span>  prefix <span class="op">=</span> <span class="st">"review"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -64,6 +65,10 @@ columns_to_compare_with).</p></dd>
 <dt>columns_to_compare_with</dt>
 <dd><p>Vectors of columns to compare with  (should be paired with
 columns_to_review).</p></dd>
+
+
+<dt>uuid_column</dt>
+<dd><p>uuid column in the dataset. Default is uuid.</p></dd>
 
 
 <dt>prefix</dt>
@@ -95,7 +100,8 @@ columns_to_review).</p></dd>
 <span class="r-in"><span>  stat_col_one.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">0.00019</span>, <span class="fl">0.0002</span>, <span class="fl">0.00035</span>, <span class="fl">0.0003</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  stat_col_two.x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">0.00019</span>, <span class="fl">0.0002</span>, <span class="fl">0.00035</span>, <span class="fl">0.0003</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  stat_col_one.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">0.0002</span>, <span class="fl">0.00019</span>, <span class="fl">0.0003</span>, <span class="fl">0.00035</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  stat_col_two.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">0.0002</span>, <span class="fl">0.00019</span>, <span class="fl">0.0003</span>, <span class="fl">0.00035</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  stat_col_two.y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="cn">NA</span>, <span class="fl">3</span>, <span class="fl">0.0002</span>, <span class="fl">0.00019</span>, <span class="fl">0.0003</span>, <span class="fl">0.00035</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  uuid <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">actual_results</span> <span class="op">&lt;-</span> <span class="fu">review_variables</span><span class="op">(</span><span class="va">test_numeric_2_var</span>,</span></span>
