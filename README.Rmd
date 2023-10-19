@@ -220,7 +220,8 @@ test_categorical <- data.frame(
     "test equality missing in both"
   ),
   var_x = c("A", "B", "C", NA, NA),
-  var_y = c("A", "A", NA, "D", NA)
+  var_y = c("A", "A", NA, "D", NA),
+  uuid = letters[1:5]
 )
 review_one_variable(test_categorical,
   column_to_review = "var_x",

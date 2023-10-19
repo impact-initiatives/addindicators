@@ -3,6 +3,7 @@
 #' @param dataset A dataset to be check.
 #' @param column_to_review Name of the column to review.
 #' @param column_to_compare_with Name of the column to compare with.
+#' @param uuid_column uuid column in the dataset. Default is uuid.
 #' @param prefix Prefix to be used for the review and comment column. Default is "review".
 #' @param return_dataset Logical, if the result table should be returned. Default is "FALSE".
 #'
@@ -22,7 +23,8 @@
 #'     "test difference rounding in y"
 #'   ),
 #'   var_x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
-#'   var_y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035)
+#'   var_y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
+#'   uuid = letters[1:8]
 #' )
 #' review_one_variable(test_numeric,
 #'   column_to_review = "var_x",
@@ -31,6 +33,7 @@
 review_one_variable <- function(dataset,
                                 column_to_review,
                                 column_to_compare_with,
+                                uuid_column = "uuid",
                                 prefix = "review",
                                 return_dataset = FALSE) {
   if (!column_to_review %in% names(dataset)) {
@@ -39,6 +42,10 @@ review_one_variable <- function(dataset,
   }
   if (!column_to_compare_with %in% names(dataset)) {
     msg <- glue::glue("Cannot find ", column_to_compare_with, ".")
+    stop(msg)
+  }
+  if (!uuid_column %in% names(dataset)) {
+    msg <- glue::glue("Cannot find ", uuid_column, ".")
     stop(msg)
   }
 
@@ -80,6 +87,8 @@ review_one_variable <- function(dataset,
     dataset <- cbind(dataset, review_table)
     return(dataset)
   } else {
+    review_table <- cbind(dataset[[uuid_column]], review_table) %>%
+      `names<-`(c(uuid_column, names(review_table)))
     return(review_table)
   }
 }
@@ -93,6 +102,7 @@ review_one_variable <- function(dataset,
 #' columns_to_compare_with).
 #' @param columns_to_compare_with Vectors of columns to compare with  (should be paired with
 #' columns_to_review).
+#' @param uuid_column uuid column in the dataset. Default is uuid.
 #' @param prefix Prefix to be used for the review and comment column. Default is "review"
 #'
 #' @return A list with two objects:
@@ -115,7 +125,8 @@ review_one_variable <- function(dataset,
 #'   stat_col_one.x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
 #'   stat_col_two.x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
 #'   stat_col_one.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
-#'   stat_col_two.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035)
+#'   stat_col_two.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
+#'   uuid = letters[1:8]
 #' )
 #'
 #' actual_results <- review_variables(test_numeric_2_var,
@@ -125,6 +136,7 @@ review_one_variable <- function(dataset,
 review_variables <- function(dataset,
                              columns_to_review,
                              columns_to_compare_with,
+                             uuid_column = "uuid",
                              prefix = "review") {
   list_of_reviews <- purrr::map2(
     columns_to_review,
@@ -132,20 +144,25 @@ review_variables <- function(dataset,
     ~ review_one_variable(dataset,
       column_to_review = .x,
       column_to_compare_with = .y,
+      uuid_column = uuid_column,
       prefix = prefix
     )
   )
   review_table <- list_of_reviews %>%
     purrr::map2(.y = columns_to_review, ~ dplyr::mutate(.x, variable = .y)) %>%
     purrr::map(.f = ~ `names<-`(.x, c(
+      uuid_column,
       paste0(prefix, "_check"),
       paste0(prefix, "_comment"),
       "variable"
     ))) %>%
     do.call(rbind, .) %>%
-    dplyr::select(variable, review_check, review_comment)
+    dplyr::select(all_of(c(uuid_column, "variable", paste0(prefix, "_check"), paste0(prefix, "_comment"))))
+
+  list_of_reviews <- purrr::reduce(list_of_reviews, dplyr::left_join, by = uuid_column)
+
   dataset <- dataset %>%
-    cbind(list_of_reviews)
+    dplyr::left_join(list_of_reviews, by = uuid_column)
 
   list_to_return <- list(
     dataset = dataset,
