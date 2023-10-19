@@ -8,6 +8,7 @@ review_variables(
   dataset,
   columns_to_review,
   columns_to_compare_with,
+  uuid_column = "uuid",
   prefix = "review"
 )
 }
@@ -19,6 +20,8 @@ columns_to_compare_with).}
 
 \item{columns_to_compare_with}{Vectors of columns to compare with  (should be paired with
 columns_to_review).}
+
+\item{uuid_column}{uuid column in the dataset. Default is uuid.}
 
 \item{prefix}{Prefix to be used for the review and comment column. Default is "review"}
 }
@@ -45,7 +48,8 @@ test_numeric_2_var <- data.frame(
   stat_col_one.x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
   stat_col_two.x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
   stat_col_one.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
-  stat_col_two.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035)
+  stat_col_two.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
+  uuid = letters[1:8]
 )
 
 actual_results <- review_variables(test_numeric_2_var,

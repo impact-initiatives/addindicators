@@ -12,9 +12,11 @@ test_that("review_one_variable returns correct results for numeric values", {
       "test difference rounding in y"
     ),
     var_x = c(0, 1, 2, NA, NA, 0.00019, 0.0002, 0.00035, 0.0003),
-    var_y = c(0, 2, NA, 3, NA, 0.0002, 0.00019, 0.0003, 0.00035)
+    var_y = c(0, 2, NA, 3, NA, 0.0002, 0.00019, 0.0003, 0.00035),
+    uuid = letters[1:9]
   )
   expected_results <- data.frame(
+    uuid = letters[1:9],
     review_check_var_x = c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE, FALSE),
     review_comment_var_x = c(
       "Same results",
@@ -39,10 +41,12 @@ test_that("review_one_variable returns correct results for numeric values", {
     column_to_compare_with = "var_y",
     return_dataset = TRUE
   )
-  expect_equal(actual_results_returns_table, cbind(test_numeric, expected_results))
+
+  expected_return_table <- dplyr::left_join(test_numeric, expected_results)
+  expect_equal(actual_results_returns_table, expected_return_table)
 
   new_prefix_expected_results <- expected_results %>%
-    `names<-`(c("my_review_check_var_x", "my_review_comment_var_x"))
+    `names<-`(c("uuid", "my_review_check_var_x", "my_review_comment_var_x"))
   new_prefix_actual_results <- review_one_variable(test_numeric,
     column_to_review = "var_x",
     column_to_compare_with = "var_y",
@@ -61,9 +65,11 @@ test_that("review_one_variable returns correct results for categorical values", 
       "test equality missing in both"
     ),
     var_x = c("A", "B", "C", NA, NA),
-    var_y = c("A", "A", NA, "D", NA)
+    var_y = c("A", "A", NA, "D", NA),
+    uuid = letters[1:5]
   )
   expected_results <- data.frame(
+    uuid = letters[1:5],
     review_check_var_x = c(TRUE, FALSE, FALSE, FALSE, TRUE),
     review_comment_var_x = c(
       "Same results",
@@ -94,6 +100,7 @@ test_that("review_one_variable returns correct error messages", {
     ),
     var_x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
     var_y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
+    uuid = letters[1:8],
     review_check_var_x = c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE),
     review_comment_var_x = c(
       "Same results",
@@ -106,7 +113,6 @@ test_that("review_one_variable returns correct error messages", {
       "Different results"
     )
   )
-
 
   # cannot find x
   expect_error(
@@ -126,6 +132,16 @@ test_that("review_one_variable returns correct error messages", {
     ),
     "Cannot find VAR_Y."
   )
+  # cannot find uuid
+  expect_error(
+    review_one_variable(
+      test_numeric %>%
+        dplyr::select(!all_of(c("review_check_var_x", "review_comment_var_x"))),
+      column_to_review = "var_x", column_to_compare_with = "var_y", uuid_column = "UUID"
+    ),
+    "Cannot find UUID."
+  )
+
   # review_xxx already exist
   expect_error(
     review_one_variable(
@@ -161,7 +177,8 @@ test_that("review_variables returns correct numerical results", {
     stat_col_one.x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
     stat_col_two.x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
     stat_col_one.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
-    stat_col_two.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035)
+    stat_col_two.y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
+    uuid = letters[1:8]
   )
 
   review_check_columm <- c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE)
@@ -196,6 +213,7 @@ test_that("review_variables returns correct numerical results", {
     )
 
   expected_review_table <- data.frame(
+    uuid = rep(letters[1:8],2),
     variable = c(rep("stat_col_one.x", 8), rep("stat_col_two.x", 8)),
     review_check = rep(review_check_columm, 2),
     review_comment = c(
@@ -228,7 +246,8 @@ test_that("review_variables returns correct results for categorical and numerica
     var_x = c("A", "B", "C", NA),
     var_y = c("A", "A", NA, "D"),
     stat_col_one.x = c(0, 1, 2, NA),
-    stat_col_one.y = c(0, 1, 2, NA)
+    stat_col_one.y = c(0, 1, 2, NA),
+    uuid = letters[1:4]
   )
   expected_results_table <- cbind(test_categorical_numerical,
     review_check_var_x = c(TRUE, FALSE, FALSE, FALSE),
@@ -242,6 +261,7 @@ test_that("review_variables returns correct results for categorical and numerica
     review_comment_stat_col_one.x = rep("Same results", 4)
   )
   expected_review_table <- data.frame(
+    uuid = rep(letters[1:4],2),
     variable = c(rep("var_x", 4), rep("stat_col_one.x", 4)),
     review_check = c(TRUE, FALSE, FALSE, FALSE, rep(TRUE, 4)),
     review_comment = c(

@@ -8,6 +8,7 @@ review_one_variable(
   dataset,
   column_to_review,
   column_to_compare_with,
+  uuid_column = "uuid",
   prefix = "review",
   return_dataset = FALSE
 )
@@ -18,6 +19,8 @@ review_one_variable(
 \item{column_to_review}{Name of the column to review.}
 
 \item{column_to_compare_with}{Name of the column to compare with.}
+
+\item{uuid_column}{uuid column in the dataset. Default is uuid.}
 
 \item{prefix}{Prefix to be used for the review and comment column. Default is "review".}
 
@@ -42,7 +45,8 @@ test_numeric <- data.frame(
     "test difference rounding in y"
   ),
   var_x = c(0, 1, 2, NA, 0.00019, 0.0002, 0.00035, 0.0003),
-  var_y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035)
+  var_y = c(0, 2, NA, 3, 0.0002, 0.00019, 0.0003, 0.00035),
+  uuid = letters[1:8]
 )
 review_one_variable(test_numeric,
   column_to_review = "var_x",
