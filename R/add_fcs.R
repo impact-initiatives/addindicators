@@ -1,6 +1,6 @@
 #' add_fcs
 #'
-#' @param df the clean dataset
+#' @param .dataset the clean dataset
 #' @param cutoffs either "normal", or "alternative". The default is set to normal
 #' @param fcs_cereal the name of the variable that indicates the number of days cereals were consumed
 #' @param fcs_legumes the name of the variable that indicates the number of days legumes were consumed

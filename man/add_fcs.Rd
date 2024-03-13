@@ -18,6 +18,8 @@ add_fcs(
 )
 }
 \arguments{
+\item{.dataset}{the clean dataset}
+
 \item{cutoffs}{either "normal", or "alternative". The default is set to normal}
 
 \item{fcs_cereal}{the name of the variable that indicates the number of days cereals were consumed}
@@ -35,8 +37,6 @@ add_fcs(
 \item{fcs_sugar}{the name of the variable that indicates the number of days cereals was consumed}
 
 \item{fcs_oil}{the name of the variable that indicates the number of days oild were consumed}
-
-\item{df}{the clean dataset}
 }
 \value{
 the dataset with fcs_score and fcs_cat computed, as well as  the 8 weighted food groups
