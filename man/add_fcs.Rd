@@ -5,22 +5,20 @@
 \title{add_fcs}
 \usage{
 add_fcs(
-  df,
-  cutoffs = "normal 21.5-35",
-  fcs_cereal,
-  fcs_legumes,
-  fcs_veg,
-  fcs_fruit,
-  fcs_meat,
-  fcs_dairy,
-  fcs_sugar,
-  fcs_oil
+  .dataset,
+  cutoffs = c("normal", "alternative"),
+  fcs_cereal = "fcs_cereal",
+  fcs_legumes = "fcs_legumes",
+  fcs_veg = "fcs_veg",
+  fcs_fruit = "fcs_fruit",
+  fcs_meat = "fcs_meat",
+  fcs_dairy = "fcs_dairy",
+  fcs_sugar = "fcs_sugar",
+  fcs_oil = "fcs_oil"
 )
 }
 \arguments{
-\item{df}{the clean dataset}
-
-\item{cutoffs}{either "normal 21.5-35", or "alternative 28-42". The default is set to normal}
+\item{cutoffs}{either "normal", or "alternative". The default is set to normal}
 
 \item{fcs_cereal}{the name of the variable that indicates the number of days cereals were consumed}
 
@@ -37,6 +35,8 @@ add_fcs(
 \item{fcs_sugar}{the name of the variable that indicates the number of days cereals was consumed}
 
 \item{fcs_oil}{the name of the variable that indicates the number of days oild were consumed}
+
+\item{df}{the clean dataset}
 }
 \value{
 the dataset with fcs_score and fcs_cat computed, as well as  the 8 weighted food groups
@@ -46,18 +46,17 @@ add_fcs
 }
 \examples{
 df1 <- data.frame(
-  cereal = c(1, 2, 3, 2, 5, 6, 7),
-  pulses = c(3, 4, 5, 6, 1, 6, 5),
-  vegetables = c(3, 2, 1, 6, 5, 4, 3),
-  fruits = c(1, 4, 6, 2, 2, 2, 4),
-  meat = c(5, 4, 3, 2, 7, 4, 5),
-  milk = c(1, 2, 6, 7, 3, 4, 2),
-  sugar = c(1, 7, 6, 5, 2, 3, 4),
-  oil = c(2, 3, 6, 5, 1, 7, 4)
+  fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+  fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+  fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+  fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+  fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+  fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+  fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+  fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
 )
-add_fcs(df1,
-  cutoffs = "normal 21.5-35", fcs_cereal = "cereal", fcs_legumes = "pulses", fcs_veg = "vegetables",
-  fcs_fruit = "fruits", fcs_meat = "meat", fcs_dairy = "milk", fcs_sugar = "sugar", fcs_oil = "oil"
+add_fcs(.dataset = df1,
+  cutoffs = "normal"
 )
 
 }

@@ -1,29 +1,127 @@
-# test correct values
-test_that("calculations of fcs are correct", {
+library(dplyr)
+
+###### Sad Path #######
+
+testthat::test_that("Check input type -- dataset", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  testthat::expect_error(add_fcs(.dataset = 0))
+  testthat::expect_error(add_fcs(.dataset = "x"))
+  testthat::expect_error(add_fcs(.dataset = 1.0))
+  testthat::expect_error(add_fcs(.dataset = F))
+  testthat::expect_error(add_fcs(.dataset = list()))
+})
+
+
+testthat::test_that("Check for missing columns", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df %>% dplyr::select(-fcs_cereal),
+    fcs_cereal = "fcs_cereal"
+  ))
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df %>% dplyr::select(-fcs_legumes),
+    fcs_legumes = "fcs_legumes"
+  ))
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df %>% dplyr::select(-fcs_veg),
+    fcs_veg = "fcs_veg"
+  ))
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df %>% dplyr::select(-fcs_fruit),
+    fcs_fruit = "fcs_fruit"
+  ))
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df %>% dplyr::select(-fcs_meat),
+    fcs_meat = "fcs_meat"
+  ))
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df %>% dplyr::select(-fcs_dairy),
+    fcs_dairy = "fcs_dairy"
+  ))
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df %>% dplyr::select(-fcs_sugar),
+    fcs_sugar = "fcs_sugar"
+  ))
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df %>% dplyr::select(-fcs_oil),
+    fcs_oil = "fcs_oil"
+  ))
+})
+
+
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(30)
+  test_df[sample.int(nrow(test_df), 3), c("fcs_cereal",
+                                          "fcs_legumes",
+                                          "fcs_veg",
+                                          "fcs_fruit",
+                                          "fcs_meat",
+                                          "fcs_dairy",
+                                          "fcs_sugar",
+                                          "fcs_oil")] <- 8
+  set.seed(29)
+  test_df[sample.int(nrow(test_df), 3), c("fcs_cereal",
+                                          "fcs_legumes",
+                                          "fcs_veg",
+                                          "fcs_fruit",
+                                          "fcs_meat",
+                                          "fcs_dairy",
+                                          "fcs_sugar",
+                                          "fcs_oil")] <- 9
+
+  set.seed(12)
+  test_df[sample.int(nrow(test_df), 3), c("fcs_cereal",
+                                          "fcs_legumes",
+                                          "fcs_veg",
+                                          "fcs_fruit",
+                                          "fcs_meat",
+                                          "fcs_dairy",
+                                          "fcs_sugar",
+                                          "fcs_oil")] <- 0
+  testthat::expect_error(add_fcs(
+    .dataset = test_df,
+    cutoffs = "normal"
+  ))
+})
+
+
+#### Happy Path ####
+
+testthat::test_that("Check calculations of fcs are correct", {
   df1 <- data.frame(
-    cereal = c(1, 2, 3, 2, 5, 6, 7),
-    pulses = c(3, 4, 5, 6, 1, 6, 5),
-    vegetables = c(3, 2, 1, 6, 5, 4, 3),
-    fruits = c(1, 4, 6, 2, 2, 2, 4),
-    meat = c(5, 4, 3, 2, 7, 4, 5),
-    milk = c(1, 2, 6, 7, 3, 4, 2),
-    sugar = c(1, 7, 6, 5, 2, 3, 4),
-    oil = c(2, 3, 6, 5, 1, 7, 4)
+    fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
   )
-  result <- add_fcs(df1,
-    fcs_cereal = "cereal", fcs_legumes = "pulses", fcs_veg = "vegetables",
-    fcs_fruit = "fruits", fcs_meat = "meat", fcs_dairy = "milk", fcs_sugar = "sugar", fcs_oil = "oil"
+  result <- add_fcs(
+    .dataset = df1,
+    cutoffs = "normal"
   ) %>%
     dplyr::select(-starts_with("fcs_weight"), -fcs_cat)
   expected_result <- data.frame(
-    cereal = c(1, 2, 3, 2, 5, 6, 7),
-    pulses = c(3, 4, 5, 6, 1, 6, 5),
-    vegetables = c(3, 2, 1, 6, 5, 4, 3),
-    fruits = c(1, 4, 6, 2, 2, 2, 4),
-    meat = c(5, 4, 3, 2, 7, 4, 5),
-    milk = c(1, 2, 6, 7, 3, 4, 2),
-    sugar = c(1, 7, 6, 5, 2, 3, 4),
-    oil = c(2, 3, 6, 5, 1, 7, 4),
+    fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4),
     fcs_score = c(40.5, 51.0, 70.0, 71.0, 61.5, 73.0, 68.0)
   )
   testthat::expect_equal(result, expected_result)
@@ -32,87 +130,175 @@ test_that("calculations of fcs are correct", {
 
 
 # test 2 NA values
-test_that("doesn compute FCS when a value is NA", {
+testthat::test_that("Check if the function doesnt compute FCS when a value is NA", {
   df1 <- data.frame(
-    cereal = c(NA, 2, 3, 2, 5, 6, 7),
-    pulses = c(3, 4, 5, 6, 1, 6, 5),
-    vegetables = c(3, 2, 1, 6, 5, 4, 3),
-    fruits = c(1, 4, 6, 2, 2, 2, 4),
-    meat = c(5, 4, 3, 2, 7, 4, 5),
-    milk = c(1, 2, 6, 7, 3, 4, 2),
-    sugar = c(1, 7, 6, 5, 2, 3, 4),
-    oil = c(2, 3, 6, 5, 1, 7, 4)
+    fcs_cereal = c(NA, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
   )
-  result <- add_fcs(df1,
-    fcs_cereal = "cereal", fcs_legumes = "pulses", fcs_veg = "vegetables",
-    fcs_fruit = "fruits", fcs_meat = "meat", fcs_dairy = "milk", fcs_sugar = "sugar", fcs_oil = "oil"
+  result <- add_fcs(
+    .dataset = df1,
+    cutoffs = "normal"
   ) %>%
     dplyr::select(-starts_with("fcs_weight"), -fcs_cat)
   expected_result <- data.frame(
-    cereal = c(NA, 2, 3, 2, 5, 6, 7),
-    pulses = c(3, 4, 5, 6, 1, 6, 5),
-    vegetables = c(3, 2, 1, 6, 5, 4, 3),
-    fruits = c(1, 4, 6, 2, 2, 2, 4),
-    meat = c(5, 4, 3, 2, 7, 4, 5),
-    milk = c(1, 2, 6, 7, 3, 4, 2),
-    sugar = c(1, 7, 6, 5, 2, 3, 4),
-    oil = c(2, 3, 6, 5, 1, 7, 4),
+    fcs_cereal = c(NA, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4),
     fcs_score = c(NA, 51.0, 70.0, 71.0, 61.5, 73.0, 68.0)
   )
   testthat::expect_equal(result, expected_result)
 })
 
 
-# test warning existing variable
-test_that("warns when fcs_score is already a variable in the df", {
+# test warning existing variable fcs_score
+testthat::test_that("Check and warns when fcs_score is already a variable in the df", {
   df1 <- data.frame(
-    cereal = c(NA, 2, 3, 2, 5, 6, 7),
-    pulses = c(3, 4, 5, 6, 1, 6, 5),
-    vegetables = c(3, 2, 1, 6, 5, 4, 3),
-    fruits = c(1, 4, 6, 2, 2, 2, 4),
-    meat = c(5, 4, 3, 2, 7, 4, 5),
-    milk = c(1, 2, 6, 7, 3, 4, 2),
-    sugar = c(1, 7, 6, 5, 2, 3, 4),
-    oil = c(2, 3, 6, 5, 1, 7, 4),
+    fcs_cereal = c(NA, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4),
     fcs_score = NA_character_
   )
   testthat::expect_warning(
-    add_fcs(df1,
-      fcs_cereal = "cereal", fcs_legumes = "pulses", fcs_veg = "vegetables",
-      fcs_fruit = "fruits", fcs_meat = "meat", fcs_dairy = "milk", fcs_sugar = "sugar", fcs_oil = "oil"
+    add_fcs(.dataset = df1,
+            cutoffs = "normal"
+    )
+  )
+})
+
+# test warning existing variable fcs_cat
+testthat::test_that("Check and warns when fcs_cat is already a variable in the df", {
+  df1 <- data.frame(
+    fcs_cereal = c(NA, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4),
+    fcs_cat = NA_character_
+  )
+  testthat::expect_warning(
+    add_fcs(.dataset = df1,
+            cutoffs = "normal"
     )
   )
 })
 
 
-# test3 - if the inputed variables are characters, but can be made numeric
-test_that("if variables are as character, the function stll works", {
+# if the inputed variables are characters, but can be made numeric
+testthat::test_that("if variables are as character, the function stll works", {
   df1 <- data.frame(
-    cereal = c(1, 2, 3, 2, 5, 6, 7),
-    pulses = c(3, 4, 5, 6, 1, 6, 5),
-    vegetables = c(3, 2, 1, 6, 5, 4, 3),
-    fruits = c(1, 4, 6, 2, 2, 2, 4),
-    meat = c(5, 4, 3, 2, 7, 4, 5),
-    milk = c(1, 2, 6, 7, 3, 4, 2),
-    sugar = c(1, 7, 6, 5, 2, 3, 4),
-    oil = c(2, 3, 6, 5, 1, 7, 4)
+    fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
   )
   df1 <- sapply(df1, as.character) %>% as.data.frame()
-  result <- add_fcs(df1,
-    fcs_cereal = "cereal", fcs_legumes = "pulses", fcs_veg = "vegetables",
-    fcs_fruit = "fruits", fcs_meat = "meat", fcs_dairy = "milk", fcs_sugar = "sugar", fcs_oil = "oil"
+  result <- add_fcs(
+    .dataset = df1,
+    cutoffs = "normal"
   ) %>%
     dplyr::select(-starts_with("fcs_weight"), -fcs_cat)
   expected_result <- data.frame(
-    cereal = c(1, 2, 3, 2, 5, 6, 7),
-    pulses = c(3, 4, 5, 6, 1, 6, 5),
-    vegetables = c(3, 2, 1, 6, 5, 4, 3),
-    fruits = c(1, 4, 6, 2, 2, 2, 4),
-    meat = c(5, 4, 3, 2, 7, 4, 5),
-    milk = c(1, 2, 6, 7, 3, 4, 2),
-    sugar = c(1, 7, 6, 5, 2, 3, 4),
-    oil = c(2, 3, 6, 5, 1, 7, 4),
+    fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4),
     fcs_score = c(40.5, 51.0, 70.0, 71.0, 61.5, 73.0, 68.0)
   )
   testthat::expect_equal(result, expected_result)
 })
+
+
+# test fcs_cat calculated correctly
+
+testthat::test_that("Check calculations of fcs are correct -- normal cutoffs", {
+  df1 <- data.frame(
+    fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(1, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(2, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(2, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
+  )
+  result <- add_fcs(
+    .dataset = df1,
+    cutoffs = "normal"
+  ) %>%
+    dplyr::select(-starts_with("fcs_weight"))
+  expected_result <- data.frame(
+    fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(1, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(2, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(2, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4),
+    fcs_score = c(21.5, 51.0, 70.0, 71.0, 61.5, 73.0, 68.0),
+    fcs_cat = c("Borderline","Acceptable","Acceptable","Acceptable","Acceptable","Acceptable","Acceptable")
+  )
+  testthat::expect_equal(result, expected_result)
+})
+
+# test fcs_cat calculated correctly
+
+testthat::test_that("Check calculations of fcs are correct -- alternative cutoffs", {
+  df1 <- data.frame(
+    fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(1, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(2, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(2, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
+  )
+  result <- add_fcs(
+    .dataset = df1,
+    cutoffs = "alternative"
+  ) %>%
+    dplyr::select(-starts_with("fcs_weight"))
+  expected_result <- data.frame(
+    fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+    fcs_legumes = c(1, 4, 5, 6, 1, 6, 5),
+    fcs_veg = c(2, 2, 1, 6, 5, 4, 3),
+    fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+    fcs_meat = c(2, 4, 3, 2, 7, 4, 5),
+    fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+    fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+    fcs_oil = c(2, 3, 6, 5, 1, 7, 4),
+    fcs_score = c(21.5, 51.0, 70.0, 71.0, 61.5, 73.0, 68.0),
+    fcs_cat = c("Poor","Acceptable","Acceptable","Acceptable","Acceptable","Acceptable","Acceptable")
+  )
+  testthat::expect_equal(result, expected_result)
+})
+
+
