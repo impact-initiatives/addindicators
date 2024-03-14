@@ -6,24 +6,44 @@
 \usage{
 add_lcsi(
   .dataset,
-  lcsi_stress_vars,
-  lcsi_crisis_vars,
-  lcsi_emergency_vars,
-  yes_val = NULL,
-  no_val = NULL,
-  exhausted_val = NULL,
-  not_applicable_val = NULL,
-  ignore_NA = FALSE
+  fsl_lcsi_stress1 = "fsl_lcsi_stress1",
+  fsl_lcsi_stress2 = "fsl_lcsi_stress2",
+  fsl_lcsi_stress3 = "fsl_lcsi_stress3",
+  fsl_lcsi_stress4 = "fsl_lcsi_stress4",
+  fsl_lcsi_crisis1 = "fsl_lcsi_crisis1",
+  fsl_lcsi_crisis2 = "fsl_lcsi_crisis2",
+  fsl_lcsi_crisis3 = "fsl_lcsi_crisis3",
+  fsl_lcsi_emergency1 = "fsl_lcsi_emergency1",
+  fsl_lcsi_emergency2 = "fsl_lcsi_emergency2",
+  fsl_lcsi_emergency3 = "fsl_lcsi_emergency3",
+  yes_val = "yes",
+  no_val = "no_had_no_need",
+  exhausted_val = "no_exhausted",
+  not_applicable_val = "not_applicable"
 )
 }
 \arguments{
 \item{.dataset}{A dataframe with the ten LCSI variables needed for analysis.}
 
-\item{lcsi_stress_vars}{A vector of character values that are the column names for the four stress LCSI variables.}
+\item{fsl_lcsi_stress1}{the name of the variable that indicates the first stress LCSI strategy}
 
-\item{lcsi_crisis_vars}{A vector of character values that are the column names for the three crisis LCSI variables.}
+\item{fsl_lcsi_stress2}{the name of the variable that indicates the second stress LCSI strategy}
 
-\item{lcsi_emergency_vars}{A vector of character values that are the column names for the thre emergency LCSI variables.}
+\item{fsl_lcsi_stress3}{the name of the variable that indicates the third stress LCSI strategy}
+
+\item{fsl_lcsi_stress4}{the name of the variable that indicates the fourth stress LCSI strategy}
+
+\item{fsl_lcsi_crisis1}{the name of the variable that indicates the first crisis LCSI strategy}
+
+\item{fsl_lcsi_crisis2}{the name of the variable that indicates the second crisis LCSI strategy}
+
+\item{fsl_lcsi_crisis3}{the name of the variable that indicates the third crisis LCSI strategy}
+
+\item{fsl_lcsi_emergency1}{the name of the variable that indicates the first emergency LCSI strategy}
+
+\item{fsl_lcsi_emergency2}{the name of the variable that indicates the second emergency LCSI strategy}
+
+\item{fsl_lcsi_emergency3}{the name of the variable that indicates the third emergency LCSI strategy}
 
 \item{yes_val}{A character value in the dataset associated with "Yes, used this coping strategy in the last 30 days."}
 
@@ -32,40 +52,34 @@ add_lcsi(
 \item{exhausted_val}{A character value in the dataset associated with "No, haven't used in the last 30 days because I've exhausted this coping strategy in the last 6 or 12 months."}
 
 \item{not_applicable_val}{A character value in the dataset associated with "This coping strategy is not applicable for the household.}
-
-\item{ignore_NA}{Default is FALSE. If set to TRUE, the missing values will be ignored.}
 }
 \value{
 Returns a dataframe with added columns for LCSI indicators.
-- lcsi_x_yes : 1 means one of the of the x strategies was used (*yes_val*)
-- lcsi_x_exhaust: 1 means one of the x strategies was exhausted and could not be used (*exhausted_val*)
-- lcsi_x: 1 means one of the x strategies was if either used (*yes_val*) or exhausted (*exhausted_val*)
+- fsl_csi_x_yes : 1 means one of the of the x strategies was used (*yes_val*)
+- fsl_lcsi_x_exhaust: 1 means one of the x strategies was exhausted and could not be used (*exhausted_val*)
+- fsl_lcsi_x: 1 means one of the x strategies was if either used (*yes_val*) or exhausted (*exhausted_val*)
 Where x is stress, crisis or emergency
-- lcsi_cat_yes : the highest category between the lcsi_x_yes
-- lcsi_cat_exhast: the highest category between the lcsi_x_exhaust
-- lcsi_cat: the highest category between the lcsi_x
+- fsl_lcsi_cat_yes : the highest category between the fsl_lcsi_x_yes
+- fsl_lcsi_cat_exhast: the highest category between the fsl_lcsi_x_exhaust
+- fsl_lcsi_cat: the highest category between the fsl_lcsi_x
 }
 \description{
 Function to calculate Livelihood Coping Strategy Index (LCSI)
 }
 \examples{
 {
-  input_data1 <- data.frame(
-stress1 =             c("No", "No", "Exhausted", "Not Applicable", "No"),
-stress2 =             c("No", "Yes", "Not Applicable", "No", "No"),
-stress3 =             c("Not Applicable", "Not Applicable", "Yes", "No", "No"),
-stress4 =             c("Not Applicable", "No", "Yes", "Yes", "No"),
-crisis1 =             c("No", "Not Applicable", "Yes", "Exhausted", "No"),
-crisis2 =             c("No", "No", "No", "No", "No"),
-crisis3 =             c("No", "No", "Yes", "Not Applicable", "No"),
-emergency1 =          c("No", "Not Applicable", "Not Applicable", "No", "No"),
-emergency2 =          c("No", "Not Applicable", "Yes", "Not Applicable", "No"),
-emergency3 =          c("Not Applicable", "No", "Not Applicable", "No", "Exhausted"))
+  input_data1 <- data.frame(fsl_lcsi_stress1 = c("No", "No", "Exhausted", "Not Applicable", "No"),
+  fsl_lcsi_stress2 = c("No", "Yes", "Not Applicable", "No", "No"),
+  fsl_lcsi_stress3 = c("Not Applicable", "Not Applicable", "Yes", "No", "No"),
+  fsl_lcsi_stress4 = c("Not Applicable", "No", "Yes", "Yes", "No"),
+  fsl_lcsi_crisis1 = c("No", "Not Applicable", "Yes", "Exhausted", "No"),
+  fsl_lcsi_crisis2 = c("No", "No", "No", "No", "No"),
+  fsl_lcsi_crisis3 = c("No", "No", "Yes", "Not Applicable", "No"),
+  fsl_lcsi_emergency1 = c("No", "Not Applicable", "Not Applicable", "No", "No"),
+  fsl_lcsi_emergency2 = c("No", "Not Applicable", "Yes", "Not Applicable", "No"),
+  fsl_lcsi_emergency3 = c("Not Applicable", "No", "Not Applicable", "No", "Exhausted"))
 
 add_lcsi(.dataset = input_data1,
-lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
-lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
-lcsi_emergency_vars = c("emergency1", "emergency2", "emergency3"),
 yes_val = "Yes",
 no_val = "No",
 exhausted_val = "Exhausted",

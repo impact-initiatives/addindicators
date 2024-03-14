@@ -7,14 +7,14 @@
 add_fcs(
   .dataset,
   cutoffs = c("normal", "alternative"),
-  fcs_cereal = "fcs_cereal",
-  fcs_legumes = "fcs_legumes",
-  fcs_veg = "fcs_veg",
-  fcs_fruit = "fcs_fruit",
-  fcs_meat = "fcs_meat",
-  fcs_dairy = "fcs_dairy",
-  fcs_sugar = "fcs_sugar",
-  fcs_oil = "fcs_oil"
+  fsl_fcs_cereal = "fsl_fcs_cereal",
+  fsl_fcs_legumes = "fsl_fcs_legumes",
+  fsl_fcs_veg = "fsl_fcs_veg",
+  fsl_fcs_fruit = "fsl_fcs_fruit",
+  fsl_fcs_meat = "fsl_fcs_meat",
+  fsl_fcs_dairy = "fsl_fcs_dairy",
+  fsl_fcs_sugar = "fsl_fcs_sugar",
+  fsl_fcs_oil = "fsl_fcs_oil"
 )
 }
 \arguments{
@@ -22,38 +22,38 @@ add_fcs(
 
 \item{cutoffs}{either "normal", or "alternative". The default is set to normal}
 
-\item{fcs_cereal}{the name of the variable that indicates the number of days cereals were consumed}
+\item{fsl_fcs_cereal}{the name of the variable that indicates the number of days cereals were consumed}
 
-\item{fcs_legumes}{the name of the variable that indicates the number of days legumes were consumed}
+\item{fsl_fcs_legumes}{the name of the variable that indicates the number of days legumes were consumed}
 
-\item{fcs_veg}{the name of the variable that indicates the number of days vegetables were consumed}
+\item{fsl_fcs_veg}{the name of the variable that indicates the number of days vegetables were consumed}
 
-\item{fcs_fruit}{the name of the variable that indicates the number of days fruits were consumed}
+\item{fsl_fcs_fruit}{the name of the variable that indicates the number of days fruits were consumed}
 
-\item{fcs_meat}{the name of the variable that indicates the number of days meat/fish were consumed}
+\item{fsl_fcs_meat}{the name of the variable that indicates the number of days meat/fish were consumed}
 
-\item{fcs_dairy}{the name of the variable that indicates the number of days dairy were consumed}
+\item{fsl_fcs_dairy}{the name of the variable that indicates the number of days dairy were consumed}
 
-\item{fcs_sugar}{the name of the variable that indicates the number of days cereals was consumed}
+\item{fsl_fcs_sugar}{the name of the variable that indicates the number of days cereals was consumed}
 
-\item{fcs_oil}{the name of the variable that indicates the number of days oild were consumed}
+\item{fsl_fcs_oil}{the name of the variable that indicates the number of days oild were consumed}
 }
 \value{
-the dataset with fcs_score and fcs_cat computed, as well as  the 8 weighted food groups
+the dataset with fsl_fcs_score and fsl_fcs_cat computed, as well as the 8 weighted food groups
 }
 \description{
 add_fcs
 }
 \examples{
 df1 <- data.frame(
-  fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
-  fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
-  fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
-  fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
-  fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
-  fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
-  fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
-  fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
+  fsl_fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
+  fsl_fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
+  fsl_fcs_veg = c(3, 2, 1, 6, 5, 4, 3),
+  fsl_fcs_fruit = c(1, 4, 6, 2, 2, 2, 4),
+  fsl_fcs_meat = c(5, 4, 3, 2, 7, 4, 5),
+  fsl_fcs_dairy = c(1, 2, 6, 7, 3, 4, 2),
+  fsl_fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
+  fsl_fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
 )
 add_fcs(.dataset = df1,
   cutoffs = "normal"

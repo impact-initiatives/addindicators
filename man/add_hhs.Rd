@@ -6,50 +6,50 @@
 \usage{
 add_hhs(
   .dataset,
-  hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
-  hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
-  hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
-  hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
-  hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
-  hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+  fsl_hhs_nofoodhh = "fsl_hhs_nofoodhh",
+  fsl_hhs_nofoodhh_freq = "fsl_hhs_nofoodhh_freq",
+  fsl_hhs_sleephungry = "fsl_hhs_sleephungry",
+  fsl_hhs_sleephungry_freq = "fsl_hhs_sleephungry_freq",
+  fsl_hhs_alldaynight = "fsl_hhs_alldaynight",
+  fsl_hhs_alldaynight_freq = "fsl_hhs_alldaynight_freq",
   yes_answer = "yes",
   no_answer = "no",
-  rarely_answer = "rarely_1_2",
-  sometimes_answer = "sometimes_3_10",
-  often_answer = "often_10_times"
+  rarely_answer = "rarely",
+  sometimes_answer = "sometimes",
+  often_answer = "often"
 )
 }
 \arguments{
 \item{.dataset}{Dataset}
 
-\item{hhs_nofoodhh_1}{The name of the column "In the past 4 weeks (30 days), was there ever no food to eat
+\item{fsl_hhs_nofoodhh}{The name of the column "In the past 4 weeks (30 days), was there ever no food to eat
 of any kind in your house because of lack of resources to get food?". It has to be a string.}
 
-\item{hhs_nofoodhh_1a}{The name of the column "How often did this happen in the past (4 weeks/30 days)?".
+\item{fsl_hhs_nofoodhh_freq}{The name of the column "How often did this happen in the past (4 weeks/30 days)?".
 It has to be a string.}
 
-\item{hhs_sleephungry_2}{The name of the column "In the past 4 weeks (30 days), did you or any household
+\item{fsl_hhs_sleephungry}{The name of the column "In the past 4 weeks (30 days), did you or any household
 member go to sleep at night hungry because there was not enough food?". It has to be a string.}
 
-\item{hhs_sleephungry_2a}{The name of the column "How often did this happen in the past (4 weeks/30 days)?".
+\item{fsl_hhs_sleephungry_freq}{The name of the column "How often did this happen in the past (4 weeks/30 days)?".
 It has to be a string.}
 
-\item{hhs_alldaynight_3}{The name of the column "In the past 4 weeks (30 days), did you or any household
+\item{fsl_hhs_alldaynight}{The name of the column "In the past 4 weeks (30 days), did you or any household
 member go a whole day and night without eating anything at all because there was not enough food?".
 It has to be a string.}
 
-\item{hhs_alldaynight_3a}{The name of the column "How often did this happen in the past (4 weeks/30 days)?".
+\item{fsl_hhs_alldaynight_freq}{The name of the column "How often did this happen in the past (4 weeks/30 days)?".
 It has to be a string.}
 
-\item{yes_answer}{Value used for "Yes"}
+\item{yes_answer}{Value used for "yes"}
 
-\item{no_answer}{Value used for the "No"}
+\item{no_answer}{Value used for the "no"}
 
-\item{rarely_answer}{Value used for "Rarely (1-2)"}
+\item{rarely_answer}{Value used for "rarely"}
 
-\item{sometimes_answer}{Value used for "Sometimes (3-10)"}
+\item{sometimes_answer}{Value used for "sometimes"}
 
-\item{often_answer}{Value used for "Often (10+ times)}
+\item{often_answer}{Value used for "often"}
 }
 \value{
 It returns the dataframe with 12 extras columns: recoded hhs questions, score for the 3 sets of questions
@@ -61,27 +61,30 @@ Add the household hunger scale to the dataset
 \examples{
 {
   input_data <- data.frame(
-    fs_hhs_nofood_yn = c("no", "yes", "no", "no", "no"),
-    fs_hhs_nofood_freq = c(NA_character_, "rarely_1_2", NA_character_, NA_character_, NA_character_),
-    fs_hhs_sleephungry_yn = c("no", "no", "yes", "no", "no"),
-    fs_hhs_sleephungry_freq = c(NA_character_, NA_character_, "often_10_times", NA_character_, NA_character_),
-    fs_hhs_daynoteating_yn = c("no", "no", "yes", "yes", "yes"),
-    fs_hhs_daynoteating_freq = c(NA_character_, NA_character_, "often_10_times", "rarely_1_2", "sometimes_3_10")
+    fsl_hhs_nofoodhh = c("no", "yes", "no", "no", "no"),
+    fsl_hhs_nofoodhh_freq = c(NA_character_, "rarely",
+     NA_character_, NA_character_, NA_character_),
+    fsl_hhs_sleephungry = c("no", "no", "yes", "no", "no"),
+    fsl_hhs_sleephungry_freq = c(NA_character_, NA_character_,
+     "often", NA_character_, NA_character_),
+    fsl_hhs_alldaynight = c("no", "no", "yes", "yes", "yes"),
+    fsl_hhs_alldaynight_freq = c(NA_character_, NA_character_,
+     "often", "rarely", "sometimes")
   )
 
   add_hhs(
     .dataset = input_data,
-    hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
-    hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
-    hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
-    hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
-    hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
-    hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+    fsl_hhs_nofoodhh = "fsl_hhs_nofoodhh",
+    fsl_hhs_nofoodhh_freq = "fsl_hhs_nofoodhh_freq",
+    fsl_hhs_sleephungry = "fsl_hhs_sleephungry",
+    fsl_hhs_sleephungry_freq = "fsl_hhs_sleephungry_freq",
+    fsl_hhs_alldaynight = "fsl_hhs_alldaynight",
+    fsl_hhs_alldaynight_freq = "fsl_hhs_alldaynight_freq",
     yes_answer = "yes",
     no_answer = "no",
-    rarely_answer = "rarely_1_2",
-    sometimes_answer = "sometimes_3_10",
-    often_answer = "often_10_times"
+    rarely_answer = "rarely",
+    sometimes_answer = "sometimes",
+    often_answer = "often"
   )
 }
 }

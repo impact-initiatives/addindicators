@@ -15,33 +15,33 @@ testthat::test_that("Check missing columns", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   testthat::expect_error(add_hhs(
-    .dataset = test_df %>% dplyr::select(-fs_hhs_nofood_yn),
-    hhs_nofoodhh_1 = "fs_hhs_nofood_yn"
+    .dataset = test_df %>% dplyr::select(-fsl_hhs_nofoodhh),
+    fsl_hhs_nofoodhh = "fsl_hhs_nofoodhh"
   ))
 
   testthat::expect_error(add_hhs(
-    .dataset = test_df %>% dplyr::select(-fs_hhs_nofood_freq),
-    hhs_nofoodhh_1a = "fs_hhs_nofood_freq"
+    .dataset = test_df %>% dplyr::select(-fsl_hhs_nofoodhh_freq),
+    fsl_hhs_nofoodhh_freq = "fsl_hhs_nofoodhh_freq"
   ))
 
   testthat::expect_error(add_hhs(
-    .dataset = test_df %>% dplyr::select(-fs_hhs_sleephungry_yn),
-    hhs_sleephungry_2 = "fs_hhs_sleephungry_yn"
+    .dataset = test_df %>% dplyr::select(-fsl_hhs_sleephungry),
+    fsl_hhs_sleephungry = "fsl_hhs_sleephungry"
   ))
 
   testthat::expect_error(add_hhs(
-    .dataset = test_df %>% dplyr::select(-fs_hhs_sleephungry_freq),
-    hhs_sleephungry_2a = "fs_hhs_sleephungry_freq"
+    .dataset = test_df %>% dplyr::select(-fsl_hhs_sleephungry_freq),
+    fsl_hhs_sleephungry_freq = "fsl_hhs_sleephungry_freq"
   ))
 
   testthat::expect_error(add_hhs(
-    .dataset = test_df %>% dplyr::select(-fs_hhs_daynoteating_yn),
-    hhs_alldaynight_3 = "fs_hhs_daynoteating_yn"
+    .dataset = test_df %>% dplyr::select(-fsl_hhs_alldaynight),
+    fsl_hhs_alldaynight = "fsl_hhs_alldaynight"
   ))
 
   testthat::expect_error(add_hhs(
-    .dataset = test_df %>% dplyr::select(-fs_hhs_daynoteating_freq),
-    hhs_alldaynight_3a = "fs_hhs_daynoteating_freq"
+    .dataset = test_df %>% dplyr::select(-fsl_hhs_alldaynight_freq),
+    fsl_hhs_alldaynight_freq = "fsl_hhs_alldaynight_freq"
   ))
 })
 
@@ -51,29 +51,29 @@ testthat::test_that("Check columns values - Yes/No", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   set.seed(30)
-  test_df[sample.int(nrow(test_df), 3), c("fs_hhs_nofood_yn", "fs_hhs_sleephungry_yn", "fs_hhs_daynoteating_yn")] <- "YES"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh", "fsl_hhs_sleephungry", "fsl_hhs_alldaynight")] <- "YES"
   set.seed(29)
-  test_df[sample.int(nrow(test_df), 3), c("fs_hhs_nofood_yn", "fs_hhs_sleephungry_yn", "fs_hhs_daynoteating_yn")] <- "NO"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh", "fsl_hhs_sleephungry", "fsl_hhs_alldaynight")] <- "NO"
   set.seed(12)
-  test_df[sample.int(nrow(test_df), 3), c("fs_hhs_nofood_yn", "fs_hhs_sleephungry_yn", "fs_hhs_daynoteating_yn")] <- "random_value"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh", "fsl_hhs_sleephungry", "fsl_hhs_alldaynight")] <- "random_value"
 
   testthat::expect_error(add_hhs(
     .dataset = test_df,
-    hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
+    fsl_hhs_nofoodhh = "fsl_hhs_nofoodhh",
     yes_answer = "yes",
     no_answer = "no"
   ))
 
   testthat::expect_error(add_hhs(
     .dataset = test_df,
-    hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
+    fsl_hhs_sleephungry = "fsl_hhs_sleephungry",
     yes_answer = "yes",
     no_answer = "no"
   ))
 
   testthat::expect_error(add_hhs(
     .dataset = test_df,
-    hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
+    fsl_hhs_alldaynight = "fsl_hhs_alldaynight",
     yes_answer = "yes",
     no_answer = "no"
   ))
@@ -83,34 +83,34 @@ testthat::test_that("Check columns values - Frequencies", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   set.seed(30)
-  test_df[sample.int(nrow(test_df), 3), c("fs_hhs_nofood_freq", "fs_hhs_sleephungry_freq", "fs_hhs_daynoteating_freq")] <- "rarely"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq", "fsl_hhs_sleephungry_freq", "fsl_hhs_alldaynight_freq")] <- "rarely_1_2"
   set.seed(29)
-  test_df[sample.int(nrow(test_df), 3), c("fs_hhs_nofood_freq", "fs_hhs_sleephungry_freq", "fs_hhs_daynoteating_freq")] <- "sometimes"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq", "fsl_hhs_sleephungry_freq", "fsl_hhs_alldaynight_freq")] <- "sometimes_3_10"
   set.seed(16)
-  test_df[sample.int(nrow(test_df), 3), c("fs_hhs_nofood_freq", "fs_hhs_sleephungry_freq", "fs_hhs_daynoteating_freq")] <- "often"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq", "fsl_hhs_sleephungry_freq", "fsl_hhs_alldaynight_freq")] <- "often_10_times"
 
   testthat::expect_error(add_hhs(
     .dataset = test_df,
-    hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
-    rarely_answer = "rarely_1_2",
-    sometimes_answer = "sometimes_3_10",
-    often_answer = "often_10_times"
+    fsl_hhs_nofoodhh_freq = "fsl_hhs_nofoodhh_freq",
+    rarely_answer = "rarely",
+    sometimes_answer = "sometimes",
+    often_answer = "often"
   ))
 
   testthat::expect_error(add_hhs(
     .dataset = test_df,
-    hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
-    rarely_answer = "rarely_1_2",
-    sometimes_answer = "sometimes_3_10",
-    often_answer = "often_10_times"
+    fsl_hhs_sleephungry_freq = "fsl_hhs_sleephungry_freq",
+    rarely_answer = "rarely",
+    sometimes_answer = "sometimes",
+    often_answer = "often"
   ))
 
   testthat::expect_error(add_hhs(
     .dataset = test_df,
-    hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
-    rarely_answer = "rarely_1_2",
-    sometimes_answer = "sometimes_3_10",
-    often_answer = "often_10_times"
+    fsl_hhs_alldaynight_freq = "fsl_hhs_alldaynight_freq",
+    rarely_answer = "rarely",
+    sometimes_answer = "sometimes",
+    often_answer = "often"
   ))
 })
 
@@ -125,37 +125,37 @@ testthat::test_that("Check calculation", {
   testthat::expect_equal(
     object = add_hhs(
       .dataset = test_df,
-      hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
-      hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
-      hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
-      hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
-      hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
-      hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+      fsl_hhs_nofoodhh = "fsl_hhs_nofoodhh",
+      fsl_hhs_nofoodhh_freq = "fsl_hhs_nofoodhh_freq",
+      fsl_hhs_sleephungry = "fsl_hhs_sleephungry",
+      fsl_hhs_sleephungry_freq = "fsl_hhs_sleephungry_freq",
+      fsl_hhs_alldaynight = "fsl_hhs_alldaynight",
+      fsl_hhs_alldaynight_freq = "fsl_hhs_alldaynight_freq",
       yes_answer = "yes",
       no_answer = "no",
-      rarely_answer = "rarely_1_2",
-      sometimes_answer = "sometimes_3_10",
-      often_answer = "often_10_times"
-    ) %>% dplyr::pull("hhs_cat_ipc"),
-    expected = test_df_with_calculation %>% dplyr::pull("hhs_cat_ipc")
+      rarely_answer = "rarely",
+      sometimes_answer = "sometimes",
+      often_answer = "often"
+    ) %>% dplyr::pull("fsl_hhs_cat_ipc"),
+    expected = test_df_with_calculation %>% dplyr::pull("fsl_hhs_cat_ipc")
   )
 
 
   testthat::expect_equal(
     object = add_hhs(
       .dataset = test_df,
-      hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
-      hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
-      hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
-      hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
-      hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
-      hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+      fsl_hhs_nofoodhh = "fsl_hhs_nofoodhh",
+      fsl_hhs_nofoodhh_freq = "fsl_hhs_nofoodhh_freq",
+      fsl_hhs_sleephungry = "fsl_hhs_sleephungry",
+      fsl_hhs_sleephungry_freq = "fsl_hhs_sleephungry_freq",
+      fsl_hhs_alldaynight = "fsl_hhs_alldaynight",
+      fsl_hhs_alldaynight_freq = "fsl_hhs_alldaynight_freq",
       yes_answer = "yes",
       no_answer = "no",
-      rarely_answer = "rarely_1_2",
-      sometimes_answer = "sometimes_3_10",
-      often_answer = "often_10_times"
-    ) %>% dplyr::pull("hhs_cat"),
-    expected = test_df_with_calculation %>% dplyr::pull("hhs_cat")
+      rarely_answer = "rarely",
+      sometimes_answer = "sometimes",
+      often_answer = "often"
+    ) %>% dplyr::pull("fsl_hhs_cat"),
+    expected = test_df_with_calculation %>% dplyr::pull("fsl_hhs_cat")
   )
 })

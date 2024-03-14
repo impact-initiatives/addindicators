@@ -1,99 +1,99 @@
 #' Add indicator for reduced Household CSI Score(rcsi)
 #'
-#' @param data dataset
-#' @param rCSILessQlty Column representing question- During the last 7 days, were there days (and, if so, how many) when your household had to rely on less preferred and less expensive food to cope with a lack of food or money to buy it?
-#' @param rCSIBorrow   Column representing question- During the last 7 days, were there days (and, if so, how many) when your household had to borrow food or rely on help from a relative or friend to cope with a lack of food or money to buy it?
-#' @param rCSIMealSize Column representing question- During the last 7 days, were there days (and, if so, how many) when your household had to limit portion size of meals at meal times to cope with a lack of food or money to buy it?
-#' @param rCSIMealAdult Column representing question- During the last 7 days, were there days (and, if so, how many) when your household had to restrict consumption by adults in order for small children to eat to cope with a lack of food or money to buy it?
-#' @param rCSIMealNb Column representing question - During the last 7 days, were there days (and, if so, how many) when your household had to reduce number of meals eaten in a day to cope with a lack of food or money to buy it?
-#' @param new_colname The prefix for the new columns. It has to be a string.
+#' @param .dataset dataset
+#' @param fsl_rcsi_lessquality Column representing question- During the last 7 days, were there days (and, if so, how many) when your household had to rely on less preferred and less expensive food to cope with a lack of food or money to buy it?
+#' @param fsl_rcsi_borrow   Column representing question- During the last 7 days, were there days (and, if so, how many) when your household had to borrow food or rely on help from a relative or friend to cope with a lack of food or money to buy it?
+#' @param fsl_rcsi_mealsize Column representing question- During the last 7 days, were there days (and, if so, how many) when your household had to limit portion size of meals at meal times to cope with a lack of food or money to buy it?
+#' @param fsl_rcsi_mealadult Column representing question- During the last 7 days, were there days (and, if so, how many) when your household had to restrict consumption by adults in order for small children to eat to cope with a lack of food or money to buy it?
+#' @param fsl_rcsi_mealnb Column representing question - During the last 7 days, were there days (and, if so, how many) when your household had to reduce number of meals eaten in a day to cope with a lack of food or money to buy it?
 #' @return
 #' A dataset with one additional column.
 #' @export
 #' @importFrom rlang :=
 #' @examples
 #' test_data <- data.frame(
-#'   rCSILessQlty = c(1, 2, 3, 1),
-#'   rCSIBorrow = c(0, 0, 3, 0),
-#'   rCSIMealSize = c(4, 2, 6, 1),
-#'   rCSIMealAdult = c(4, 3, 5, 0),
-#'   rCSIMealNb = c(2, 5, NA_integer_, 1)
+#'   fsl_rcsi_lessquality = c(1, 2, 3, 1),
+#'   fsl_rcsi_borrow = c(0, 0, 3, 0),
+#'   fsl_rcsi_mealsize = c(4, 2, 6, 1),
+#'   fsl_rcsi_mealadult = c(4, 3, 5, 0),
+#'   fsl_rcsi_mealnb = c(2, 5, NA_integer_, 1)
 #' )
 #' add_rcsi(test_data)
-add_rcsi <- function(data,
-                     rCSILessQlty = "rCSILessQlty",
-                     rCSIBorrow = "rCSIBorrow",
-                     rCSIMealSize = "rCSIMealSize",
-                     rCSIMealAdult = "rCSIMealAdult",
-                     rCSIMealNb = "rCSIMealNb",
-                     new_colname = "rcsi") {
-  score_name <- paste0(new_colname, "_score")
-  cat_name <- paste0(new_colname, "_cat")
-  score1 <- paste0(new_colname, "_1")
-  score2 <- paste0(new_colname, "_2")
-  score3 <- paste0(new_colname, "_3")
-  score4 <- paste0(new_colname, "_4")
-  score5 <- paste0(new_colname, "_5")
 
-  rowsum_col <- c(score1, score2, score3, score4, score5)
-  all_newly_created <- c(rowsum_col, score_name, cat_name)
+add_rcsi <- function(.dataset,
+                     fsl_rcsi_lessquality = "fsl_rcsi_lessquality",
+                     fsl_rcsi_borrow = "fsl_rcsi_borrow",
+                     fsl_rcsi_mealsize = "fsl_rcsi_mealsize",
+                     fsl_rcsi_mealadult = "fsl_rcsi_mealadult",
+                     fsl_rcsi_mealnb = "fsl_rcsi_mealnb") {
 
-  if (any(all_newly_created %in% names(data))) {
-    print(all_newly_created[all_newly_created %in% names(data)])
-    warning("The above(s) column are existing in the dataset. These columns will be replaced by the function. Please change `new_colname` parameter to keep them.")
+  if (!is.data.frame(.dataset)) {
+    stop("First argument should be a dataset")
   }
 
-  all_names <- c(rCSILessQlty, rCSIBorrow, rCSIMealSize, rCSIMealAdult, rCSIMealNb)
+  if (nrow(.dataset) == 0) {
+    stop("Dataset is empty")
+  }
+  rcsi_vars <- c(fsl_rcsi_lessquality,
+                 fsl_rcsi_borrow,
+                 fsl_rcsi_mealsize,
+                 fsl_rcsi_mealadult,
+                 fsl_rcsi_mealnb)
 
-  if (!all(all_names %in% names(data))) {
-    message(all_names[!all_names %in% names(data)])
-    stop("The above column(s) can not be found in the dataset.")
+  ## Test if all columns are in the dataset
+  if(!all(rcsi_vars %in% names(.dataset))) stop("Missing rcsi columns")
+
+  if ("fsl_rcsi_score" %in% names(.dataset)) {
+    warning("There is already a variable called rcsi_score in your dataset, it will be overwritten")
   }
 
-  class <- sapply(data[all_names], is.numeric)
-
-  if (!all(class == T)) {
-    message(paste(all_names[!class], " "), appendLF = T)
-    stop("The avobe column(s) are not numeric.")
+  if ("fsl_rcsi_cat" %in% names(.dataset)) {
+    warning("There is already a variable called rcsi_cat in your dataset, it will be overwritten")
   }
 
-
-  check_value <- data |>
-    tidyr::pivot_longer(
-      cols = dplyr::all_of(all_names),
-      names_to = "question", values_to = "old_value"
-    ) |>
-    dplyr::filter(!old_value %in% 0:7 & !is.na(old_value))
-
-  if (nrow(check_value) > 0) {
-    message(paste(unique(check_value$question), collapse = ", "))
-    stop("please check the above column(s) as they contain value(s) outside 0-7 range.")
+  if (!all(.dataset[[fsl_rcsi_lessquality]] %in% c(0:7,NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_lessquality,
+                 paste0(unique(.dataset[[fsl_rcsi_lessquality]][!.dataset[[fsl_rcsi_lessquality]] %in% c(0:7,NA)]), collapse = "/")))
   }
 
+  if (!all(.dataset[[fsl_rcsi_borrow]] %in% c(0:7,NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_borrow,
+                 paste0(unique(.dataset[[fsl_rcsi_borrow]][!.dataset[[fsl_rcsi_borrow]] %in% c(0:7,NA)]), collapse = "/")))
+  }
 
-  data <- data |>
-    dplyr::mutate(
-      !!rlang::sym(score1) := !!rlang::sym(rCSILessQlty) * 1,
-      !!rlang::sym(score2) := !!rlang::sym(rCSIBorrow) * 2,
-      !!rlang::sym(score3) := !!rlang::sym(rCSIMealSize) * 1,
-      !!rlang::sym(score4) := !!rlang::sym(rCSIMealAdult) * 3,
-      !!rlang::sym(score5) := !!rlang::sym(rCSIMealNb) * 1
-    )
+  if (!all(.dataset[[fsl_rcsi_mealsize]] %in% c(0:7,NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_mealsize,
+                 paste0(unique(.dataset[[fsl_rcsi_mealsize]][!.dataset[[fsl_rcsi_mealsize]] %in% c(0:7,NA)]), collapse = "/")))
+  }
 
-  data <- data |>
-    dplyr::mutate(!!rlang::sym(score_name) := rowSums(data[rowsum_col])) |>
-    dplyr::mutate(!!rlang::sym(cat_name) := dplyr::case_when(
-      !!rlang::sym(score_name) <= 3 ~ "No to Low",
-      !!rlang::sym(score_name) %in% 4:18 ~ "Medium",
-      !!rlang::sym(score_name) > 18 ~ "High",
-      T ~ NA_character_
-    ))
+  if (!all(.dataset[[fsl_rcsi_mealadult]] %in% c(0:7,NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_mealadult,
+                 paste0(unique(.dataset[[fsl_rcsi_mealadult]][!.dataset[[fsl_rcsi_mealadult]] %in% c(0:7,NA)]), collapse = "/")))
+  }
 
-  message(paste0("Variable name for rcsi score is ", score_name))
-  message(paste0("Variable name for rcsi category is ", cat_name))
+  if (!all(.dataset[[fsl_rcsi_mealnb]] %in% c(0:7,NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_mealnb,
+                 paste0(unique(.dataset[[fsl_rcsi_mealnb]][!.dataset[[fsl_rcsi_mealnb]] %in% c(0:7,NA)]), collapse = "/")))
+  }
 
-  data |> dplyr::select(-c(
-    dplyr::all_of(score1), dplyr::all_of(score2),
-    dplyr::all_of(score3), dplyr::all_of(score4), dplyr::all_of(score5)
-  ))
+  rcs_columns <- c(fsl_rcsi_lessquality,fsl_rcsi_borrow,fsl_rcsi_mealsize,fsl_rcsi_mealadult,fsl_rcsi_mealnb)
+
+  .dataset <- .dataset %>%
+    dplyr::mutate_at(dplyr::vars(rcs_columns), as.numeric) %>%
+    dplyr::mutate(rcsi_lessquality_weighted = ifelse(is.na(!!rlang::sym(fsl_rcsi_lessquality)), NA,!!rlang::sym(fsl_rcsi_lessquality) * 1),
+                  rcsi_borrow_weighted = ifelse(is.na(!!rlang::sym(fsl_rcsi_borrow)), NA,!!rlang::sym(fsl_rcsi_borrow) * 2),
+                  rcsi_mealsize_weighted = ifelse(is.na(!!rlang::sym(fsl_rcsi_mealsize)), NA,!!rlang::sym(fsl_rcsi_mealsize) * 1),
+                  rcsi_mealadult_weighted = ifelse(is.na(!!rlang::sym(fsl_rcsi_mealadult)), NA,!!rlang::sym(fsl_rcsi_mealadult) * 3),
+                  rcsi_mealnb_weighted = ifelse(is.na(!!rlang::sym(fsl_rcsi_mealnb)), NA,!!rlang::sym(fsl_rcsi_mealnb) * 1),
+                  fsl_rcsi_score = rowSums(dplyr::across(c(rcsi_lessquality_weighted,
+                                                rcsi_borrow_weighted,
+                                                rcsi_mealsize_weighted,
+                                                rcsi_mealadult_weighted,
+                                                rcsi_mealnb_weighted), .fns = as.numeric)),
+                  fsl_rcsi_score = ifelse(fsl_rcsi_score == 0, NA, fsl_rcsi_score),
+                  fsl_rcsi_cat = dplyr::case_when(fsl_rcsi_score <= 3 ~ "No to Low",
+                                              fsl_rcsi_score <= 18 ~ "Medium",
+                                              fsl_rcsi_score > 18 ~ "High",
+                                              TRUE ~ NA))
+  return(.dataset)
 }

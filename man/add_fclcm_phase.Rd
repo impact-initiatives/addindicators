@@ -5,23 +5,22 @@
 \title{Calculating FEWSNET Food Consumption-Livelihood Coping Matrix}
 \usage{
 add_fclcm_phase(
-  dataset,
+  .dataset,
   fc_phase_var = "fc_phase",
   fc_phase_1 = "Phase 1 FC",
   fc_phase_2 = "Phase 2 FC",
   fc_phase_3 = "Phase 3 FC",
   fc_phase_4 = "Phase 4 FC",
   fc_phase_5 = "Phase 5 FC",
-  lcs_cat_var = "lcsi_cat",
+  lcs_cat_var = "fsl_lcsi_cat",
   lcs_cat_none = "None",
   lcs_cat_stress = "Stress",
   lcs_cat_crisis = "Crisis",
-  lcs_cat_emergency = "Emergency",
-  fclcm_phase_var = "fclcm_phase"
+  lcs_cat_emergency = "Emergency"
 )
 }
 \arguments{
-\item{dataset}{Dataset}
+\item{.dataset}{Dataset}
 
 \item{fc_phase_var}{Column name containing food consumption phase.}
 
@@ -44,8 +43,6 @@ add_fclcm_phase(
 \item{lcs_cat_crisis}{The name of the value "Crisis" (by default) in the livelihood coping category.}
 
 \item{lcs_cat_emergency}{The name of the value "Emergency" (by default) in the livelihood coping category.}
-
-\item{fclcm_phase_var}{A character vector which will be the column name for FSLC phase.}
 }
 \value{
 Returns a dataframe with a additional column for FCLC phase.
@@ -55,7 +52,7 @@ Calculating FEWSNET Food Consumption-Livelihood Coping Matrix
 }
 \examples{
 test_df <- data.frame(
-  lcsi_cat = c("None", "Stress"),
+  fsl_lcsi_cat = c("None", "Stress"),
   fc_phase = c("Phase 1 FC", "Phase 2 FC")
 )
 test_df |> add_fclcm_phase()

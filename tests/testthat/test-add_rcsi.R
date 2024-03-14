@@ -1,114 +1,142 @@
-testthat::test_that("test error", {
-  ## test character input
-  test_data <- data.frame(
-    rCSILessQlty = c(1, 2, 3),
-    rCSILessQlty = c(1, 1, 7),
-    rCSIBorrow = c(0, 0, 3),
-    rCSIMealSize = c(4, 2, 6),
-    rCSIMealAdult = c(4, 3, 5),
-    rCSIMealNb = c(2, 5, NA_character_)
-  )
+library(dplyr)
 
-  testthat::expect_error(add_rcsi(test_data))
+### sad path ###
 
-  ## expect no error
-
-  test_data <- data.frame(
-    rCSILessQlty = c(1, 2, 3, 1),
-    rCSIBorrow = c(0, 0, 3, 0),
-    rCSIMealSize = c(4, 2, 6, 1),
-    rCSIMealAdult = c(4, 3, 5, 0),
-    rCSIMealNb = c(2, 5, NA_integer_, 1)
-  )
-  testthat::expect_no_error(add_rcsi(test_data))
-
-  actual <- add_rcsi(test_data)
-
-  expected <- structure(
-    list(
-      rCSILessQlty = c(1, 2, 3, 1),
-      rCSIBorrow = c(0, 0, 3, 0),
-      rCSIMealSize = c(4, 2, 6, 1),
-      rCSIMealAdult = c(4, 3, 5, 0),
-      rCSIMealNb = c(2, 5, NA, 1),
-      rcsi_score = c(19, 18, NA, 3),
-      rcsi_cat = c("High", "Medium", NA, "No to Low")
-    ),
-    class = "data.frame",
-    row.names = c(NA, -4L)
-  )
-
-  testthat::expect_equal(actual, expected)
-
-
-  ### check warning for existing column
-
-  test_data <- data.frame(
-    rCSILessQlty = c(1, 2, 3, 1),
-    rCSIBorrow = c(0, 0, 3, 0),
-    rCSIMealSize = c(4, 2, 6, 1),
-    rCSIMealAdult = c(4, 3, 5, 0),
-    rCSIMealNb = c(2, 5, NA_integer_, 1),
-    rcsi_cat = NA_character_
-  )
-
-  testthat::expect_warning(add_rcsi(test_data))
-
-  ### wrong entry
-
-  test_data <- test_data |> dplyr::select(-rcsi_cat)
-  testthat::expect_error(add_rcsi(test_data, rCSILessQlty = "a"))
-
-
-  ## check no default value
-
-  test_data <- data.frame(
-    a = c(1, 2, 3, 1),
-    b = c(0, 0, 3, 0),
-    c = c(4, 2, 6, 1),
-    d = c(4, 3, 5, 0),
-    e = c(2, 5, NA_integer_, 1)
-  )
-
-  testthat::expect_no_error(
-    test_data |> add_rcsi(rCSILessQlty = "a", rCSIBorrow = "b", rCSIMealSize = "c", rCSIMealAdult = "d", rCSIMealNb = "e")
-  )
-  ### check non default new_column
-
-  testthat::expect_equal(
-    names(add_rcsi(test_data,
-      rCSILessQlty = "a", rCSIBorrow = "b", rCSIMealSize = "c",
-      rCSIMealAdult = "d", rCSIMealNb = "e", new_colname = "abcd"
-    )),
-    c("a", "b", "c", "d", "e", "abcd_score", "abcd_cat")
-  )
-
-
-  expected <- structure(
-    list(
-      a = c(1, 2, 3, 1), b = c(0, 0, 3, 0), c = c(4, 2, 6, 1),
-      d = c(4, 3, 5, 0), e = c(2, 5, NA, 1), abcd_score = c(19, 18, NA, 3),
-      abcd_cat = c("High", "Medium", NA, "No to Low")
-    ),
-    class = "data.frame",
-    row.names = c(NA, -4L)
-  )
-  actual <- add_rcsi(test_data,
-    rCSILessQlty = "a", rCSIBorrow = "b", rCSIMealSize = "c",
-    rCSIMealAdult = "d", rCSIMealNb = "e", new_colname = "abcd"
-  )
-
-  testthat::expect_equal(actual, expected)
-
-
-  ### check range
-  test_data <- data.frame(
-    rCSILessQlty = c(10, 2, 3),
-    rCSIBorrow = c(0, 0, 3),
-    rCSIMealSize = c(4, 12, 6),
-    rCSIMealAdult = c(4, 3, 5),
-    rCSIMealNb = c(2, 5, NA_integer_)
-  )
-
-  testthat::expect_error(test_data |> add_rcsi())
+testthat::test_that("Check input type -- dataset", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  testthat::expect_error(add_rcsi(.dataset = 0))
+  testthat::expect_error(add_rcsi(.dataset = "x"))
+  testthat::expect_error(add_rcsi(.dataset = 1.0))
+  testthat::expect_error(add_rcsi(.dataset = FALSE))
+  testthat::expect_error(add_rcsi(.dataset = list()))
 })
+
+
+testthat::test_that("Check missing columns", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df %>% dplyr::select(-fsl_rcsi_lessquality),
+    fsl_rcsi_lessquality = "fsl_rcsi_lessquality"
+  ))
+
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df %>% dplyr::select(-fsl_rcsi_borrow),
+    fsl_rcsi_borrow = "fsl_rcsi_borrow"
+  ))
+
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df %>% dplyr::select(-fsl_rcsi_mealsize),
+    fsl_rcsi_mealsize = "fsl_rcsi_mealsize"
+  ))
+
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df %>% dplyr::select(-fsl_rcsi_mealadult),
+    fsl_rcsi_mealadult = "fsl_rcsi_mealadult"
+  ))
+
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df %>% dplyr::select(-fsl_rcsi_mealnb),
+    fsl_rcsi_mealnb = "fsl_rcsi_mealnb"
+  ))
+
+})
+
+
+
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(30)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality",
+                                          "fsl_rcsi_borrow",
+                                          "fsl_rcsi_mealsize",
+                                          "fsl_rcsi_mealadult",
+                                          "fsl_rcsi_mealnb")] <- 8
+  set.seed(29)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality",
+                                          "fsl_rcsi_borrow",
+                                          "fsl_rcsi_mealsize",
+                                          "fsl_rcsi_mealadult",
+                                          "fsl_rcsi_mealnb")] <- 9
+
+  set.seed(12)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality",
+                                          "fsl_rcsi_borrow",
+                                          "fsl_rcsi_mealsize",
+                                          "fsl_rcsi_mealadult",
+                                          "fsl_rcsi_mealnb")] <- 0
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df,
+  ))
+})
+
+#### Happy Path ####
+
+
+
+
+# if the inputed variables are characters, but can be made numeric
+testthat::test_that("if variables are as character, the function stll works", {
+  df1 <- data.frame(
+    fsl_rcsi_lessquality = c(1, 2, 3, 1),
+    fsl_rcsi_borrow = c(0, 0, 3, 0),
+    fsl_rcsi_mealsize = c(4, 2, 6, 1),
+    fsl_rcsi_mealadult = c(4, 3, 5, 0),
+    fsl_rcsi_mealnb = c(2, 5, NA, 1)
+  )
+  df1 <- sapply(df1, as.character) %>% as.data.frame()
+  result <- add_rcsi(
+    .dataset = df1
+  ) %>%
+    dplyr::select(-ends_with("_weighted"))
+  expected_result <- data.frame(
+    fsl_rcsi_lessquality = c(1, 2, 3, 1),
+    fsl_rcsi_borrow = c(0, 0, 3, 0),
+    fsl_rcsi_mealsize = c(4, 2, 6, 1),
+    fsl_rcsi_mealadult = c(4, 3, 5, 0),
+    fsl_rcsi_mealnb = c(2, 5, NA, 1),
+    fsl_rcsi_score = c(19, 18, NA, 3),
+    fsl_rcsi_cat = c("High", "Medium", NA, "No to Low")
+  )
+  testthat::expect_equal(result, expected_result)
+})
+
+
+
+
+# test warning existing variable fsl_rcsi_score
+testthat::test_that("Check and warns when fsl_rcsi_score is already a variable in the df", {
+  df1 <- data.frame(
+    fsl_rcsi_lessquality = c(1, 2, 3, 1),
+    fsl_rcsi_borrow = c(0, 0, 3, 0),
+    fsl_rcsi_mealsize = c(4, 2, 6, 1),
+    fsl_rcsi_mealadult = c(4, 3, 5, 0),
+    fsl_rcsi_mealnb = c(2, 5, NA, 1),
+    fsl_rcsi_score = NA_character_
+  )
+  testthat::expect_warning(
+    add_rcsi(.dataset = df1
+    )
+  )
+})
+
+# test warning existing variable fsl_rcsi_cat
+testthat::test_that("Check and warns when fsl_rcsi_cat is already a variable in the df", {
+  df1 <- data.frame(
+    fsl_rcsi_lessquality = c(1, 2, 3, 1),
+    fsl_rcsi_borrow = c(0, 0, 3, 0),
+    fsl_rcsi_mealsize = c(4, 2, 6, 1),
+    fsl_rcsi_mealadult = c(4, 3, 5, 0),
+    fsl_rcsi_mealnb = c(2, 5, NA, 1),
+    fsl_rcsi_cat = NA_character_
+  )
+  testthat::expect_warning(
+    add_rcsi(.dataset = df1
+    )
+  )
+})
+
+
+
+
