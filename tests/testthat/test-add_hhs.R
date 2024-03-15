@@ -177,3 +177,4 @@ testthat::test_that("Check calculation", {
     expected = test_df_with_calculation %>% dplyr::pull("fsl_hhs_cat")
   )
 })
+

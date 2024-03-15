@@ -38,19 +38,19 @@ df <- addindicators_MSNA_template_data
 ### Example:: Add Food Consumption Score (FCS)
 ``` {r eval=T,warning=F}
 df_with_fcs <- df %>% add_fcs(
-  cutoffs = "normal 21.5-35",
-  fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
-  fcs_legumes = "fs_fcs_beans_nuts",
-  fcs_veg = "fs_fcs_vegetables_leaves",
-  fcs_fruit = "fs_fcs_fruit",
-  fcs_meat = "fs_fcs_meat_fish_eggs",
-  fcs_dairy = "fs_fcs_dairy",
-  fcs_sugar = "fs_fcs_sugar",
-  fcs_oil = "fs_fcs_oil_fat_butter"
+  cutoffs = "normal",
+  fsl_fcs_cereal = "fsl_fcs_cereal",
+  fsl_fcs_legumes = "fsl_fcs_legumes",
+  fsl_fcs_veg = "fsl_fcs_veg",
+  fsl_fcs_fruit = "fsl_fcs_fruit",
+  fsl_fcs_meat = "fsl_fcs_meat",
+  fsl_fcs_dairy = "fsl_fcs_dairy",
+  fsl_fcs_sugar = "fsl_fcs_sugar",
+  fsl_fcs_oil = "fsl_fcs_oil"
 )
 df_with_fcs %>%
   dplyr::select(
-    uuid, fcs_score, fcs_cat, fcs_weight_cereal1, fcs_weight_legume2,
+    uuid, fsl_fcs_score, fsl_fcs_cat, fcs_weight_cereal1, fcs_weight_legume2,
     fcs_weight_dairy3, fcs_weight_meat4, fcs_weight_veg5,
     fcs_weight_fruit6, fcs_weight_oil7, fcs_weight_sugar8
   ) %>%
@@ -60,22 +60,22 @@ df_with_fcs %>%
 ### Example:: Add Household Hunger Scale (HHS)
 ``` {r, eval=TRUE, warning=F}
 df_with_hhs <- df_with_fcs %>% add_hhs(
-  hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
-  hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
-  hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
-  hhs_sleephungry_2a = "fs_hhs_sleephungry_freq",
-  hhs_alldaynight_3 = "fs_hhs_daynoteating_yn",
-  hhs_alldaynight_3a = "fs_hhs_daynoteating_freq",
+  fsl_hhs_nofoodhh = "fsl_hhs_nofoodhh",
+  fsl_hhs_nofoodhh_freq = "fsl_hhs_nofoodhh_freq",
+  fsl_hhs_sleephungry = "fsl_hhs_sleephungry",
+  fsl_hhs_sleephungry_freq = "fsl_hhs_sleephungry_freq",
+  fsl_hhs_alldaynight = "fsl_hhs_alldaynight",
+  fsl_hhs_alldaynight_freq = "fsl_hhs_alldaynight_freq",
   yes_answer = "yes",
   no_answer = "no",
-  rarely_answer = "rarely_1_2",
-  sometimes_answer = "sometimes_3_10",
-  often_answer = "often_10_times"
+  rarely_answer = "rarely",
+  sometimes_answer = "sometimes",
+  often_answer = "often"
 )
 df_with_hhs %>%
   dplyr::select(
-    uuid, hhs_comp1, hhs_comp2, hhs_comp3,
-    hhs_score, hhs_cat_ipc, hhs_cat, hh_size
+    uuid, fsl_hhs_comp1, fsl_hhs_comp2, fsl_hhs_comp3,
+    fsl_hhs_score, fsl_hhs_cat_ipc, fsl_hhs_cat, hh_size
   ) %>%
   head(20)
 ```
@@ -83,42 +83,72 @@ df_with_hhs %>%
 ### Example:: Add Livelihood Coping Strategy score (LCSI)
 ``` {r, eval=TRUE, warning=F}
 df_with_lcsi <- df_with_hhs %>% add_lcsi(
-  lcsi_stress_vars = c("liv_stress_lcsi_1", "liv_stress_lcsi_2", "liv_stress_lcsi_3", "liv_stress_lcsi_4"),
-  lcsi_crisis_vars = c("liv_crisis_lcsi_1", "liv_crisis_lcsi_2", "liv_crisis_lcsi_3"),
-  lcsi_emergency_vars = c("liv_emerg_lcsi_1", "liv_emerg_lcsi_2", "liv_emerg_lcsi_3"),
+  fsl_lcsi_stress1 = "fsl_lcsi_stress1",
+  fsl_lcsi_stress2 = "fsl_lcsi_stress2",
+  fsl_lcsi_stress3 = "fsl_lcsi_stress3",
+  fsl_lcsi_stress4 = "fsl_lcsi_stress4",
+  fsl_lcsi_crisis1 = "fsl_lcsi_crisis1",
+  fsl_lcsi_crisis2 = "fsl_lcsi_crisis2",
+  fsl_lcsi_crisis3 = "fsl_lcsi_crisis3",
+  fsl_lcsi_emergency1 = "fsl_lcsi_emergency1",
+  fsl_lcsi_emergency2 = "fsl_lcsi_emergency2",
+  fsl_lcsi_emergency3 = "fsl_lcsi_emergency3",
   yes_val = "yes",
   no_val = "no_had_no_need",
   exhausted_val = "no_exhausted",
   not_applicable_val = "not_applicable"
 )
 df_with_lcsi %>%
-  dplyr::select(uuid, lcsi_cat, lcsi_cat_exhaust, lcsi_cat_yes) %>%
+  dplyr::select(uuid, fsl_lcsi_cat, fsl_lcsi_cat_exhaust, fsl_lcsi_cat_yes) %>%
   head(20)
 ```
 
 ### Example:: Add Reduced Household Coping Strategy score (rCSI)
 ``` {r, eval=TRUE, warning=F}
 df_with_rcsi <- df_with_lcsi %>% add_rcsi(
-  rCSILessQlty = "rCSILessQlty",
-  rCSIBorrow = "rCSIBorrow",
-  rCSIMealSize = "rCSIMealSize",
-  rCSIMealAdult = "rCSIMealAdult",
-  rCSIMealNb = "rCSIMealNb",
-  new_colname = "rcsi"
+  fsl_rcsi_lessquality = "fsl_rcsi_lessquality",
+  fsl_rcsi_borrow = "fsl_rcsi_borrow",
+  fsl_rcsi_mealsize = "fsl_rcsi_mealsize",
+  fsl_rcsi_mealadult = "fsl_rcsi_mealadult",
+  fsl_rcsi_mealnb = "fsl_rcsi_mealnb"
 )
 df_with_rcsi %>%
-  dplyr::select(uuid, rcsi_score, rcsi_cat) %>%
+  dplyr::select(uuid, fsl_rcsi_score, fsl_rcsi_cat) %>%
   head(20)
 ```
 
-### Example:: Add Food Consumption Matrix (FCM)
+### Example:: Add Household Dietery Diversity Score (HDDS)
+``` {r, eval=TRUE, warning=F}
+df_with_hdds <- df_with_rcsi %>% add_hdds(
+   fsl_hdds_cereals = "fsl_hdds_cereals",
+   fsl_hdds_tubers = "fsl_hdds_tubers",
+   fsl_hdds_veg = "fsl_hdds_veg",
+   fsl_hdds_fruit = "fsl_hdds_fruit",
+   fsl_hdds_meat = "fsl_hdds_meat",
+   fsl_hdds_eggs = "fsl_hdds_eggs",
+   fsl_hdds_fish = "fsl_hdds_fish",
+   fsl_hdds_legumes = "fsl_hdds_legumes",
+   fsl_hdds_dairy = "fsl_hdds_dairy",
+   fsl_hdds_oil = "fsl_hdds_oil",
+   fsl_hdds_sugar = "fsl_hdds_sugar",
+   fsl_hdds_condiments = "fsl_hdds_condiments"
+)
+df_with_hdds %>%
+  dplyr::select(uuid, fsl_hdds_score, fsl_hdds_cat) %>%
+  head(20)
+
+
+```
+
+
+### Example:: Add Food Consumption Matrix (FCM) using FCS, RCSI, and HHS
 **Notice that these functions are also pipable**
 ``` {r, eval=TRUE, warning=F}
-df_with_fcm <- df_with_rcsi %>%
+df_with_fcm_1 <- df_with_hdds %>%
   add_fcm_phase(
-    fcs_column_name = "fcs_cat",
-    rcsi_column_name = "rcsi_cat",
-    hhs_column_name = "hhs_cat_ipc",
+    fcs_column_name = "fsl_fcs_cat",
+    rcsi_column_name = "fsl_rcsi_cat",
+    hhs_column_name = "fsl_hhs_cat_ipc",
     fcs_categories_acceptable = "Acceptable",
     fcs_categories_poor = "Poor",
     fcs_categories_borderline = "Borderline",
@@ -126,12 +156,79 @@ df_with_fcm <- df_with_rcsi %>%
     rcsi_categories_medium = "Medium",
     rcsi_categories_high = "High",
     hhs_categories_none = "None",
-    hhs_categories_little = "Little",
+    hhs_categories_little = "No or Little",
     hhs_categories_moderate = "Moderate",
     hhs_categories_severe = "Severe",
     hhs_categories_very_severe = "Very Severe"
   )
-df_with_fcm %>%
+df_with_fcm_1 %>%
+  dplyr::select(uuid, fc_cell, fc_phase) %>%
+  head(20)
+```
+
+### Example:: Add Food Consumption Matrix (FCM) using HDDS, RCSI, and HHS
+**Notice that these functions are also pipable**
+``` {r, eval=TRUE, warning=F}
+df_with_fcm_2 <- df_with_hdds %>%
+  add_fcm_phase(
+    hdds_column_name = "fsl_hdds_cat",
+    rcsi_column_name = "fsl_rcsi_cat",
+    hhs_column_name = "fsl_hhs_cat_ipc",
+    hdds_categories_low = "Low",
+    hdds_categories_medium = "Medium",
+    hdds_categories_high = "High",
+    rcsi_categories_low = "No to Low",
+    rcsi_categories_medium = "Medium",
+    rcsi_categories_high = "High",
+    hhs_categories_none = "None",
+    hhs_categories_little = "No or Little",
+    hhs_categories_moderate = "Moderate",
+    hhs_categories_severe = "Severe",
+    hhs_categories_very_severe = "Very Severe"
+  )
+df_with_fcm_2 %>%
+  dplyr::select(uuid, fc_cell, fc_phase) %>%
+  head(20)
+```
+
+### Example:: Add Food Consumption Matrix (FCM) using FCS and HHS
+**Notice that these functions are also pipable**
+``` {r, eval=TRUE, warning=F}
+df_with_fcm_3 <- df_with_hdds %>%
+  add_fcm_phase(
+    fcs_column_name = "fsl_fcs_cat",
+    hhs_column_name = "fsl_hhs_cat_ipc",
+    fcs_categories_acceptable = "Acceptable",
+    fcs_categories_poor = "Poor",
+    fcs_categories_borderline = "Borderline",
+    hhs_categories_none = "None",
+    hhs_categories_little = "No or Little",
+    hhs_categories_moderate = "Moderate",
+    hhs_categories_severe = "Severe",
+    hhs_categories_very_severe = "Very Severe"
+  )
+df_with_fcm_3 %>%
+  dplyr::select(uuid, fc_cell, fc_phase) %>%
+  head(20)
+```
+
+### Example:: Add Food Consumption Matrix (FCM) using HDDS and HHS
+**Notice that these functions are also pipable**
+``` {r, eval=TRUE, warning=F}
+df_with_fcm_4 <- df_with_hdds %>%
+  add_fcm_phase(
+    hdds_column_name = "fsl_hdds_cat",
+    hhs_column_name = "fsl_hhs_cat_ipc",
+    hdds_categories_low = "Low",
+    hdds_categories_medium = "Medium",
+    hdds_categories_high = "High",
+    hhs_categories_none = "None",
+    hhs_categories_little = "No or Little",
+    hhs_categories_moderate = "Moderate",
+    hhs_categories_severe = "Severe",
+    hhs_categories_very_severe = "Very Severe"
+  )
+df_with_fcm_4 %>%
   dplyr::select(uuid, fc_cell, fc_phase) %>%
   head(20)
 ```
@@ -139,7 +236,7 @@ df_with_fcm %>%
 ### Example:: Add FEWSNET Food Consumption-Livelihood Matrix (FCLCM)
 **Notice that these functions are also pipable**
 ``` {r, eval=TRUE, warning=F}
-df_with_fclcm <- df_with_fcm %>% ## Taken from previous Example
+df_with_fclcm <- df_with_fcm_1 %>% ## Taken from previous Example
   add_fclcm_phase()
 df_with_fclcm %>%
   dplyr::select(uuid, fclcm_phase) %>%
@@ -155,15 +252,15 @@ In this example, the Food Consumption Score from the first example will be compa
 
 ```{r}
 review_df <- addindicators_MSNA_template_data %>% add_fcs(
-  cutoffs = "normal 21.5-35",
-  fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
-  fcs_legumes = "fs_fcs_beans_nuts",
-  fcs_veg = "fs_fcs_vegetables_leaves",
-  fcs_fruit = "fs_fcs_fruit",
-  fcs_meat = "fs_fcs_meat_fish_eggs",
-  fcs_dairy = "fs_fcs_dairy",
-  fcs_sugar = "fs_fcs_sugar",
-  fcs_oil = "fs_fcs_oil_fat_butter"
+  cutoffs = "normal",
+  fsl_fcs_cereal = "fsl_fcs_cereal",
+  fsl_fcs_legumes = "fsl_fcs_legumes",
+  fsl_fcs_veg = "fsl_fcs_veg",
+  fsl_fcs_fruit = "fsl_fcs_fruit",
+  fsl_fcs_meat = "fsl_fcs_meat",
+  fsl_fcs_dairy = "fsl_fcs_dairy",
+  fsl_fcs_sugar = "fsl_fcs_sugar",
+  fsl_fcs_oil = "fsl_fcs_oil"
 )
 ```
 
@@ -181,8 +278,8 @@ There are 2 functions to review:
 #### review_one_variable
 ```{r}
 review_one_variable <- review_one_variable(binded_df,
-  column_to_review = "fcs_cat.x",
-  column_to_compare_with = "fcs_cat.y"
+  column_to_review = "fsl_fcs_cat.x",
+  column_to_compare_with = "fsl_fcs_cat.y"
 )
 
 review_one_variable$review_check_fcs_cat.x %>% mean()
@@ -196,8 +293,8 @@ review_one_variable$review_comment_fcs_cat.x %>% table(useNA = "ifany")
 #### review_variables
 ```{r}
 review_results <- review_variables(binded_df,
-  columns_to_review = c("fcs_score.x", "fcs_cat.x"),
-  columns_to_compare_with = c("fcs_score.y", "fcs_cat.y")
+  columns_to_review = c("fsl_fcs_score.x", "fsl_fcs_cat.x"),
+  columns_to_compare_with = c("fsl_fcs_score.y", "fsl_fcs_cat.y")
 )
 
 review_results$review_table %>%

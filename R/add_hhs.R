@@ -133,7 +133,7 @@ add_hhs <- function(.dataset,
     dplyr::ungroup() %>%
     dplyr::mutate(fsl_hhs_score = rowSums(.[grep("^fsl_hhs_comp\\d$", names(.))])) %>%
     dplyr::mutate(fsl_hhs_cat_ipc = dplyr::case_when(fsl_hhs_score == 0 ~ "None",
-                                                 fsl_hhs_score == 1 ~ "Little",
+                                                 fsl_hhs_score == 1 ~ "No or Little",
                                                  fsl_hhs_score <= 3 ~ "Moderate",
                                                  fsl_hhs_score == 4 ~ "Severe",
                                                  fsl_hhs_score <= 6 ~ "Very Severe"),

@@ -8,7 +8,7 @@ add_fcm_phase(
   .dataset,
   fcs_column_name = "fsl_fcs_cat",
   rcsi_column_name = "fsl_rcsi_cat",
-  hhs_column_name = "fsl_hhs_cat",
+  hhs_column_name = "fsl_hhs_cat_ipc",
   hdds_column_name = "fsl_hdds_cat",
   fcs_categories_acceptable = "Acceptable",
   fcs_categories_poor = "Poor",
