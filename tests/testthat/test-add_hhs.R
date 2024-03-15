@@ -57,31 +57,37 @@ testthat::test_that("Check columns values - Yes/No", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   set.seed(30)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh", "fsl_hhs_sleephungry", "fsl_hhs_alldaynight")] <- "YES"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh")] <- "YES"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh")] <- "NO"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh")] <- "random_value"
+
+  testthat::expect_error(add_hhs(
+    .dataset = test_df,
+  ))
+})
+testthat::test_that("Check columns values - Yes/No", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
   set.seed(29)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh", "fsl_hhs_sleephungry", "fsl_hhs_alldaynight")] <- "NO"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_alldaynight")] <- "YES"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_alldaynight")] <- "NO"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_alldaynight")] <- "random_value"
+
+  testthat::expect_error(add_hhs(
+    .dataset = test_df,
+
+  ))
+})
+testthat::test_that("Check columns values - Yes/No", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
   set.seed(12)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh", "fsl_hhs_sleephungry", "fsl_hhs_alldaynight")] <- "random_value"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_sleephungry")] <- "YES"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_sleephungry")] <- "NO"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_sleephungry")] <- "random_value"
 
   testthat::expect_error(add_hhs(
     .dataset = test_df,
-    fsl_hhs_nofoodhh = "fsl_hhs_nofoodhh",
-    yes_answer = "yes",
-    no_answer = "no"
-  ))
-
-  testthat::expect_error(add_hhs(
-    .dataset = test_df,
-    fsl_hhs_sleephungry = "fsl_hhs_sleephungry",
-    yes_answer = "yes",
-    no_answer = "no"
-  ))
-
-  testthat::expect_error(add_hhs(
-    .dataset = test_df,
-    fsl_hhs_alldaynight = "fsl_hhs_alldaynight",
-    yes_answer = "yes",
-    no_answer = "no"
   ))
 })
 
@@ -89,34 +95,40 @@ testthat::test_that("Check columns values - Frequencies", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   set.seed(30)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq", "fsl_hhs_sleephungry_freq", "fsl_hhs_alldaynight_freq")] <- "rarely_1_2"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq")] <- "rarely_1_2"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq")] <- "sometimes_3_10"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq")] <- "often_10_times"
+
+
+  testthat::expect_error(add_hhs(
+    .dataset = test_df
+  ))
+})
+
+testthat::test_that("Check columns values - Frequencies", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
   set.seed(29)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq", "fsl_hhs_sleephungry_freq", "fsl_hhs_alldaynight_freq")] <- "sometimes_3_10"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_sleephungry_freq")] <- "rarely_1_2"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_sleephungry_freq")] <- "sometimes_3_10"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_sleephungry_freq")] <- "often_10_times"
+
+
+  testthat::expect_error(add_hhs(
+    .dataset = test_df
+  ))
+})
+
+testthat::test_that("Check columns values - Frequencies", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
   set.seed(16)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_nofoodhh_freq", "fsl_hhs_sleephungry_freq", "fsl_hhs_alldaynight_freq")] <- "often_10_times"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_alldaynight_freq")] <- "rarely_1_2"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_alldaynight_freq")] <- "sometimes_3_10"
+  test_df[sample.int(nrow(test_df), 3), c("fsl_hhs_alldaynight_freq")] <- "often_10_times"
 
   testthat::expect_error(add_hhs(
-    .dataset = test_df,
-    fsl_hhs_nofoodhh_freq = "fsl_hhs_nofoodhh_freq",
-    rarely_answer = "rarely",
-    sometimes_answer = "sometimes",
-    often_answer = "often"
-  ))
-
-  testthat::expect_error(add_hhs(
-    .dataset = test_df,
-    fsl_hhs_sleephungry_freq = "fsl_hhs_sleephungry_freq",
-    rarely_answer = "rarely",
-    sometimes_answer = "sometimes",
-    often_answer = "often"
-  ))
-
-  testthat::expect_error(add_hhs(
-    .dataset = test_df,
-    fsl_hhs_alldaynight_freq = "fsl_hhs_alldaynight_freq",
-    rarely_answer = "rarely",
-    sometimes_answer = "sometimes",
-    often_answer = "often"
+    .dataset = test_df
   ))
 })
 

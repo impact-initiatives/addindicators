@@ -50,30 +50,31 @@ add_rcsi <- function(.dataset,
   if ("fsl_rcsi_cat" %in% names(.dataset)) {
     warning("There is already a variable called rcsi_cat in your dataset, it will be overwritten")
   }
+  rcsi_values <- c(0,1,2,3,4,5,6,7)
 
-  if (!all(.dataset[[fsl_rcsi_lessquality]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_rcsi_lessquality]] %in% c(rcsi_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_lessquality,
-                 paste0(unique(.dataset[[fsl_rcsi_lessquality]][!.dataset[[fsl_rcsi_lessquality]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_rcsi_lessquality]][!.dataset[[fsl_rcsi_lessquality]] %in% c(rcsi_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_rcsi_borrow]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_rcsi_borrow]] %in% c(rcsi_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_borrow,
-                 paste0(unique(.dataset[[fsl_rcsi_borrow]][!.dataset[[fsl_rcsi_borrow]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_rcsi_borrow]][!.dataset[[fsl_rcsi_borrow]] %in% c(rcsi_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_rcsi_mealsize]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_rcsi_mealsize]] %in% c(rcsi_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_mealsize,
-                 paste0(unique(.dataset[[fsl_rcsi_mealsize]][!.dataset[[fsl_rcsi_mealsize]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_rcsi_mealsize]][!.dataset[[fsl_rcsi_mealsize]] %in% c(rcsi_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_rcsi_mealadult]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_rcsi_mealadult]] %in% c(rcsi_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_mealadult,
-                 paste0(unique(.dataset[[fsl_rcsi_mealadult]][!.dataset[[fsl_rcsi_mealadult]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_rcsi_mealadult]][!.dataset[[fsl_rcsi_mealadult]] %in% c(rcsi_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_rcsi_mealnb]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_rcsi_mealnb]] %in% c(rcsi_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_rcsi_mealnb,
-                 paste0(unique(.dataset[[fsl_rcsi_mealnb]][!.dataset[[fsl_rcsi_mealnb]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_rcsi_mealnb]][!.dataset[[fsl_rcsi_mealnb]] %in% c(rcsi_values,NA)]), collapse = "/")))
   }
 
   rcs_columns <- c(fsl_rcsi_lessquality,fsl_rcsi_borrow,fsl_rcsi_mealsize,fsl_rcsi_mealadult,fsl_rcsi_mealnb)

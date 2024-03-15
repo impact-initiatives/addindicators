@@ -64,44 +64,45 @@ add_fcs <- function(.dataset,
   ## Test if all columns are in the dataset
   if(!all(fcs_vars %in% names(.dataset))) stop("Missing fcs columns")
 
-  if (!all(.dataset[[fsl_fcs_cereal]] %in% c(0:7,NA))) {
+  fcs_values <- c(0,1,2,3,4,5,6,7)
+  if (!all(.dataset[[fsl_fcs_cereal]] %in% c(fcs_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_fcs_cereal,
-                 paste0(unique(.dataset[[fsl_fcs_cereal]][!.dataset[[fsl_fcs_cereal]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_fcs_cereal]][!.dataset[[fsl_fcs_cereal]] %in% c(fcs_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_fcs_legumes]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_fcs_legumes]] %in% c(fcs_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_fcs_legumes,
-                 paste0(unique(.dataset[[fsl_fcs_legumes]][!.dataset[[fsl_fcs_legumes]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_fcs_legumes]][!.dataset[[fsl_fcs_legumes]] %in% c(fcs_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_fcs_dairy]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_fcs_dairy]] %in% c(fcs_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_fcs_dairy,
-                 paste0(unique(.dataset[[fsl_fcs_dairy]][!.dataset[[fsl_fcs_dairy]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_fcs_dairy]][!.dataset[[fsl_fcs_dairy]] %in% c(fcs_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_fcs_meat]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_fcs_meat]] %in% c(fcs_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_fcs_meat,
-                 paste0(unique(.dataset[[fsl_fcs_meat]][!.dataset[[fsl_fcs_meat]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_fcs_meat]][!.dataset[[fsl_fcs_meat]] %in% c(fcs_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_fcs_veg]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_fcs_veg]] %in% c(fcs_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_fcs_veg,
-                 paste0(unique(.dataset[[fsl_fcs_veg]][!.dataset[[fsl_fcs_veg]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_fcs_veg]][!.dataset[[fsl_fcs_veg]] %in% c(fcs_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_fcs_fruit]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_fcs_fruit]] %in% c(fcs_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_fcs_fruit,
-                 paste0(unique(.dataset[[fsl_fcs_fruit]][!.dataset[[fsl_fcs_fruit]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_fcs_fruit]][!.dataset[[fsl_fcs_fruit]] %in% c(fcs_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_fcs_oil]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_fcs_oil]] %in% c(fcs_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_fcs_oil,
-                 paste0(unique(.dataset[[fsl_fcs_oil]][!.dataset[[fsl_fcs_oil]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_fcs_oil]][!.dataset[[fsl_fcs_oil]] %in% c(fcs_values,NA)]), collapse = "/")))
   }
 
-  if (!all(.dataset[[fsl_fcs_sugar]] %in% c(0:7,NA))) {
+  if (!all(.dataset[[fsl_fcs_sugar]] %in% c(fcs_values,NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_fcs_sugar,
-                 paste0(unique(.dataset[[fsl_fcs_sugar]][!.dataset[[fsl_fcs_sugar]] %in% c(0:7,NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_fcs_sugar]][!.dataset[[fsl_fcs_sugar]] %in% c(fcs_values,NA)]), collapse = "/")))
   }
 
   .dataset <- .dataset %>%

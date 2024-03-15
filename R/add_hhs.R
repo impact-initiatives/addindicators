@@ -88,34 +88,37 @@ add_hhs <- function(.dataset,
   ## Test if all columns are in the dataset
   if(!all(hhs_vars %in% names(.dataset))) stop("Missing hhs columns")
 
+  cat_yn_values <- c(yes_answer, no_answer)
   ## Throw an error in case wrong/unexpected values are found in hhs_nofoodhh
-  if (!all(.dataset[[fsl_hhs_nofoodhh]] %in% c(yes_answer, no_answer, NA))) {
-    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_nofoodhh, paste0(unique(.dataset[[fsl_hhs_nofoodhh]][!.dataset[[fsl_hhs_nofoodhh]] %in% c(yes_answer, no_answer, NA)]), collapse = "/")))
+  if (!all(.dataset[[fsl_hhs_nofoodhh]] %in% c(cat_yn_values, NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_nofoodhh, paste0(unique(.dataset[[fsl_hhs_nofoodhh]][!.dataset[[fsl_hhs_nofoodhh]] %in% c(cat_yn_values, NA)]), collapse = "/")))
   }
 
   ## Throw an error in case wrong/unexpected values are found in hhs_sleephungry
-  if (!all(.dataset[[fsl_hhs_sleephungry]] %in% c(yes_answer, no_answer, NA))) {
-    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_sleephungry, paste0(unique(.dataset[[fsl_hhs_sleephungry]][!.dataset[[fsl_hhs_sleephungry]] %in% c(yes_answer, no_answer, NA)]), collapse = "/")))
+  if (!all(.dataset[[fsl_hhs_sleephungry]] %in% c(cat_yn_values, NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_sleephungry, paste0(unique(.dataset[[fsl_hhs_sleephungry]][!.dataset[[fsl_hhs_sleephungry]] %in% c(cat_yn_values, NA)]), collapse = "/")))
   }
 
   ## Throw an error in case wrong/unexpected values are found in hhs_alldaynight
-  if (!all(.dataset[[fsl_hhs_alldaynight]] %in% c(yes_answer, no_answer, NA))) {
-    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_alldaynight, paste0(unique(.dataset[[fsl_hhs_alldaynight]][!.dataset[[fsl_hhs_alldaynight]] %in% c(yes_answer, no_answer, NA)]), collapse = "/")))
+  if (!all(.dataset[[fsl_hhs_alldaynight]] %in% c(cat_yn_values, NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_alldaynight, paste0(unique(.dataset[[fsl_hhs_alldaynight]][!.dataset[[fsl_hhs_alldaynight]] %in% c(cat_yn_values, NA)]), collapse = "/")))
   }
 
+  cat_values <- c(rarely_answer, sometimes_answer, often_answer)
+
   ## Throw an error in case wrong/unexpected values are found in hhs_nofoodhh_freq
-  if (!all(.dataset[[fsl_hhs_nofoodhh_freq]] %in% c(rarely_answer, sometimes_answer, often_answer, NA))) {
-    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_nofoodhh_freq, paste0(unique(.dataset[[fsl_hhs_nofoodhh_freq]][!.dataset[[fsl_hhs_nofoodhh_freq]] %in% c(rarely_answer, sometimes_answer, often_answer, NA)]), collapse = "/")))
+  if (!all(.dataset[[fsl_hhs_nofoodhh_freq]] %in% c(cat_values, NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_nofoodhh_freq, paste0(unique(.dataset[[fsl_hhs_nofoodhh_freq]][!.dataset[[fsl_hhs_nofoodhh_freq]] %in% c(cat_values, NA)]), collapse = "/")))
   }
 
   ## Throw an error in case wrong/unexpected values are found in hhs_sleephungry_freq
-  if (!all(.dataset[[fsl_hhs_sleephungry_freq]] %in% c(rarely_answer, sometimes_answer, often_answer, NA))) {
-    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_sleephungry_freq, paste0(unique(.dataset[[fsl_hhs_sleephungry_freq]][!.dataset[[fsl_hhs_sleephungry_freq]] %in% c(rarely_answer, sometimes_answer, often_answer, NA)]), collapse = "/")))
+  if (!all(.dataset[[fsl_hhs_sleephungry_freq]] %in% c(cat_values, NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_sleephungry_freq, paste0(unique(.dataset[[fsl_hhs_sleephungry_freq]][!.dataset[[fsl_hhs_sleephungry_freq]] %in% c(cat_values, NA)]), collapse = "/")))
   }
 
   ## Throw an error in case wrong/unexpected values are found in hhs_alldaynight_freq
-  if (!all(.dataset[[fsl_hhs_alldaynight_freq]] %in% c(rarely_answer, sometimes_answer, often_answer, NA))) {
-    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_alldaynight_freq, paste0(unique(.dataset[[fsl_hhs_alldaynight_freq]][!.dataset[[fsl_hhs_alldaynight_freq]] %in% c(rarely_answer, sometimes_answer, often_answer, NA)]), collapse = "/")))
+  if (!all(.dataset[[fsl_hhs_alldaynight_freq]] %in% c(cat_values, NA))) {
+    stop(sprintf("Wrong values in %s: %s ", fsl_hhs_alldaynight_freq, paste0(unique(.dataset[[fsl_hhs_alldaynight_freq]][!.dataset[[fsl_hhs_alldaynight_freq]] %in% c(cat_values, NA)]), collapse = "/")))
   }
 
 

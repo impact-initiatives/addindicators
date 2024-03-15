@@ -76,45 +76,46 @@ add_lcsi <- function(.dataset,
   ## Test if all columns are in the dataset
   if(!all(lcsi_vars %in% names(.dataset))) stop("Missing lcsi columns")
 
-  if (!all(.dataset[[fsl_lcsi_stress1]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  lcsi_cat_values <- c(yes_val,no_val,exhausted_val,not_applicable_val)
+  if (!all(.dataset[[fsl_lcsi_stress1]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_stress1,
-                 paste0(unique(.dataset[[fsl_lcsi_stress1]][!.dataset[[fsl_lcsi_stress1]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_stress1]][!.dataset[[fsl_lcsi_stress1]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_stress2]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_stress2]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", lcsi_stress2,
-                 paste0(unique(.dataset[[fsl_lcsi_stress2]][!.dataset[[fsl_lcsi_stress2]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_stress2]][!.dataset[[fsl_lcsi_stress2]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_stress3]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_stress3]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_stress3,
-                 paste0(unique(.dataset[[fsl_lcsi_stress3]][!.dataset[[fsl_lcsi_stress3]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_stress3]][!.dataset[[fsl_lcsi_stress3]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_stress4]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_stress4]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_stress4,
-                 paste0(unique(.dataset[[fsl_lcsi_stress4]][!.dataset[[fsl_lcsi_stress4]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_stress4]][!.dataset[[fsl_lcsi_stress4]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_crisis1]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_crisis1]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_crisis1,
-                 paste0(unique(.dataset[[fsl_lcsi_crisis1]][!.dataset[[fsl_lcsi_crisis1]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_crisis1]][!.dataset[[fsl_lcsi_crisis1]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_crisis2]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_crisis2]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_crisis2,
-                 paste0(unique(.dataset[[fsl_lcsi_crisis2]][!.dataset[[fsl_lcsi_crisis2]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_crisis2]][!.dataset[[fsl_lcsi_crisis2]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_crisis3]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_crisis3]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_crisis3,
-                 paste0(unique(.dataset[[fsl_lcsi_crisis3]][!.dataset[[fsl_lcsi_crisis3]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_crisis3]][!.dataset[[fsl_lcsi_crisis3]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_emergency1]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_emergency1]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_emergency1,
-                 paste0(unique(.dataset[[fsl_lcsi_emergency1]][!.dataset[[fsl_lcsi_emergency1]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_emergency1]][!.dataset[[fsl_lcsi_emergency1]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_emergency2]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_emergency2]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_emergency2,
-                 paste0(unique(.dataset[[fsl_lcsi_emergency2]][!.dataset[[fsl_lcsi_emergency2]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_emergency2]][!.dataset[[fsl_lcsi_emergency2]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_lcsi_emergency3]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA))) {
+  if (!all(.dataset[[fsl_lcsi_emergency3]] %in% c(lcsi_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_lcsi_emergency3,
-                 paste0(unique(.dataset[[fsl_lcsi_emergency3]][!.dataset[[fsl_lcsi_emergency3]] %in% c(yes_val,no_val,exhausted_val,not_applicable_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_lcsi_emergency3]][!.dataset[[fsl_lcsi_emergency3]] %in% c(lcsi_cat_values, NA)]), collapse = "/")))
   }
 
   .dataset <- .dataset %>%

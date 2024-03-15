@@ -47,30 +47,57 @@ testthat::test_that("Check missing columns", {
 
 })
 
-
-
 testthat::test_that("Checking column values - [1:7]", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   set.seed(30)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality",
-                                          "fsl_rcsi_borrow",
-                                          "fsl_rcsi_mealsize",
-                                          "fsl_rcsi_mealadult",
-                                          "fsl_rcsi_mealnb")] <- 8
-  set.seed(29)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality",
-                                          "fsl_rcsi_borrow",
-                                          "fsl_rcsi_mealsize",
-                                          "fsl_rcsi_mealadult",
-                                          "fsl_rcsi_mealnb")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality")] <- 0
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df,
+  ))
+})
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
-  set.seed(12)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_lessquality",
-                                          "fsl_rcsi_borrow",
-                                          "fsl_rcsi_mealsize",
-                                          "fsl_rcsi_mealadult",
-                                          "fsl_rcsi_mealnb")] <- 0
+  set.seed(26)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_borrow")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_borrow")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_borrow")] <- 0
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df,
+  ))
+})
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(25)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealsize")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealsize")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealsize")] <- 0
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df,
+  ))
+})
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(23)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealadult")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealadult")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealadult")] <- 0
+  testthat::expect_error(add_rcsi(
+    .dataset = test_df,
+  ))
+})
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(22)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealnb")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealnb")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_rcsi_mealnb")] <- 0
   testthat::expect_error(add_rcsi(
     .dataset = test_df,
   ))

@@ -81,34 +81,125 @@ testthat::test_that("Check for missing columns", {
   ))
 })
 
-
-
-testthat::test_that("Checking column values - [1:7]", {
+testthat::test_that("Checking column values - [yes/no]", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
-  hdds_vars <- c("fsl_hdds_cereals",
-                 "fsl_hdds_tubers",
-                 "fsl_hdds_veg",
-                 "fsl_hdds_fruit",
-                 "fsl_hdds_meat",
-                 "fsl_hdds_eggs",
-                 "fsl_hdds_fish",
-                 "fsl_hdds_legumes",
-                 "fsl_hdds_dairy",
-                 "fsl_hdds_oil",
-                 "fsl_hdds_sugar",
-                 "fsl_hdds_condiments")
-  for (i in hdds_vars){
-    set.seed(30)
-    test_df[sample.int(nrow(test_df), 3),i] <- "YES"
-    set.seed(29)
-    test_df[sample.int(nrow(test_df), 3),i] <- "NO"
-
-    set.seed(12)
-    test_df[sample.int(nrow(test_df), 3),i] <- "random_value"
-    testthat::expect_error(add_hdds(
-      .dataset = test_df
-    ))
-  }
+  set.seed(30)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_cereals"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_cereals"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_cereals"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(29)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_tubers"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_tubers"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_tubers"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(28)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_veg"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_veg"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_veg"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(27)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_fruit"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_fruit"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_fruit"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(26)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_meat"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_meat"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_meat"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(25)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_eggs"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_eggs"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_eggs"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(24)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_fish"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_fish"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_fish"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(23)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_legumes"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_legumes"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_legumes"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(22)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_dairy"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_dairy"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_dairy"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(21)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_oil"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_oil"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_oil"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(20)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_sugar"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_sugar"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_sugar"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
+})
+testthat::test_that("Checking column values - [yes/no]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  set.seed(19)
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_condiments"] <- "YES"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_condiments"] <- "NO"
+  test_df[sample.int(nrow(test_df), 3),"fsl_hdds_condiments"] <- "random_value"
+  testthat::expect_error(add_hdds(
+    .dataset = test_df
+  ))
 })
 
 
@@ -116,7 +207,7 @@ testthat::test_that("Checking column values - [1:7]", {
 
 #### Happy Path ####
 
-testthat::test_that("Check calculations of fcs are correct", {
+testthat::test_that("Check calculations of hdds are correct", {
   df1 <- data.frame(
     fsl_hdds_cereals = c("no", "yes", "yes", "no", "yes", "no"),
     fsl_hdds_tubers = c("no", "yes", "yes", "no", "yes", "no"),

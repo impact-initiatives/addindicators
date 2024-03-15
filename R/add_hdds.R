@@ -77,53 +77,55 @@ add_hdds <- function(.dataset,
 
   if(!all(hdds_vars %in% names(.dataset))) stop("Missing hdds columns")
 
-  if (!all(.dataset[[fsl_hdds_cereals]] %in% c(yes_val, no_val, NA))) {
+  hdds_cat_values <- c(yes_val, no_val)
+
+  if (!all(.dataset[[fsl_hdds_cereals]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_cereals,
-                 paste0(unique(.dataset[[fsl_hdds_cereals]][!.dataset[[fsl_hdds_cereals]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_cereals]][!.dataset[[fsl_hdds_cereals]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_tubers]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_tubers]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_tubers,
-                 paste0(unique(.dataset[[fsl_hdds_tubers]][!.dataset[[fsl_hdds_tubers]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_tubers]][!.dataset[[fsl_hdds_tubers]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_veg]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_veg]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_veg,
-                 paste0(unique(.dataset[[fsl_hdds_veg]][!.dataset[[fsl_hdds_veg]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_veg]][!.dataset[[fsl_hdds_veg]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_fruit]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_fruit]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_fruit,
-                 paste0(unique(.dataset[[fsl_hdds_fruit]][!.dataset[[fsl_hdds_fruit]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_fruit]][!.dataset[[fsl_hdds_fruit]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_meat]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_meat]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_meat,
-                 paste0(unique(.dataset[[fsl_hdds_meat]][!.dataset[[fsl_hdds_meat]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_meat]][!.dataset[[fsl_hdds_meat]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_eggs]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_eggs]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_eggs,
-                 paste0(unique(.dataset[[fsl_hdds_eggs]][!.dataset[[fsl_hdds_eggs]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_eggs]][!.dataset[[fsl_hdds_eggs]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_fish]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_fish]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_fish,
-                 paste0(unique(.dataset[[fsl_hdds_fish]][!.dataset[[fsl_hdds_fish]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_fish]][!.dataset[[fsl_hdds_fish]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_legumes]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_legumes]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_legumes,
-                 paste0(unique(.dataset[[fsl_hdds_legumes]][!.dataset[[fsl_hdds_legumes]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_legumes]][!.dataset[[fsl_hdds_legumes]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_dairy]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_dairy]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_dairy,
-                 paste0(unique(.dataset[[fsl_hdds_dairy]][!.dataset[[fsl_hdds_dairy]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_dairy]][!.dataset[[fsl_hdds_dairy]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_oil]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_oil]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_oil,
-                 paste0(unique(.dataset[[fsl_hdds_oil]][!.dataset[[fsl_hdds_oil]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_oil]][!.dataset[[fsl_hdds_oil]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_sugar]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_sugar]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_sugar,
-                 paste0(unique(.dataset[[fsl_hdds_sugar]][!.dataset[[fsl_hdds_sugar]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_sugar]][!.dataset[[fsl_hdds_sugar]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
-  if (!all(.dataset[[fsl_hdds_condiments]] %in% c(yes_val,no_val, NA))) {
+  if (!all(.dataset[[fsl_hdds_condiments]] %in% c(hdds_cat_values, NA))) {
     stop(sprintf("Wrong values in %s: %s ", fsl_hdds_condiments,
-                 paste0(unique(.dataset[[fsl_hdds_condiments]][!.dataset[[fsl_hdds_condiments]] %in% c(yes_val, no_val, NA)]), collapse = "/")))
+                 paste0(unique(.dataset[[fsl_hdds_condiments]][!.dataset[[fsl_hdds_condiments]] %in% c(hdds_cat_values, NA)]), collapse = "/")))
   }
 
   .dataset_with_calculation <- .dataset %>%

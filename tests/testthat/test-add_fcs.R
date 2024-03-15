@@ -60,45 +60,117 @@ testthat::test_that("Check for missing columns", {
   ))
 })
 
-
 testthat::test_that("Checking column values - [1:7]", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
   set.seed(30)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_cereal",
-                                          "fsl_fcs_legumes",
-                                          "fsl_fcs_veg",
-                                          "fsl_fcs_fruit",
-                                          "fsl_fcs_meat",
-                                          "fsl_fcs_dairy",
-                                          "fsl_fcs_sugar",
-                                          "fsl_fcs_oil")] <- 8
-  set.seed(29)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_cereal",
-                                          "fsl_fcs_legumes",
-                                          "fsl_fcs_veg",
-                                          "fsl_fcs_fruit",
-                                          "fsl_fcs_meat",
-                                          "fsl_fcs_dairy",
-                                          "fsl_fcs_sugar",
-                                          "fsl_fcs_oil")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_cereal")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_cereal")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_cereal")] <- 10
 
-  set.seed(12)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_cereal",
-                                          "fsl_fcs_legumes",
-                                          "fsl_fcs_veg",
-                                          "fsl_fcs_fruit",
-                                          "fsl_fcs_meat",
-                                          "fsl_fcs_dairy",
-                                          "fsl_fcs_sugar",
-                                          "fsl_fcs_oil")] <- 10
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
   ))
 })
 
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
+  set.seed(29)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_legumes")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_legumes")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_legumes")] <- 10
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df,
+    cutoffs = "normal"
+  ))
+})
+
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(28)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_veg")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_veg")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_veg")] <- 10
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df,
+    cutoffs = "normal"
+  ))
+})
+
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(27)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_fruit")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_fruit")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_fruit")] <- 10
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df,
+    cutoffs = "normal"
+  ))
+})
+
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(26)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_meat")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_meat")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_meat")] <- 10
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df,
+    cutoffs = "normal"
+  ))
+})
+
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(25)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_dairy")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_dairy")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_dairy")] <- 10
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df,
+    cutoffs = "normal"
+  ))
+})
+
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(24)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_sugar")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_sugar")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_sugar")] <- 10
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df,
+    cutoffs = "normal"
+  ))
+})
+
+testthat::test_that("Checking column values - [1:7]", {
+  load(testthat::test_path("testdata", "test_df_hhs.rda"))
+
+  set.seed(23)
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_oil")] <- 8
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_oil")] <- 9
+  test_df[sample.int(nrow(test_df), 3), c("fsl_fcs_oil")] <- 10
+
+  testthat::expect_error(add_fcs(
+    .dataset = test_df,
+    cutoffs = "normal"
+  ))
+})
 #### Happy Path ####
 
 testthat::test_that("Check calculations of fcs are correct", {
