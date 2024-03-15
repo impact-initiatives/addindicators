@@ -12,6 +12,11 @@ testthat::test_that("Check input type -- dataset", {
 })
 
 
+testthat::test_that("Check dataframe empty", {
+  df1 <- data.frame()
+  testthat::expect_error(add_lcsi(.dataset = df1))
+})
+
 testthat::test_that("Check for missing columns", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 

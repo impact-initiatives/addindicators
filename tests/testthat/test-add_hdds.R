@@ -11,6 +11,12 @@ testthat::test_that("Check input type -- dataset", {
   testthat::expect_error(add_hdds(.dataset = list()))
 })
 
+
+testthat::test_that("Check dataframe empty", {
+  df1 <- data.frame()
+  testthat::expect_error(add_hdds(.dataset = df1))
+})
+
 testthat::test_that("Check for missing columns", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
 
@@ -76,53 +82,36 @@ testthat::test_that("Check for missing columns", {
 })
 
 
+
 testthat::test_that("Checking column values - [1:7]", {
   load(testthat::test_path("testdata", "test_df_hhs.rda"))
+  hdds_vars <- c("fsl_hdds_cereals",
+                 "fsl_hdds_tubers",
+                 "fsl_hdds_veg",
+                 "fsl_hdds_fruit",
+                 "fsl_hdds_meat",
+                 "fsl_hdds_eggs",
+                 "fsl_hdds_fish",
+                 "fsl_hdds_legumes",
+                 "fsl_hdds_dairy",
+                 "fsl_hdds_oil",
+                 "fsl_hdds_sugar",
+                 "fsl_hdds_condiments")
+  for (i in hdds_vars){
+    set.seed(30)
+    test_df[sample.int(nrow(test_df), 3),i] <- "YES"
+    set.seed(29)
+    test_df[sample.int(nrow(test_df), 3),i] <- "NO"
 
-  set.seed(30)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hdds_cereals",
-                                          "fsl_hdds_tubers",
-                                          "fsl_hdds_veg",
-                                          "fsl_hdds_fruit",
-                                          "fsl_hdds_meat",
-                                          "fsl_hdds_eggs",
-                                          "fsl_hdds_fish",
-                                          "fsl_hdds_legumes",
-                                          "fsl_hdds_dairy",
-                                          "fsl_hdds_oil",
-                                          "fsl_hdds_sugar",
-                                          "fsl_hdds_condiments")] <- "YES"
-  set.seed(29)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hdds_cereals",
-                                          "fsl_hdds_tubers",
-                                          "fsl_hdds_veg",
-                                          "fsl_hdds_fruit",
-                                          "fsl_hdds_meat",
-                                          "fsl_hdds_eggs",
-                                          "fsl_hdds_fish",
-                                          "fsl_hdds_legumes",
-                                          "fsl_hdds_dairy",
-                                          "fsl_hdds_oil",
-                                          "fsl_hdds_sugar",
-                                          "fsl_hdds_condiments")] <- "NO"
-
-  set.seed(12)
-  test_df[sample.int(nrow(test_df), 3), c("fsl_hdds_cereals",
-                                          "fsl_hdds_tubers",
-                                          "fsl_hdds_veg",
-                                          "fsl_hdds_fruit",
-                                          "fsl_hdds_meat",
-                                          "fsl_hdds_eggs",
-                                          "fsl_hdds_fish",
-                                          "fsl_hdds_legumes",
-                                          "fsl_hdds_dairy",
-                                          "fsl_hdds_oil",
-                                          "fsl_hdds_sugar",
-                                          "fsl_hdds_condiments")] <- "random_value"
-  testthat::expect_error(add_hdds(
-    .dataset = test_df
-  ))
+    set.seed(12)
+    test_df[sample.int(nrow(test_df), 3),i] <- "random_value"
+    testthat::expect_error(add_hdds(
+      .dataset = test_df
+    ))
+  }
 })
+
+
 
 
 #### Happy Path ####
