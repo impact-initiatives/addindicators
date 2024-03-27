@@ -38,19 +38,19 @@ df <- addindicators_MSNA_template_data
 ### Example:: Add Food Consumption Score (FCS)
 ``` {r eval=T,warning=F}
 df_with_fcs <- df %>% add_fcs(
-  cutoffs = "normal 21.5-35",
-  fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
-  fcs_legumes = "fs_fcs_beans_nuts",
-  fcs_veg = "fs_fcs_vegetables_leaves",
-  fcs_fruit = "fs_fcs_fruit",
-  fcs_meat = "fs_fcs_meat_fish_eggs",
-  fcs_dairy = "fs_fcs_dairy",
-  fcs_sugar = "fs_fcs_sugar",
-  fcs_oil = "fs_fcs_oil_fat_butter"
+  cutoffs = "normal",
+  fsl_fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
+  fsl_fcs_legumes = "fs_fcs_beans_nuts",
+  fsl_fcs_veg = "fs_fcs_vegetables_leaves",
+  fsl_fcs_fruit = "fs_fcs_fruit",
+  fsl_fcs_meat = "fs_fcs_meat_fish_eggs",
+  fsl_fcs_dairy = "fs_fcs_dairy",
+  fsl_fcs_sugar = "fs_fcs_sugar",
+  fsl_fcs_oil = "fs_fcs_oil_fat_butter"
 )
 df_with_fcs %>%
   dplyr::select(
-    uuid, fcs_score, fcs_cat, fcs_weight_cereal1, fcs_weight_legume2,
+    uuid,  fsl_fcs_score, fsl_fcs_cat, fcs_weight_cereal1, fcs_weight_legume2,
     fcs_weight_dairy3, fcs_weight_meat4, fcs_weight_veg5,
     fcs_weight_fruit6, fcs_weight_oil7, fcs_weight_sugar8
   ) %>%
@@ -116,7 +116,7 @@ df_with_rcsi %>%
 ``` {r, eval=TRUE, warning=F}
 df_with_fcm <- df_with_rcsi %>%
   add_fcm_phase(
-    fcs_column_name = "fcs_cat",
+    fcs_column_name = "fsl_fcs_cat",
     rcsi_column_name = "rcsi_cat",
     hhs_column_name = "hhs_cat_ipc",
     fcs_categories_acceptable = "Acceptable",
@@ -155,15 +155,15 @@ In this example, the Food Consumption Score from the first example will be compa
 
 ```{r}
 review_df <- addindicators_MSNA_template_data %>% add_fcs(
-  cutoffs = "normal 21.5-35",
-  fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
-  fcs_legumes = "fs_fcs_beans_nuts",
-  fcs_veg = "fs_fcs_vegetables_leaves",
-  fcs_fruit = "fs_fcs_fruit",
-  fcs_meat = "fs_fcs_meat_fish_eggs",
-  fcs_dairy = "fs_fcs_dairy",
-  fcs_sugar = "fs_fcs_sugar",
-  fcs_oil = "fs_fcs_oil_fat_butter"
+  cutoffs = "normal",
+  fsl_fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
+  fsl_fcs_legumes = "fs_fcs_beans_nuts",
+  fsl_fcs_veg = "fs_fcs_vegetables_leaves",
+  fsl_fcs_fruit = "fs_fcs_fruit",
+  fsl_fcs_meat = "fs_fcs_meat_fish_eggs",
+  fsl_fcs_dairy = "fs_fcs_dairy",
+  fsl_fcs_sugar = "fs_fcs_sugar",
+  fsl_fcs_oil = "fs_fcs_oil_fat_butter"
 )
 ```
 
@@ -181,8 +181,8 @@ There are 2 functions to review:
 #### review_one_variable
 ```{r}
 review_one_variable <- review_one_variable(binded_df,
-  column_to_review = "fcs_cat.x",
-  column_to_compare_with = "fcs_cat.y"
+  column_to_review = "fsl_fcs_cat.x",
+  column_to_compare_with = "fsl_fcs_cat.y"
 )
 
 review_one_variable$review_check_fcs_cat.x %>% mean()
@@ -196,8 +196,8 @@ review_one_variable$review_comment_fcs_cat.x %>% table(useNA = "ifany")
 #### review_variables
 ```{r}
 review_results <- review_variables(binded_df,
-  columns_to_review = c("fcs_score.x", "fcs_cat.x"),
-  columns_to_compare_with = c("fcs_score.y", "fcs_cat.y")
+  columns_to_review = c("fsl_fcs_score.x", "fsl_fcs_cat.x"),
+  columns_to_compare_with = c("fsl_fcs_score.y", "fsl_fcs_cat.y")
 )
 
 review_results$review_table %>%

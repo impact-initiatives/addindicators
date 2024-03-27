@@ -35,19 +35,19 @@ df <- addindicators_MSNA_template_data
 
 ``` r
 df_with_fcs <- df %>% add_fcs(
-  cutoffs = "normal 21.5-35",
-  fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
-  fcs_legumes = "fs_fcs_beans_nuts",
-  fcs_veg = "fs_fcs_vegetables_leaves",
-  fcs_fruit = "fs_fcs_fruit",
-  fcs_meat = "fs_fcs_meat_fish_eggs",
-  fcs_dairy = "fs_fcs_dairy",
-  fcs_sugar = "fs_fcs_sugar",
-  fcs_oil = "fs_fcs_oil_fat_butter"
+  cutoffs = "normal",
+  fsl_fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
+  fsl_fcs_legumes = "fs_fcs_beans_nuts",
+  fsl_fcs_veg = "fs_fcs_vegetables_leaves",
+  fsl_fcs_fruit = "fs_fcs_fruit",
+  fsl_fcs_meat = "fs_fcs_meat_fish_eggs",
+  fsl_fcs_dairy = "fs_fcs_dairy",
+  fsl_fcs_sugar = "fs_fcs_sugar",
+  fsl_fcs_oil = "fs_fcs_oil_fat_butter"
 )
 df_with_fcs %>%
   dplyr::select(
-    uuid, fcs_score, fcs_cat, fcs_weight_cereal1, fcs_weight_legume2,
+    uuid,  fsl_fcs_score, fsl_fcs_cat, fcs_weight_cereal1, fcs_weight_legume2,
     fcs_weight_dairy3, fcs_weight_meat4, fcs_weight_veg5,
     fcs_weight_fruit6, fcs_weight_oil7, fcs_weight_sugar8
   ) %>%
@@ -55,28 +55,28 @@ df_with_fcs %>%
 ```
 
     ## # A tibble: 20 × 11
-    ##    uuid                  fcs_score fcs_cat fcs_weight_cereal1 fcs_weight_legume2
-    ##    <chr>                     <dbl> <chr>                <dbl>              <dbl>
-    ##  1 eaf540cd-32bd-41474b…      48.5 Accept…                  0                  0
-    ##  2 89e706c3-53d8-4a4049…      50.5 Accept…                  4                  6
-    ##  3 afd921c6-e54a-4c4740…      46.5 Accept…                  8                  0
-    ##  4 d8b05f39-ba85-494c4d…      42.5 Accept…                 14                  3
-    ##  5 d6b42f9e-c209-4c4541…      55.5 Accept…                  6                  6
-    ##  6 f1b9ec67-20db-47404d…      37.5 Accept…                  0                  6
-    ##  7 95ea286d-ae86-47404a…      50.5 Accept…                  4                 15
-    ##  8 85b4a96f-cea2-4f4b48…      31.5 Border…                  0                 15
-    ##  9 ef13a764-0af7-4f494c…      49.5 Accept…                 14                  0
-    ## 10 1a69e87b-ec61-4e4a40…      52.5 Accept…                  8                 12
-    ## 11 5613d0fe-34dc-474c43…      69   Accept…                 12                  3
-    ## 12 091aef7d-2b31-4f4741…      34   Border…                  4                  0
-    ## 13 e21a34f5-1a46-42404b…      36   Accept…                  0                  6
-    ## 14 42dc8573-e2d0-43484b…      39   Accept…                 14                  3
-    ## 15 3a180db5-d126-4d4b49…      47   Accept…                 10                  9
-    ## 16 789a632b-53da-4c4f40…      46.5 Accept…                  4                  9
-    ## 17 cd41675b-eb48-444e4f…      61.5 Accept…                 14                 18
-    ## 18 f741c29d-b7c5-424a4d…      77   Accept…                 10                 12
-    ## 19 2516eba7-789c-4c4b41…      76.5 Accept…                  2                 15
-    ## 20 c7896215-b36f-40444c…      20.5 Poor                     2                  3
+    ##    uuid          fsl_fcs_score fsl_fcs_cat fcs_weight_cereal1 fcs_weight_legume2
+    ##    <chr>                 <dbl> <chr>                    <dbl>              <dbl>
+    ##  1 eaf540cd-32b…          48.5 Acceptable                   0                  0
+    ##  2 89e706c3-53d…          50.5 Acceptable                   4                  6
+    ##  3 afd921c6-e54…          46.5 Acceptable                   8                  0
+    ##  4 d8b05f39-ba8…          42.5 Acceptable                  14                  3
+    ##  5 d6b42f9e-c20…          55.5 Acceptable                   6                  6
+    ##  6 f1b9ec67-20d…          37.5 Acceptable                   0                  6
+    ##  7 95ea286d-ae8…          50.5 Acceptable                   4                 15
+    ##  8 85b4a96f-cea…          31.5 Borderline                   0                 15
+    ##  9 ef13a764-0af…          49.5 Acceptable                  14                  0
+    ## 10 1a69e87b-ec6…          52.5 Acceptable                   8                 12
+    ## 11 5613d0fe-34d…          69   Acceptable                  12                  3
+    ## 12 091aef7d-2b3…          34   Borderline                   4                  0
+    ## 13 e21a34f5-1a4…          36   Acceptable                   0                  6
+    ## 14 42dc8573-e2d…          39   Acceptable                  14                  3
+    ## 15 3a180db5-d12…          47   Acceptable                  10                  9
+    ## 16 789a632b-53d…          46.5 Acceptable                   4                  9
+    ## 17 cd41675b-eb4…          61.5 Acceptable                  14                 18
+    ## 18 f741c29d-b7c…          77   Acceptable                  10                 12
+    ## 19 2516eba7-789…          76.5 Acceptable                   2                 15
+    ## 20 c7896215-b36…          20.5 Poor                         2                  3
     ## # ℹ 6 more variables: fcs_weight_dairy3 <dbl>, fcs_weight_meat4 <dbl>,
     ## #   fcs_weight_veg5 <dbl>, fcs_weight_fruit6 <dbl>, fcs_weight_oil7 <dbl>,
     ## #   fcs_weight_sugar8 <dbl>
@@ -260,7 +260,7 @@ df_with_rcsi %>%
 ``` r
 df_with_fcm <- df_with_rcsi %>%
   add_fcm_phase(
-    fcs_column_name = "fcs_cat",
+    fcs_column_name = "fsl_fcs_cat",
     rcsi_column_name = "rcsi_cat",
     hhs_column_name = "hhs_cat_ipc",
     fcs_categories_acceptable = "Acceptable",
@@ -346,15 +346,15 @@ be compared.
 
 ``` r
 review_df <- addindicators_MSNA_template_data %>% add_fcs(
-  cutoffs = "normal 21.5-35",
-  fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
-  fcs_legumes = "fs_fcs_beans_nuts",
-  fcs_veg = "fs_fcs_vegetables_leaves",
-  fcs_fruit = "fs_fcs_fruit",
-  fcs_meat = "fs_fcs_meat_fish_eggs",
-  fcs_dairy = "fs_fcs_dairy",
-  fcs_sugar = "fs_fcs_sugar",
-  fcs_oil = "fs_fcs_oil_fat_butter"
+  cutoffs = "normal",
+  fsl_fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
+  fsl_fcs_legumes = "fs_fcs_beans_nuts",
+  fsl_fcs_veg = "fs_fcs_vegetables_leaves",
+  fsl_fcs_fruit = "fs_fcs_fruit",
+  fsl_fcs_meat = "fs_fcs_meat_fish_eggs",
+  fsl_fcs_dairy = "fs_fcs_dairy",
+  fsl_fcs_sugar = "fs_fcs_sugar",
+  fsl_fcs_oil = "fs_fcs_oil_fat_butter"
 )
 ```
 
@@ -374,29 +374,29 @@ be able to review several variables.
 
 ``` r
 review_one_variable <- review_one_variable(binded_df,
-  column_to_review = "fcs_cat.x",
-  column_to_compare_with = "fcs_cat.y"
+  column_to_review = "fsl_fcs_cat.x",
+  column_to_compare_with = "fsl_fcs_cat.y"
 )
 
 review_one_variable$review_check_fcs_cat.x %>% mean()
 ```
 
-    ## [1] 1
+    ## Warning in mean.default(.): argument is not numeric or logical: returning NA
+
+    ## [1] NA
 
 ``` r
 review_one_variable$review_comment_fcs_cat.x %>% table(useNA = "ifany")
 ```
 
-    ## .
-    ## Same results 
-    ##          100
+    ## < table of extent 0 >
 
 #### review_variables
 
 ``` r
 review_results <- review_variables(binded_df,
-  columns_to_review = c("fcs_score.x", "fcs_cat.x"),
-  columns_to_compare_with = c("fcs_score.y", "fcs_cat.y")
+  columns_to_review = c("fsl_fcs_score.x", "fsl_fcs_cat.x"),
+  columns_to_compare_with = c("fsl_fcs_score.y", "fsl_fcs_cat.y")
 )
 
 review_results$review_table %>%
@@ -405,10 +405,10 @@ review_results$review_table %>%
 ```
 
     ## # A tibble: 2 × 2
-    ##   variable    prop_correction
-    ##   <chr>                 <dbl>
-    ## 1 fcs_cat.x                 1
-    ## 2 fcs_score.x               1
+    ##   variable        prop_correction
+    ##   <chr>                     <dbl>
+    ## 1 fsl_fcs_cat.x                 1
+    ## 2 fsl_fcs_score.x               1
 
 ``` r
 review_results$review_table %>%
@@ -418,10 +418,10 @@ review_results$review_table %>%
 
     ## # A tibble: 2 × 3
     ## # Groups:   variable [2]
-    ##   variable    review_comment     n
-    ##   <chr>       <glue>         <int>
-    ## 1 fcs_cat.x   Same results     100
-    ## 2 fcs_score.x Same results     100
+    ##   variable        review_comment     n
+    ##   <chr>           <glue>         <int>
+    ## 1 fsl_fcs_cat.x   Same results     100
+    ## 2 fsl_fcs_score.x Same results     100
 
 #### Examples when differences exists
 
@@ -435,7 +435,8 @@ test_categorical <- data.frame(
     "test equality missing in both"
   ),
   var_x = c("A", "B", "C", NA, NA),
-  var_y = c("A", "A", NA, "D", NA)
+  var_y = c("A", "A", NA, "D", NA),
+  uuid = letters[1:5]
 )
 review_one_variable(test_categorical,
   column_to_review = "var_x",
@@ -443,12 +444,12 @@ review_one_variable(test_categorical,
 )
 ```
 
-    ##   review_check_var_x review_comment_var_x
-    ## 1               TRUE         Same results
-    ## 2              FALSE    Different results
-    ## 3              FALSE     Missing in var_y
-    ## 4              FALSE     Missing in var_x
-    ## 5               TRUE         Same results
+    ##   uuid review_check_var_x review_comment_var_x
+    ## 1    a               TRUE         Same results
+    ## 2    b              FALSE    Different results
+    ## 3    c              FALSE     Missing in var_y
+    ## 4    d              FALSE     Missing in var_x
+    ## 5    e               TRUE         Same results
 
 ## Code of Conduct
 
