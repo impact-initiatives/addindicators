@@ -185,12 +185,12 @@ review_one_variable <- review_one_variable(binded_df,
   column_to_compare_with = "fsl_fcs_cat.y"
 )
 
-review_one_variable$review_check_fcs_cat.x %>% mean()
+review_one_variable$review_check_fsl_fcs_cat.x %>% mean()
 ```
 
 
 ```{r}
-review_one_variable$review_comment_fcs_cat.x %>% table(useNA = "ifany")
+review_one_variable$review_comment_fsl_fcs_cat.x %>% table(useNA = "ifany")
 ```
 
 #### review_variables

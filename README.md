@@ -378,18 +378,18 @@ review_one_variable <- review_one_variable(binded_df,
   column_to_compare_with = "fsl_fcs_cat.y"
 )
 
-review_one_variable$review_check_fcs_cat.x %>% mean()
+review_one_variable$review_check_fsl_fcs_cat.x %>% mean()
 ```
 
-    ## Warning in mean.default(.): argument is not numeric or logical: returning NA
-
-    ## [1] NA
+    ## [1] 1
 
 ``` r
-review_one_variable$review_comment_fcs_cat.x %>% table(useNA = "ifany")
+review_one_variable$review_comment_fsl_fcs_cat.x %>% table(useNA = "ifany")
 ```
 
-    ## < table of extent 0 >
+    ## .
+    ## Same results 
+    ##          100
 
 #### review_variables
 

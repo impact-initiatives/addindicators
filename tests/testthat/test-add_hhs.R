@@ -1,5 +1,3 @@
-library(dplyr)
-
 ##### Sad Path #####
 
 testthat::test_that("Check input type -- dataset", {

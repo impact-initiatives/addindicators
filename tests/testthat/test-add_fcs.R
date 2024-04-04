@@ -1,19 +1,16 @@
-library(dplyr)
-
 ###### Sad Path #######
 
 testthat::test_that("Check input type -- dataset", {
-  load(testthat::test_path("testdata", "test_df_hhs.rda"))
-  testthat::expect_error(add_fcs(.dataset = 0))
-  testthat::expect_error(add_fcs(.dataset = "x"))
-  testthat::expect_error(add_fcs(.dataset = 1.0))
-  testthat::expect_error(add_fcs(.dataset = F))
-  testthat::expect_error(add_fcs(.dataset = list()))
+  testthat::expect_error(add_fcs(.dataset = 0), "First argument should be a dataset")
+  testthat::expect_error(add_fcs(.dataset = "x"), "First argument should be a dataset")
+  testthat::expect_error(add_fcs(.dataset = 1.0), "First argument should be a dataset")
+  testthat::expect_error(add_fcs(.dataset = F), "First argument should be a dataset")
+  testthat::expect_error(add_fcs(.dataset = list()), "First argument should be a dataset")
 })
 
 testthat::test_that("Check dataframe empty", {
   df1 <- data.frame()
-  testthat::expect_error(add_fcs(.dataset = df1))
+  testthat::expect_error(add_fcs(.dataset = df1, "Dataset is empty"))
 })
 
 testthat::test_that("Check for missing columns", {
@@ -22,42 +19,42 @@ testthat::test_that("Check for missing columns", {
   testthat::expect_error(add_fcs(
     .dataset = test_df %>% dplyr::select(-fsl_fcs_cereal),
     fsl_fcs_cereal = "fsl_fcs_cereal"
-  ))
+  ), "Missing fcs columns")
 
   testthat::expect_error(add_fcs(
     .dataset = test_df %>% dplyr::select(-fsl_fcs_legumes),
     fsl_fcs_legumes = "fsl_fcs_legumes"
-  ))
+  ), "Missing fcs columns")
 
   testthat::expect_error(add_fcs(
     .dataset = test_df %>% dplyr::select(-fsl_fcs_veg),
     fsl_fcs_veg = "fsl_fcs_veg"
-  ))
+  ), "Missing fcs columns")
 
   testthat::expect_error(add_fcs(
     .dataset = test_df %>% dplyr::select(-fsl_fcs_fruit),
     fsl_fcs_fruit = "fsl_fcs_fruit"
-  ))
+  ), "Missing fcs columns")
 
   testthat::expect_error(add_fcs(
     .dataset = test_df %>% dplyr::select(-fsl_fcs_meat),
     fsl_fcs_meat = "fsl_fcs_meat"
-  ))
+  ), "Missing fcs columns")
 
   testthat::expect_error(add_fcs(
     .dataset = test_df %>% dplyr::select(-fsl_fcs_dairy),
     fsl_fcs_dairy = "fsl_fcs_dairy"
-  ))
+  ), "Missing fcs columns")
 
   testthat::expect_error(add_fcs(
     .dataset = test_df %>% dplyr::select(-fsl_fcs_sugar),
     fsl_fcs_sugar = "fsl_fcs_sugar"
-  ))
+  ), "Missing fcs columns")
 
   testthat::expect_error(add_fcs(
     .dataset = test_df %>% dplyr::select(-fsl_fcs_oil),
     fsl_fcs_oil = "fsl_fcs_oil"
-  ))
+  ), "Missing fcs columns")
 })
 
 testthat::test_that("Checking column values - [1:7]", {
@@ -71,7 +68,7 @@ testthat::test_that("Checking column values - [1:7]", {
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
-  ))
+  ), "Wrong values in fsl_fcs_cereal: 9/10/8")
 })
 
 testthat::test_that("Checking column values - [1:7]", {
@@ -85,7 +82,7 @@ testthat::test_that("Checking column values - [1:7]", {
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
-  ))
+  ), "Wrong values in fsl_fcs_legumes: 9/8/10")
 })
 
 testthat::test_that("Checking column values - [1:7]", {
@@ -99,7 +96,7 @@ testthat::test_that("Checking column values - [1:7]", {
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
-  ))
+  ), "Wrong values in fsl_fcs_veg: 10/8/9")
 })
 
 testthat::test_that("Checking column values - [1:7]", {
@@ -113,7 +110,7 @@ testthat::test_that("Checking column values - [1:7]", {
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
-  ))
+  ), "Wrong values in fsl_fcs_fruit: 9/10/8")
 })
 
 testthat::test_that("Checking column values - [1:7]", {
@@ -127,7 +124,7 @@ testthat::test_that("Checking column values - [1:7]", {
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
-  ))
+  ), "Wrong values in fsl_fcs_meat: 8/10/9")
 })
 
 testthat::test_that("Checking column values - [1:7]", {
@@ -141,7 +138,7 @@ testthat::test_that("Checking column values - [1:7]", {
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
-  ))
+  ), "Wrong values in fsl_fcs_dairy: 8/10/9")
 })
 
 testthat::test_that("Checking column values - [1:7]", {
@@ -155,7 +152,7 @@ testthat::test_that("Checking column values - [1:7]", {
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
-  ))
+  ), "Wrong values in fsl_fcs_sugar: 10/8/9")
 })
 
 testthat::test_that("Checking column values - [1:7]", {
@@ -169,7 +166,7 @@ testthat::test_that("Checking column values - [1:7]", {
   testthat::expect_error(add_fcs(
     .dataset = test_df,
     cutoffs = "normal"
-  ))
+  ), "Wrong values in fsl_fcs_oil: 10/8/9")
 })
 #### Happy Path ####
 
@@ -253,7 +250,8 @@ testthat::test_that("Check and warns when fcs_score is already a variable in the
   testthat::expect_warning(
     add_fcs(.dataset = df1,
             cutoffs = "normal"
-    )
+    ),
+    "There is already a variable called fsl_fcs_score in your dataset, it will be overwritten"
   )
 })
 
@@ -273,13 +271,14 @@ testthat::test_that("Check and warns when fcs_cat is already a variable in the d
   testthat::expect_warning(
     add_fcs(.dataset = df1,
             cutoffs = "normal"
-    )
+    ),
+    "There is already a variable called fsl_fcs_cat in your dataset, it will be overwritten"
   )
 })
 
 
 # if the inputed variables are characters, but can be made numeric
-testthat::test_that("if variables are as character, the function stll works", {
+testthat::test_that("if variables are as character, the function still works", {
   df1 <- data.frame(
     fsl_fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
     fsl_fcs_legumes = c(3, 4, 5, 6, 1, 6, 5),
@@ -376,5 +375,3 @@ testthat::test_that("Check calculations of fcs are correct -- alternative cutoff
   )
   testthat::expect_equal(result, expected_result)
 })
-
-
