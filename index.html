@@ -11,8 +11,8 @@
 <title>The addindicators Package Focuses on Adding Indicators to a Dataset
     and Reviews the Added Indicator • addindicators</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="The addindicators Package Focuses on Adding Indicators to a Dataset
     and Reviews the Added Indicator">
@@ -86,49 +86,49 @@
 </h3>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_with_fcs</span> <span class="op">&lt;-</span> <span class="va">df</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/add_fcs.html">add_fcs</a></span><span class="op">(</span></span>
-<span>  cutoffs <span class="op">=</span> <span class="st">"normal 21.5-35"</span>,</span>
-<span>  fcs_cereal <span class="op">=</span> <span class="st">"fs_fcs_cereals_grains_roots_tubers"</span>,</span>
-<span>  fcs_legumes <span class="op">=</span> <span class="st">"fs_fcs_beans_nuts"</span>,</span>
-<span>  fcs_veg <span class="op">=</span> <span class="st">"fs_fcs_vegetables_leaves"</span>,</span>
-<span>  fcs_fruit <span class="op">=</span> <span class="st">"fs_fcs_fruit"</span>,</span>
-<span>  fcs_meat <span class="op">=</span> <span class="st">"fs_fcs_meat_fish_eggs"</span>,</span>
-<span>  fcs_dairy <span class="op">=</span> <span class="st">"fs_fcs_dairy"</span>,</span>
-<span>  fcs_sugar <span class="op">=</span> <span class="st">"fs_fcs_sugar"</span>,</span>
-<span>  fcs_oil <span class="op">=</span> <span class="st">"fs_fcs_oil_fat_butter"</span></span>
+<span>  cutoffs <span class="op">=</span> <span class="st">"normal"</span>,</span>
+<span>  fsl_fcs_cereal <span class="op">=</span> <span class="st">"fs_fcs_cereals_grains_roots_tubers"</span>,</span>
+<span>  fsl_fcs_legumes <span class="op">=</span> <span class="st">"fs_fcs_beans_nuts"</span>,</span>
+<span>  fsl_fcs_veg <span class="op">=</span> <span class="st">"fs_fcs_vegetables_leaves"</span>,</span>
+<span>  fsl_fcs_fruit <span class="op">=</span> <span class="st">"fs_fcs_fruit"</span>,</span>
+<span>  fsl_fcs_meat <span class="op">=</span> <span class="st">"fs_fcs_meat_fish_eggs"</span>,</span>
+<span>  fsl_fcs_dairy <span class="op">=</span> <span class="st">"fs_fcs_dairy"</span>,</span>
+<span>  fsl_fcs_sugar <span class="op">=</span> <span class="st">"fs_fcs_sugar"</span>,</span>
+<span>  fsl_fcs_oil <span class="op">=</span> <span class="st">"fs_fcs_oil_fat_butter"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">df_with_fcs</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span></span>
-<span>    <span class="va">uuid</span>, <span class="va">fcs_score</span>, <span class="va">fcs_cat</span>, <span class="va">fcs_weight_cereal1</span>, <span class="va">fcs_weight_legume2</span>,</span>
+<span>    <span class="va">uuid</span>,  <span class="va">fsl_fcs_score</span>, <span class="va">fsl_fcs_cat</span>, <span class="va">fcs_weight_cereal1</span>, <span class="va">fcs_weight_legume2</span>,</span>
 <span>    <span class="va">fcs_weight_dairy3</span>, <span class="va">fcs_weight_meat4</span>, <span class="va">fcs_weight_veg5</span>,</span>
 <span>    <span class="va">fcs_weight_fruit6</span>, <span class="va">fcs_weight_oil7</span>, <span class="va">fcs_weight_sugar8</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 20 × 11</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">##    uuid                  fcs_score fcs_cat fcs_weight_cereal1 fcs_weight_legume2</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt;                     &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;              &lt;dbl&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 eaf540cd-32bd-41474b…      48.5 Accept…                  0                  0</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 89e706c3-53d8-4a4049…      50.5 Accept…                  4                  6</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 afd921c6-e54a-4c4740…      46.5 Accept…                  8                  0</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 d8b05f39-ba85-494c4d…      42.5 Accept…                 14                  3</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 d6b42f9e-c209-4c4541…      55.5 Accept…                  6                  6</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 f1b9ec67-20db-47404d…      37.5 Accept…                  0                  6</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 95ea286d-ae86-47404a…      50.5 Accept…                  4                 15</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 85b4a96f-cea2-4f4b48…      31.5 Border…                  0                 15</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 ef13a764-0af7-4f494c…      49.5 Accept…                 14                  0</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40…      52.5 Accept…                  8                 12</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43…      69   Accept…                 12                  3</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741…      34   Border…                  4                  0</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b…      36   Accept…                  0                  6</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b…      39   Accept…                 14                  3</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49…      47   Accept…                 10                  9</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40…      46.5 Accept…                  4                  9</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f…      61.5 Accept…                 14                 18</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d…      77   Accept…                 10                 12</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41…      76.5 Accept…                  2                 15</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c…      20.5 Poor                     2                  3</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 6 more variables: fcs_weight_dairy3 &lt;dbl&gt;, fcs_weight_meat4 &lt;dbl&gt;,</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="do">## #   fcs_weight_veg5 &lt;dbl&gt;, fcs_weight_fruit6 &lt;dbl&gt;, fcs_weight_oil7 &lt;dbl&gt;,</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="do">## #   fcs_weight_sugar8 &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## # A tibble: 20 × 11</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="do">##    uuid          fsl_fcs_score fsl_fcs_cat fcs_weight_cereal1 fcs_weight_legume2</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="do">##    &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                    &lt;dbl&gt;              &lt;dbl&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">##  1 eaf540cd-32b…          48.5 Acceptable                   0                  0</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">##  2 89e706c3-53d…          50.5 Acceptable                   4                  6</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">##  3 afd921c6-e54…          46.5 Acceptable                   8                  0</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">##  4 d8b05f39-ba8…          42.5 Acceptable                  14                  3</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">##  5 d6b42f9e-c20…          55.5 Acceptable                   6                  6</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">##  6 f1b9ec67-20d…          37.5 Acceptable                   0                  6</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">##  7 95ea286d-ae8…          50.5 Acceptable                   4                 15</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">##  8 85b4a96f-cea…          31.5 Borderline                   0                 15</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">##  9 ef13a764-0af…          49.5 Acceptable                  14                  0</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec6…          52.5 Acceptable                   8                 12</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="do">## 11 5613d0fe-34d…          69   Acceptable                  12                  3</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="do">## 12 091aef7d-2b3…          34   Borderline                   4                  0</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a4…          36   Acceptable                   0                  6</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d…          39   Acceptable                  14                  3</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="do">## 15 3a180db5-d12…          47   Acceptable                  10                  9</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="do">## 16 789a632b-53d…          46.5 Acceptable                   4                  9</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="do">## 17 cd41675b-eb4…          61.5 Acceptable                  14                 18</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c…          77   Acceptable                  10                 12</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="do">## 19 2516eba7-789…          76.5 Acceptable                   2                 15</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="do">## 20 c7896215-b36…          20.5 Poor                         2                  3</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="do">## # ℹ 6 more variables: fcs_weight_dairy3 &lt;dbl&gt;, fcs_weight_meat4 &lt;dbl&gt;,</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="do">## #   fcs_weight_veg5 &lt;dbl&gt;, fcs_weight_fruit6 &lt;dbl&gt;, fcs_weight_oil7 &lt;dbl&gt;,</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="do">## #   fcs_weight_sugar8 &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-add-household-hunger-scale-hhs">Example:: Add Household Hunger Scale (HHS)<a class="anchor" aria-label="anchor" href="#example-add-household-hunger-scale-hhs"></a>
@@ -153,48 +153,48 @@
 <span>    <span class="va">hhs_score</span>, <span class="va">hhs_cat_ipc</span>, <span class="va">hhs_cat</span>, <span class="va">hh_size</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">##                                        uuid hhs_comp1 hhs_comp2 hhs_comp3</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a         0         0         0</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e         1         0         0</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a         0         2         0</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1         0         0         0</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142         0         0         0</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02         1         0         2</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9         0         0         0</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0         0         0         0</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e         1         0         1</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd         1         1         1</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902         0         0         0</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a         0         2         0</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13         1         0         0</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041         0         0         0</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f         1         1         1</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b         0         0         0</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a         0         0         0</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e         0         0         0</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c         2         0         0</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e         1         1         2</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="do">##    hhs_score hhs_cat_ipc      hhs_cat hh_size</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 1          0        None No or Little      19</span></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2          1      Little No or Little      21</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 3          2    Moderate     Moderate      21</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 4          0        None No or Little      23</span></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 5          0        None No or Little      22</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 6          3    Moderate     Moderate      19</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 7          0        None No or Little      22</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 8          0        None No or Little      17</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 9          2    Moderate     Moderate      21</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 10         3    Moderate     Moderate      19</span></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 11         0        None No or Little      16</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 12         2    Moderate     Moderate      17</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 13         1      Little No or Little      19</span></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="do">## 14         0        None No or Little      20</span></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 15         3    Moderate     Moderate      19</span></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="do">## 16         0        None No or Little      19</span></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 17         0        None No or Little      17</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 18         0        None No or Little      22</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 19         2    Moderate     Moderate      23</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 20         4      Severe       Severe      21</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">##                                        uuid hhs_comp1 hhs_comp2 hhs_comp3</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a         0         0         0</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e         1         0         0</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a         0         2         0</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1         0         0         0</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142         0         0         0</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02         1         0         2</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9         0         0         0</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0         0         0         0</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e         1         0         1</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd         1         1         1</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902         0         0         0</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a         0         2         0</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13         1         0         0</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041         0         0         0</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f         1         1         1</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b         0         0         0</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a         0         0         0</span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e         0         0         0</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c         2         0         0</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e         1         1         2</span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="do">##    hhs_score hhs_cat_ipc      hhs_cat hh_size</span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="do">## 1          0        None No or Little      19</span></span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="do">## 2          1      Little No or Little      21</span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="do">## 3          2    Moderate     Moderate      21</span></span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="do">## 4          0        None No or Little      23</span></span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="do">## 5          0        None No or Little      22</span></span>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a><span class="do">## 6          3    Moderate     Moderate      19</span></span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a><span class="do">## 7          0        None No or Little      22</span></span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a><span class="do">## 8          0        None No or Little      17</span></span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="do">## 9          2    Moderate     Moderate      21</span></span>
+<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="do">## 10         3    Moderate     Moderate      19</span></span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="do">## 11         0        None No or Little      16</span></span>
+<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="do">## 12         2    Moderate     Moderate      17</span></span>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="do">## 13         1      Little No or Little      19</span></span>
+<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a><span class="do">## 14         0        None No or Little      20</span></span>
+<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="do">## 15         3    Moderate     Moderate      19</span></span>
+<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a><span class="do">## 16         0        None No or Little      19</span></span>
+<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a><span class="do">## 17         0        None No or Little      17</span></span>
+<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a><span class="do">## 18         0        None No or Little      22</span></span>
+<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a><span class="do">## 19         2    Moderate     Moderate      23</span></span>
+<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="do">## 20         4      Severe       Severe      21</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-add-livelihood-coping-strategy-score-lcsi">Example:: Add Livelihood Coping Strategy score (LCSI)<a class="anchor" aria-label="anchor" href="#example-add-livelihood-coping-strategy-score-lcsi"></a>
@@ -212,48 +212,48 @@
 <span><span class="va">df_with_lcsi</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">uuid</span>, <span class="va">lcsi_cat</span>, <span class="va">lcsi_cat_exhaust</span>, <span class="va">lcsi_cat_yes</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##                                        uuid  lcsi_cat lcsi_cat_exhaust</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a Emergency        Emergency</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e Emergency        Emergency</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a Emergency        Emergency</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1 Emergency        Emergency</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142 Emergency        Emergency</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02 Emergency        Emergency</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9 Emergency        Emergency</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0 Emergency           Crisis</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e Emergency        Emergency</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd Emergency        Emergency</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902 Emergency             None</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a    Crisis           Crisis</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13    Crisis           Crisis</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041 Emergency        Emergency</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f Emergency             None</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b Emergency           Stress</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a    Crisis           Crisis</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e Emergency        Emergency</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c Emergency        Emergency</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e Emergency           Crisis</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="do">##    lcsi_cat_yes</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     Emergency</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     Emergency</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        Crisis</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 4        Crisis</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 5     Emergency</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 6        Stress</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 7        Crisis</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 8     Emergency</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 9     Emergency</span></span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 10    Emergency</span></span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 11    Emergency</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 12       Crisis</span></span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 13       Stress</span></span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="do">## 14       Stress</span></span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="do">## 15    Emergency</span></span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="do">## 16    Emergency</span></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="do">## 17       Crisis</span></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="do">## 18       Crisis</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="do">## 19    Emergency</span></span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="do">## 20    Emergency</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">##                                        uuid  lcsi_cat lcsi_cat_exhaust</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a Emergency        Emergency</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e Emergency        Emergency</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a Emergency        Emergency</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1 Emergency        Emergency</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142 Emergency        Emergency</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02 Emergency        Emergency</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9 Emergency        Emergency</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0 Emergency           Crisis</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e Emergency        Emergency</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd Emergency        Emergency</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902 Emergency             None</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a    Crisis           Crisis</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13    Crisis           Crisis</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041 Emergency        Emergency</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f Emergency             None</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b Emergency           Stress</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a    Crisis           Crisis</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e Emergency        Emergency</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c Emergency        Emergency</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e Emergency           Crisis</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="do">##    lcsi_cat_yes</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="do">## 1     Emergency</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="do">## 2     Emergency</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="do">## 3        Crisis</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="do">## 4        Crisis</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="do">## 5     Emergency</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="do">## 6        Stress</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="do">## 7        Crisis</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="do">## 8     Emergency</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="do">## 9     Emergency</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="do">## 10    Emergency</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="do">## 11    Emergency</span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="do">## 12       Crisis</span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="do">## 13       Stress</span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="do">## 14       Stress</span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="do">## 15    Emergency</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="do">## 16    Emergency</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="do">## 17       Crisis</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="do">## 18       Crisis</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="do">## 19    Emergency</span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="do">## 20    Emergency</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-add-reduced-household-coping-strategy-score-rcsi">Example:: Add Reduced Household Coping Strategy score (rCSI)<a class="anchor" aria-label="anchor" href="#example-add-reduced-household-coping-strategy-score-rcsi"></a>
@@ -267,34 +267,34 @@
 <span>  rCSIMealNb <span class="op">=</span> <span class="st">"rCSIMealNb"</span>,</span>
 <span>  new_colname <span class="op">=</span> <span class="st">"rcsi"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable name for rcsi score is rcsi_score</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Variable name for rcsi category is rcsi_cat</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="do">## Variable name for rcsi score is rcsi_score</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="do">## Variable name for rcsi category is rcsi_cat</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_with_rcsi</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">uuid</span>, <span class="va">rcsi_score</span>, <span class="va">rcsi_cat</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">##                                        uuid rcsi_score rcsi_cat</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a         34     High</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e         37     High</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a         30     High</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1         29     High</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142         14   Medium</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02         37     High</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9         20     High</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0         31     High</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e         32     High</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd         17   Medium</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902          9   Medium</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a          8   Medium</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13         35     High</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041         17   Medium</span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f         40     High</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b         31     High</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a         24     High</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e         15   Medium</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c         34     High</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e         25     High</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="do">##                                        uuid rcsi_score rcsi_cat</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a         34     High</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e         37     High</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a         30     High</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1         29     High</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142         14   Medium</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02         37     High</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9         20     High</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0         31     High</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e         32     High</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd         17   Medium</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902          9   Medium</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a          8   Medium</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13         35     High</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041         17   Medium</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f         40     High</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b         31     High</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a         24     High</span></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e         15   Medium</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c         34     High</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e         25     High</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-add-food-consumption-matrix-fcm">Example:: Add Food Consumption Matrix (FCM)<a class="anchor" aria-label="anchor" href="#example-add-food-consumption-matrix-fcm"></a>
@@ -303,7 +303,7 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df_with_fcm</span> <span class="op">&lt;-</span> <span class="va">df_with_rcsi</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="reference/add_fcm_phase.html">add_fcm_phase</a></span><span class="op">(</span></span>
-<span>    fcs_column_name <span class="op">=</span> <span class="st">"fcs_cat"</span>,</span>
+<span>    fcs_column_name <span class="op">=</span> <span class="st">"fsl_fcs_cat"</span>,</span>
 <span>    rcsi_column_name <span class="op">=</span> <span class="st">"rcsi_cat"</span>,</span>
 <span>    hhs_column_name <span class="op">=</span> <span class="st">"hhs_cat_ipc"</span>,</span>
 <span>    fcs_categories_acceptable <span class="op">=</span> <span class="st">"Acceptable"</span>,</span>
@@ -321,27 +321,27 @@
 <span><span class="va">df_with_fcm</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">uuid</span>, <span class="va">fc_cell</span>, <span class="va">fc_phase</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">##                                        uuid fc_cell   fc_phase</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a      31 Phase 2 FC</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e      32 Phase 2 FC</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a      33 Phase 3 FC</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1      31 Phase 2 FC</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142      16 Phase 2 FC</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02      33 Phase 3 FC</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9      31 Phase 2 FC</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0      36 Phase 2 FC</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e      33 Phase 3 FC</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd      18 Phase 2 FC</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902      16 Phase 2 FC</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a      23 Phase 3 FC</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13      32 Phase 2 FC</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041      16 Phase 2 FC</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f      33 Phase 3 FC</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b      31 Phase 2 FC</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a      31 Phase 2 FC</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e      16 Phase 2 FC</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c      33 Phase 3 FC</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e      44 Phase 4 FC</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="do">##                                        uuid fc_cell   fc_phase</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a      31 Phase 2 FC</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e      32 Phase 2 FC</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a      33 Phase 3 FC</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1      31 Phase 2 FC</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142      16 Phase 2 FC</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02      33 Phase 3 FC</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9      31 Phase 2 FC</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0      36 Phase 2 FC</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e      33 Phase 3 FC</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd      18 Phase 2 FC</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902      16 Phase 2 FC</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a      23 Phase 3 FC</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13      32 Phase 2 FC</span></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041      16 Phase 2 FC</span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f      33 Phase 3 FC</span></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b      31 Phase 2 FC</span></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a      31 Phase 2 FC</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e      16 Phase 2 FC</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c      33 Phase 3 FC</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e      44 Phase 4 FC</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-add-fewsnet-food-consumption-livelihood-matrix-fclcm">Example:: Add FEWSNET Food Consumption-Livelihood Matrix (FCLCM)<a class="anchor" aria-label="anchor" href="#example-add-fewsnet-food-consumption-livelihood-matrix-fclcm"></a>
@@ -353,27 +353,27 @@
 <span><span class="va">df_with_fclcm</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">uuid</span>, <span class="va">fclcm_phase</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">##                                        uuid  fclcm_phase</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a Phase 3 FCLC</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e Phase 3 FCLC</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a Phase 4 FCLC</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1 Phase 3 FCLC</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142 Phase 3 FCLC</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02 Phase 4 FCLC</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9 Phase 3 FCLC</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0 Phase 3 FCLC</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e Phase 4 FCLC</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd Phase 3 FCLC</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902 Phase 3 FCLC</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a Phase 3 FCLC</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13 Phase 3 FCLC</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041 Phase 3 FCLC</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f Phase 4 FCLC</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b Phase 3 FCLC</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a Phase 3 FCLC</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e Phase 3 FCLC</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c Phase 4 FCLC</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e Phase 4 FCLC</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="do">##                                        uuid  fclcm_phase</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="do">## 1  eaf540cd-32bd-41474b-b4beb5-d62fc987e45a Phase 3 FCLC</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="do">## 2  89e706c3-53d8-4a4049-898586-4926085db71e Phase 3 FCLC</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="do">## 3  afd921c6-e54a-4c4740-919c93-87f59bd0e63a Phase 4 FCLC</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="do">## 4  d8b05f39-ba85-494c4d-808c84-9dc57823a4f1 Phase 3 FCLC</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="do">## 5  d6b42f9e-c209-4c4541-808a81-86bea53df142 Phase 3 FCLC</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="do">## 6  f1b9ec67-20db-47404d-a3ada0-1a37e5c49d02 Phase 4 FCLC</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="do">## 7  95ea286d-ae86-47404a-828487-feba6d1503c9 Phase 3 FCLC</span></span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="do">## 8  85b4a96f-cea2-4f4b48-9d929f-5d76892f31b0 Phase 3 FCLC</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="do">## 9  ef13a764-0af7-4f494c-838b88-6cb31a50842e Phase 4 FCLC</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="do">## 10 1a69e87b-ec61-4e4a40-8f868a-fe24c6a705bd Phase 3 FCLC</span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="do">## 11 5613d0fe-34dc-474c43-b4b0bd-36a4c8edf902 Phase 3 FCLC</span></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="do">## 12 091aef7d-2b31-4f4741-a5a8af-36e8f1bd075a Phase 3 FCLC</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="do">## 13 e21a34f5-1a46-42404b-b7b6be-7bc9286d0f13 Phase 3 FCLC</span></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="do">## 14 42dc8573-e2d0-43484b-aaada2-c37ef865d041 Phase 3 FCLC</span></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="do">## 15 3a180db5-d126-4d4b49-808d88-b3e5c71d908f Phase 4 FCLC</span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="do">## 16 789a632b-53da-4c4f40-a0a1ad-f53ca2e9074b Phase 3 FCLC</span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="do">## 17 cd41675b-eb48-444e4f-b8b7b3-1e493cb02f5a Phase 3 FCLC</span></span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="do">## 18 f741c29d-b7c5-424a4d-94999c-6018bac9274e Phase 3 FCLC</span></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a><span class="do">## 19 2516eba7-789c-4c4b41-afa0ad-f0a7365bd81c Phase 4 FCLC</span></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="do">## 20 c7896215-b36f-40444c-aaa2af-fa4d37c6502e Phase 4 FCLC</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-review-of-indicators">Example:: Review of indicators<a class="anchor" aria-label="anchor" href="#example-review-of-indicators"></a>
@@ -382,15 +382,15 @@
 <p>In this example, the Food Consumption Score from the first example will be compared.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">review_df</span> <span class="op">&lt;-</span> <span class="va">addindicators_MSNA_template_data</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="reference/add_fcs.html">add_fcs</a></span><span class="op">(</span></span>
-<span>  cutoffs <span class="op">=</span> <span class="st">"normal 21.5-35"</span>,</span>
-<span>  fcs_cereal <span class="op">=</span> <span class="st">"fs_fcs_cereals_grains_roots_tubers"</span>,</span>
-<span>  fcs_legumes <span class="op">=</span> <span class="st">"fs_fcs_beans_nuts"</span>,</span>
-<span>  fcs_veg <span class="op">=</span> <span class="st">"fs_fcs_vegetables_leaves"</span>,</span>
-<span>  fcs_fruit <span class="op">=</span> <span class="st">"fs_fcs_fruit"</span>,</span>
-<span>  fcs_meat <span class="op">=</span> <span class="st">"fs_fcs_meat_fish_eggs"</span>,</span>
-<span>  fcs_dairy <span class="op">=</span> <span class="st">"fs_fcs_dairy"</span>,</span>
-<span>  fcs_sugar <span class="op">=</span> <span class="st">"fs_fcs_sugar"</span>,</span>
-<span>  fcs_oil <span class="op">=</span> <span class="st">"fs_fcs_oil_fat_butter"</span></span>
+<span>  cutoffs <span class="op">=</span> <span class="st">"normal"</span>,</span>
+<span>  fsl_fcs_cereal <span class="op">=</span> <span class="st">"fs_fcs_cereals_grains_roots_tubers"</span>,</span>
+<span>  fsl_fcs_legumes <span class="op">=</span> <span class="st">"fs_fcs_beans_nuts"</span>,</span>
+<span>  fsl_fcs_veg <span class="op">=</span> <span class="st">"fs_fcs_vegetables_leaves"</span>,</span>
+<span>  fsl_fcs_fruit <span class="op">=</span> <span class="st">"fs_fcs_fruit"</span>,</span>
+<span>  fsl_fcs_meat <span class="op">=</span> <span class="st">"fs_fcs_meat_fish_eggs"</span>,</span>
+<span>  fsl_fcs_dairy <span class="op">=</span> <span class="st">"fs_fcs_dairy"</span>,</span>
+<span>  fsl_fcs_sugar <span class="op">=</span> <span class="st">"fs_fcs_sugar"</span>,</span>
+<span>  fsl_fcs_oil <span class="op">=</span> <span class="st">"fs_fcs_oil_fat_butter"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The new results and the results to be reviewed are bound together by the <em>uuid</em>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -402,45 +402,45 @@
 </h4>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">review_one_variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/review_one_variable.html">review_one_variable</a></span><span class="op">(</span><span class="va">binded_df</span>,</span>
-<span>  column_to_review <span class="op">=</span> <span class="st">"fcs_cat.x"</span>,</span>
-<span>  column_to_compare_with <span class="op">=</span> <span class="st">"fcs_cat.y"</span></span>
+<span>  column_to_review <span class="op">=</span> <span class="st">"fsl_fcs_cat.x"</span>,</span>
+<span>  column_to_compare_with <span class="op">=</span> <span class="st">"fsl_fcs_cat.y"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">review_one_variable</span><span class="op">$</span><span class="va">review_check_fcs_cat.x</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1</span></span></code></pre></div>
+<span><span class="va">review_one_variable</span><span class="op">$</span><span class="va">review_check_fsl_fcs_cat.x</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="do">## [1] 1</span></span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">review_one_variable</span><span class="op">$</span><span class="va">review_comment_fcs_cat.x</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="do">## .</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Same results </span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="do">##          100</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">review_one_variable</span><span class="op">$</span><span class="va">review_comment_fsl_fcs_cat.x</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="do">## .</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="do">## Same results </span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="do">##          100</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="review_variables">review_variables<a class="anchor" aria-label="anchor" href="#review_variables"></a>
 </h4>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">review_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/review_variables.html">review_variables</a></span><span class="op">(</span><span class="va">binded_df</span>,</span>
-<span>  columns_to_review <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fcs_score.x"</span>, <span class="st">"fcs_cat.x"</span><span class="op">)</span>,</span>
-<span>  columns_to_compare_with <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fcs_score.y"</span>, <span class="st">"fcs_cat.y"</span><span class="op">)</span></span>
+<span>  columns_to_review <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fsl_fcs_score.x"</span>, <span class="st">"fsl_fcs_cat.x"</span><span class="op">)</span>,</span>
+<span>  columns_to_compare_with <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fsl_fcs_score.y"</span>, <span class="st">"fsl_fcs_cat.y"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">review_results</span><span class="op">$</span><span class="va">review_table</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>prop_correction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">review_check</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 2</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="do">##   variable    prop_correction</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;                 &lt;dbl&gt;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 fcs_cat.x                 1</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 fcs_score.x               1</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="do">## # A tibble: 2 × 2</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="do">##   variable        prop_correction</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="do">##   &lt;chr&gt;                     &lt;dbl&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="do">## 1 fsl_fcs_cat.x                 1</span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="do">## 2 fsl_fcs_score.x               1</span></span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">review_results</span><span class="op">$</span><span class="va">review_table</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">variable</span>, <span class="va">review_comment</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">tally</a></span><span class="op">(</span>sort <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 3</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="do">## # Groups:   variable [2]</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   variable    review_comment     n</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;chr&gt;       &lt;glue&gt;         &lt;int&gt;</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 fcs_cat.x   Same results     100</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 fcs_score.x Same results     100</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="do">## # A tibble: 2 × 3</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="do">## # Groups:   variable [2]</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="do">##   variable        review_comment     n</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="do">##   &lt;chr&gt;           &lt;glue&gt;         &lt;int&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="do">## 1 fsl_fcs_cat.x   Same results     100</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="do">## 2 fsl_fcs_score.x Same results     100</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="examples-when-differences-exists">Examples when differences exists<a class="anchor" aria-label="anchor" href="#examples-when-differences-exists"></a>
@@ -455,18 +455,19 @@
 <span>    <span class="st">"test equality missing in both"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  var_x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
-<span>  var_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="cn">NA</span>, <span class="st">"D"</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span>  var_y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"A"</span>, <span class="cn">NA</span>, <span class="st">"D"</span>, <span class="cn">NA</span><span class="op">)</span>,</span>
+<span>  uuid <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/review_one_variable.html">review_one_variable</a></span><span class="op">(</span><span class="va">test_categorical</span>,</span>
 <span>  column_to_review <span class="op">=</span> <span class="st">"var_x"</span>,</span>
 <span>  column_to_compare_with <span class="op">=</span> <span class="st">"var_y"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="do">##   review_check_var_x review_comment_var_x</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1               TRUE         Same results</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2              FALSE    Different results</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3              FALSE     Missing in var_y</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4              FALSE     Missing in var_x</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5               TRUE         Same results</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="do">##   uuid review_check_var_x review_comment_var_x</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="do">## 1    a               TRUE         Same results</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="do">## 2    b              FALSE    Different results</span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="do">## 3    c              FALSE     Missing in var_y</span></span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="do">## 4    d              FALSE     Missing in var_x</span></span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="do">## 5    e               TRUE         Same results</span></span></code></pre></div>
 </div>
 </div>
 </div>
