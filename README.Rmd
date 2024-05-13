@@ -13,8 +13,6 @@ knitr::opts_chunk$set(echo = TRUE)
 [![codecov](https://codecov.io/gh/impact-initiatives/addindicators/branch/master/graph/badge.svg?token=RlTJbum32D)](https://codecov.io/gh/impact-initiatives/addindicators)
 <!-- badges: end -->
 
-
-
 ## Overview
 `addindicators` is designed for creating and checking (occasionally) composite indicators such as Food Consumption Indicators and others.
 
