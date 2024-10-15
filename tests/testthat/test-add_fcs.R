@@ -327,7 +327,7 @@ testthat::test_that("Check calculations of fcs are correct -- normal cutoffs", {
     .dataset = df1,
     cutoffs = "normal"
   ) %>%
-    dplyr::select(-starts_with("fcs_weight"))
+    dplyr::select(!starts_with("fcs_weight"))
   expected_result <- data.frame(
     fsl_fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
     fsl_fcs_legumes = c(1, 4, 5, 6, 1, 6, 5),
@@ -360,7 +360,7 @@ testthat::test_that("Check calculations of fcs are correct -- alternative cutoff
     .dataset = df1,
     cutoffs = "alternative"
   ) %>%
-    dplyr::select(-starts_with("fcs_weight"))
+    dplyr::select(!starts_with("fcs_weight"))
   expected_result <- data.frame(
     fsl_fcs_cereal = c(1, 2, 3, 2, 5, 6, 7),
     fsl_fcs_legumes = c(1, 4, 5, 6, 1, 6, 5),

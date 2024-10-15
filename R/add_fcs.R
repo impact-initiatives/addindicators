@@ -106,7 +106,7 @@ add_fcs <- function(.dataset,
   }
 
   .dataset <- .dataset %>%
-    dplyr::mutate_at(dplyr::vars(fcs_vars), as.numeric) %>%
+    dplyr::mutate(dplyr::across(dplyr::all_of(fcs_vars), as.numeric)) %>%
     dplyr::mutate(fcs_weight_cereal1 = ifelse(is.na(!!rlang::sym(fsl_fcs_cereal)), NA, !!rlang::sym(fsl_fcs_cereal) * 2),
                   fcs_weight_legume2 = ifelse(is.na(!!rlang::sym(fsl_fcs_legumes)), NA, !!rlang::sym(fsl_fcs_legumes) * 3),
                   fcs_weight_dairy3 = ifelse(is.na(!!rlang::sym(fsl_fcs_dairy)), NA, !!rlang::sym(fsl_fcs_dairy) * 4),

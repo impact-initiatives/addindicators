@@ -145,7 +145,7 @@ testthat::test_that("NA  check", {
     ))
 
   testthat::expect_warning(add_fclcm_phase(test_df))
-  actual_df <- test_df |> add_fclcm_phase()
+  actual_df <- test_df |> add_fclcm_phase() |> suppressWarnings()
   testthat::expect_equal(actual_df, expected_output)
 
 
@@ -167,9 +167,12 @@ testthat::test_that("NA  check", {
       T ~ NA_character_
     ))
 
-  testthat::expect_warning(test_df |> add_fclcm_phase())
+  test_df |>
+    add_fclcm_phase() |>
+    testthat::expect_warning() |>
+    testthat::expect_warning()
 
-  actual_df <- test_df |> add_fclcm_phase()
+  actual_df <- test_df |> add_fclcm_phase() |> suppressWarnings()
 
   testthat::expect_equal(actual_df, expected_output)
 })

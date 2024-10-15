@@ -87,7 +87,7 @@ add_lcsi <- function(.dataset,
   }
 
   lcs_codes <- df %>%
-    dplyr::select(c(lcsi_stress_vars, lcsi_crisis_vars, lcsi_emergency_vars)) %>%
+    dplyr::select(dplyr::all_of(c(lcsi_stress_vars, lcsi_crisis_vars, lcsi_emergency_vars))) %>%
     t() %>%
     c() %>%
     unique()
