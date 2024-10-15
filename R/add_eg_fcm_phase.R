@@ -30,7 +30,7 @@
 #'   rcsi_cat = c("No to Low", "Medium", "No to Low", "High"),
 #'   hhs_cat = c("None", "Little", "Severe", "Very Severe")
 #' )
-#' add_fcm_phase(test_data,
+#' add_eg_fcm_phase(test_data,
 #'   fcs_column_name = "fcs_cat",
 #'   rcsi_column_name = "rcsi_cat",
 #'   hhs_column_name = "hhs_cat",
@@ -47,7 +47,7 @@
 #'   hhs_categories_very_severe = "Very Severe"
 #' )
 #'
-add_fcm_phase <- function(dataset,
+add_eg_fcm_phase <- function(dataset,
                           fcs_column_name = "fcs_cat",
                           rcsi_column_name = "rcsi_cat",
                           hhs_column_name = "hhs_cat",

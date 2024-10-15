@@ -21,8 +21,8 @@
 #'   lcsi_cat = c("None", "Stress"),
 #'   fc_phase = c("Phase 1 FC", "Phase 2 FC")
 #' )
-#' test_df |> add_fclcm_phase()
-add_fclcm_phase <- function(dataset,
+#' test_df |> add_eg_fclcm_phase()
+add_eg_fclcm_phase <- function(dataset,
                             fc_phase_var = "fc_phase",
                             fc_phase_1 = "Phase 1 FC",
                             fc_phase_2 = "Phase 2 FC",
@@ -59,14 +59,14 @@ add_fclcm_phase <- function(dataset,
   }
 
 
-  if (!all(unique(na.omit(dataset[[lcs_cat_var]])) %in% lcs_cat_all_phase)) {
+  if (!all(unique(stats::na.omit(dataset[[lcs_cat_var]])) %in% lcs_cat_all_phase)) {
     msg <- unique(dataset[[lcs_cat_var]])[!unique(dataset[[lcs_cat_var]]) %in% lcs_cat_all_phase] |>
       glue::glue_collapse(", ") %>%
       glue::glue("The following lcs phases: ", ., " are present in the dataset but are not defined in the function arguments.")
     stop(msg)
   }
 
-  if (!all(unique(na.omit(dataset[[fc_phase_var]])) %in% fc_phase_all_phase)) {
+  if (!all(unique(stats::na.omit(dataset[[fc_phase_var]])) %in% fc_phase_all_phase)) {
     msg <- unique(dataset[[fc_phase_var]])[!unique(dataset[[fc_phase_var]]) %in% fc_phase_all_phase] |>
       glue::glue_collapse(", ") %>%
       glue::glue("The following fc phases: ", ., " are present in the dataset but are not defined in the function arguments.")

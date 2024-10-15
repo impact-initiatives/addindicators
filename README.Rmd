@@ -37,7 +37,7 @@ df <- addindicators_MSNA_template_data
 
 ### Example:: Add Food Consumption Score (FCS)
 ``` {r eval=T,warning=F}
-df_with_fcs <- df %>% add_fcs(
+df_with_fcs <- df %>% add_eg_fcs(
   cutoffs = "normal",
   fsl_fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
   fsl_fcs_legumes = "fs_fcs_beans_nuts",
@@ -59,7 +59,7 @@ df_with_fcs %>%
 
 ### Example:: Add Household Hunger Scale (HHS)
 ``` {r, eval=TRUE, warning=F}
-df_with_hhs <- df_with_fcs %>% add_hhs(
+df_with_hhs <- df_with_fcs %>% add_eg_hhs(
   hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
   hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
   hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",
@@ -82,7 +82,7 @@ df_with_hhs %>%
 
 ### Example:: Add Livelihood Coping Strategy score (LCSI)
 ``` {r, eval=TRUE, warning=F}
-df_with_lcsi <- df_with_hhs %>% add_lcsi(
+df_with_lcsi <- df_with_hhs %>% add_eg_lcsi(
   lcsi_stress_vars = c("liv_stress_lcsi_1", "liv_stress_lcsi_2", "liv_stress_lcsi_3", "liv_stress_lcsi_4"),
   lcsi_crisis_vars = c("liv_crisis_lcsi_1", "liv_crisis_lcsi_2", "liv_crisis_lcsi_3"),
   lcsi_emergency_vars = c("liv_emerg_lcsi_1", "liv_emerg_lcsi_2", "liv_emerg_lcsi_3"),
@@ -98,7 +98,7 @@ df_with_lcsi %>%
 
 ### Example:: Add Reduced Household Coping Strategy score (rCSI)
 ``` {r, eval=TRUE, warning=F}
-df_with_rcsi <- df_with_lcsi %>% add_rcsi(
+df_with_rcsi <- df_with_lcsi %>% add_eg_rcsi(
   rCSILessQlty = "rCSILessQlty",
   rCSIBorrow = "rCSIBorrow",
   rCSIMealSize = "rCSIMealSize",
@@ -115,7 +115,7 @@ df_with_rcsi %>%
 **Notice that these functions are also pipable**
 ``` {r, eval=TRUE, warning=F}
 df_with_fcm <- df_with_rcsi %>%
-  add_fcm_phase(
+  add_eg_fcm_phase(
     fcs_column_name = "fsl_fcs_cat",
     rcsi_column_name = "rcsi_cat",
     hhs_column_name = "hhs_cat_ipc",
@@ -140,7 +140,7 @@ df_with_fcm %>%
 **Notice that these functions are also pipable**
 ``` {r, eval=TRUE, warning=F}
 df_with_fclcm <- df_with_fcm %>% ## Taken from previous Example
-  add_fclcm_phase()
+  add_eg_fclcm_phase()
 df_with_fclcm %>%
   dplyr::select(uuid, fclcm_phase) %>%
   head(20)
@@ -154,7 +154,7 @@ The logic behind *review_variables* is to compare the results from 2 codes to cr
 In this example, the Food Consumption Score from the first example will be compared.
 
 ```{r}
-review_df <- addindicators_MSNA_template_data %>% add_fcs(
+review_df <- addindicators_MSNA_template_data %>% add_eg_fcs(
   cutoffs = "normal",
   fsl_fcs_cereal = "fs_fcs_cereals_grains_roots_tubers",
   fsl_fcs_legumes = "fs_fcs_beans_nuts",

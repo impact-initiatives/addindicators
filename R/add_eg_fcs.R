@@ -1,4 +1,4 @@
-#' add_fcs
+#' add_eg_fcs
 #'
 #' @param .dataset the clean dataset
 #' @param cutoffs either "normal", or "alternative". The default is set to normal
@@ -25,14 +25,14 @@
 #'   fsl_fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
 #'   fsl_fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
 #' )
-#' add_fcs(.dataset = df1,
+#' add_eg_fcs(.dataset = df1,
 #'   cutoffs = "normal"
 #' )
 #'
 
 
 
-add_fcs <- function(.dataset,
+add_eg_fcs <- function(.dataset,
                     cutoffs = c("normal","alternative"),
                     fsl_fcs_cereal = "fsl_fcs_cereal",
                     fsl_fcs_legumes = "fsl_fcs_legumes",
@@ -106,7 +106,7 @@ add_fcs <- function(.dataset,
   }
 
   .dataset <- .dataset %>%
-    dplyr::mutate_at(dplyr::vars(fcs_vars), as.numeric) %>%
+    dplyr::mutate(dplyr::across(dplyr::all_of(fcs_vars), as.numeric)) %>%
     dplyr::mutate(fcs_weight_cereal1 = ifelse(is.na(!!rlang::sym(fsl_fcs_cereal)), NA, !!rlang::sym(fsl_fcs_cereal) * 2),
                   fcs_weight_legume2 = ifelse(is.na(!!rlang::sym(fsl_fcs_legumes)), NA, !!rlang::sym(fsl_fcs_legumes) * 3),
                   fcs_weight_dairy3 = ifelse(is.na(!!rlang::sym(fsl_fcs_dairy)), NA, !!rlang::sym(fsl_fcs_dairy) * 4),

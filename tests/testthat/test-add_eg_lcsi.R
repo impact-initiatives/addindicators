@@ -1,4 +1,4 @@
-testthat::test_that("testing add_lcsi", {
+testthat::test_that("testing add_eg_lcsi", {
   input_data1 <- data.frame(
     stress1 = c("No", "No", "Exhausted", "Not Applicable", "No"),
     stress2 = c("No", "Yes", "Not Applicable", "No", "No"),
@@ -76,7 +76,7 @@ testthat::test_that("testing add_lcsi", {
   # Test 1 (happy path) - Correct classification with a given input
 
   expect_equal(
-    add_lcsi(
+    add_eg_lcsi(
       .dataset = input_data1,
       lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
       lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -92,7 +92,7 @@ testthat::test_that("testing add_lcsi", {
   # Test 2 - (happy path) - Correct number of columns and rows are returned.
 
   expect_equal(
-    dim(add_lcsi(
+    dim(add_eg_lcsi(
       .dataset = input_data1,
       lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
       lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -107,7 +107,7 @@ testthat::test_that("testing add_lcsi", {
 
   # Test 3 (Sad path) - Error when inappropriate number of inputs are given
 
-  testthat::expect_error(add_lcsi(
+  testthat::expect_error(add_eg_lcsi(
     .dataset = input_data1,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4", "stress5"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -118,7 +118,7 @@ testthat::test_that("testing add_lcsi", {
     not_applicable_val = "Not Applicable"
   ))
 
-  testthat::expect_error(add_lcsi(
+  testthat::expect_error(add_eg_lcsi(
     .dataset = input_data1,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3", "crisis4"),
@@ -129,7 +129,7 @@ testthat::test_that("testing add_lcsi", {
     not_applicable_val = "Not Applicable"
   ))
 
-  testthat::expect_error(add_lcsi(
+  testthat::expect_error(add_eg_lcsi(
     .dataset = input_data1,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -142,7 +142,7 @@ testthat::test_that("testing add_lcsi", {
 
   # Test 4 (Sad Path) - Warning if <4 unique values are seen in the values, and at least one expected value is not seen in the dataset
   # Test 4.1 - unobserved value in yes_val
-  testthat::expect_warning(add_lcsi(
+  testthat::expect_warning(add_eg_lcsi(
     .dataset = input_data2,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -153,7 +153,7 @@ testthat::test_that("testing add_lcsi", {
     not_applicable_val = "Not Applicable"
   ))
   # Test 4.2 - unobserved value in no_val
-  testthat::expect_warning(add_lcsi(
+  testthat::expect_warning(add_eg_lcsi(
     .dataset = input_data2,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -165,7 +165,7 @@ testthat::test_that("testing add_lcsi", {
   ))
 
   # Test 4.3 - unobserved value in exhausted_val
-  testthat::expect_warning(add_lcsi(
+  testthat::expect_warning(add_eg_lcsi(
     .dataset = input_data2,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -177,7 +177,7 @@ testthat::test_that("testing add_lcsi", {
   ))
 
   # Test 4.4 - unobserved value in not_applicable_val
-  testthat::expect_warning(add_lcsi(
+  testthat::expect_warning(add_eg_lcsi(
     .dataset = input_data2,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -189,7 +189,7 @@ testthat::test_that("testing add_lcsi", {
   ))
 
   # Test 5 (Sad Path) - Error if there are 4 Unique values, and 1 of them is not of the 4 values g
-  testthat::expect_error(add_lcsi(
+  testthat::expect_error(add_eg_lcsi(
     .dataset = input_data1,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -202,7 +202,7 @@ testthat::test_that("testing add_lcsi", {
 
   # Test 6 (Sad Path) - Error if there are > 4 unique values seen in the lcs variables.
 
-  testthat::expect_error(add_lcsi(
+  testthat::expect_error(add_eg_lcsi(
     .dataset = input_data3,
     lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
     lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
@@ -254,7 +254,7 @@ test_that("NA are handle correctly", {
                   lcsi_cat_exhaust = c(NA_character_, "None"),
                   lcsi_cat = c(NA_character_, "Emergency"))
 
-  actual_output <- test_data %>% add_lcsi(
+  actual_output <- test_data %>% add_eg_lcsi(
     lcsi_stress_vars = c("lcsi_option1", "lcsi_option2", "lcsi_option3", "lcsi_option4"),
     lcsi_crisis_vars = c("lcsi_option5", "lcsi_option6", "lcsi_option7"),
     lcsi_emergency_vars = c("lcsi_option8", "lcsi_option9", "lcsi_option10"),
@@ -309,7 +309,7 @@ test_that("NA are handle correctly", {
                   lcsi_cat_exhaust = c("None", "None", "Crisis", "Emergency", "None"),
                   lcsi_cat = c("Crisis", "Emergency", "Crisis", "Emergency", "Stress"))
 
-  actual_output <- test_data %>% add_lcsi(
+  actual_output <- test_data %>% add_eg_lcsi(
     lcsi_stress_vars = c("lcsi_option1", "lcsi_option2", "lcsi_option3", "lcsi_option4"),
     lcsi_crisis_vars = c("lcsi_option5", "lcsi_option6", "lcsi_option7"),
     lcsi_emergency_vars = c("lcsi_option8", "lcsi_option9", "lcsi_option10"),

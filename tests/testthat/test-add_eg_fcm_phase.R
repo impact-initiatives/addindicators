@@ -22,10 +22,10 @@ testthat::test_that("Check if indicators are available in the data", {
     )
 
 
-  actual_output <- add_fcm_phase(dataset = test_df)
+  actual_output <- add_eg_fcm_phase(dataset = test_df)
 
   testthat::expect_equal(names(actual_output), colnames(test_df))
-  add_fcm_phase(dataset = test_df_warning) |>
+  add_eg_fcm_phase(dataset = test_df_warning) |>
     testthat::expect_warning() |>
     testthat::expect_warning() |>
     testthat::expect_error()
@@ -99,7 +99,7 @@ testthat::test_that("check if function producing expected output", {
     ))
 
   testthat::expect_equal(
-    add_fcm_phase(test_df,
+    add_eg_fcm_phase(test_df,
       fcs_column_name = "fcs_cat",
       rcsi_column_name = "rcsi_cat",
       hhs_column_name = "hhs_cat",

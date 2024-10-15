@@ -19,8 +19,8 @@
 #'   rCSIMealAdult = c(4, 3, 5, 0),
 #'   rCSIMealNb = c(2, 5, NA_integer_, 1)
 #' )
-#' add_rcsi(test_data)
-add_rcsi <- function(data,
+#' add_eg_rcsi(test_data)
+add_eg_rcsi <- function(data,
                      rCSILessQlty = "rCSILessQlty",
                      rCSIBorrow = "rCSIBorrow",
                      rCSIMealSize = "rCSIMealSize",
