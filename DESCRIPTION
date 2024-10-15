@@ -1,7 +1,7 @@
 Package: addindicators
 Title: The addindicators Package Focuses on Adding Indicators to a Dataset
     and Reviews the Added Indicator
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Mehedi", "Khan", , "mh.khan@reach-initiative.org", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4276-4485")),
