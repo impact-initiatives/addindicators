@@ -1,4 +1,4 @@
-#' add_fcs
+#' add_eg_fcs
 #'
 #' @param .dataset the clean dataset
 #' @param cutoffs either "normal", or "alternative". The default is set to normal
@@ -25,14 +25,14 @@
 #'   fsl_fcs_sugar = c(1, 7, 6, 5, 2, 3, 4),
 #'   fsl_fcs_oil = c(2, 3, 6, 5, 1, 7, 4)
 #' )
-#' add_fcs(.dataset = df1,
+#' add_eg_fcs(.dataset = df1,
 #'   cutoffs = "normal"
 #' )
 #'
 
 
 
-add_fcs <- function(.dataset,
+add_eg_fcs <- function(.dataset,
                     cutoffs = c("normal","alternative"),
                     fsl_fcs_cereal = "fsl_fcs_cereal",
                     fsl_fcs_legumes = "fsl_fcs_legumes",

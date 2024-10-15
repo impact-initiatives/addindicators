@@ -35,7 +35,7 @@
 #' emergency2 =          c("No", "Not Applicable", "Yes", "Not Applicable", "No"),
 #' emergency3 =          c("Not Applicable", "No", "Not Applicable", "No", "Exhausted"))
 #'
-#' add_lcsi(.dataset = input_data1,
+#' add_eg_lcsi(.dataset = input_data1,
 #' lcsi_stress_vars = c("stress1", "stress2", "stress3", "stress4"),
 #' lcsi_crisis_vars = c("crisis1", "crisis2", "crisis3"),
 #' lcsi_emergency_vars = c("emergency1", "emergency2", "emergency3"),
@@ -45,7 +45,7 @@
 #' not_applicable_val = "Not Applicable")
 #'
 #' }
-add_lcsi <- function(.dataset,
+add_eg_lcsi <- function(.dataset,
                      lcsi_stress_vars,
                      lcsi_crisis_vars,
                      lcsi_emergency_vars,

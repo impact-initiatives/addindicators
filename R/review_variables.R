@@ -157,7 +157,7 @@ review_variables <- function(dataset,
       "variable"
     ))) %>%
     do.call(rbind, .) %>%
-    dplyr::select(all_of(c(uuid_column, "variable", paste0(prefix, "_check"), paste0(prefix, "_comment"))))
+    dplyr::select(dplyr::all_of(c(uuid_column, "variable", paste0(prefix, "_check"), paste0(prefix, "_comment"))))
 
   list_of_reviews <- purrr::reduce(list_of_reviews, dplyr::left_join, by = uuid_column)
 

@@ -28,14 +28,17 @@
 #' @examples {
 #'   input_data <- data.frame(
 #'     fs_hhs_nofood_yn = c("no", "yes", "no", "no", "no"),
-#'     fs_hhs_nofood_freq = c(NA_character_, "rarely_1_2", NA_character_, NA_character_, NA_character_),
+#'     fs_hhs_nofood_freq = c(NA_character_, "rarely_1_2",
+#'                            NA_character_, NA_character_, NA_character_),
 #'     fs_hhs_sleephungry_yn = c("no", "no", "yes", "no", "no"),
-#'     fs_hhs_sleephungry_freq = c(NA_character_, NA_character_, "often_10_times", NA_character_, NA_character_),
+#'     fs_hhs_sleephungry_freq = c(NA_character_, NA_character_,
+#'                                 "often_10_times", NA_character_, NA_character_),
 #'     fs_hhs_daynoteating_yn = c("no", "no", "yes", "yes", "yes"),
-#'     fs_hhs_daynoteating_freq = c(NA_character_, NA_character_, "often_10_times", "rarely_1_2", "sometimes_3_10")
+#'     fs_hhs_daynoteating_freq = c(NA_character_, NA_character_, "often_10_times",
+#'                                  "rarely_1_2", "sometimes_3_10")
 #'   )
 #'
-#'   add_hhs(
+#'   add_eg_hhs(
 #'     .dataset = input_data,
 #'     hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
 #'     hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
@@ -50,7 +53,7 @@
 #'     often_answer = "often_10_times"
 #'   )
 #' }
-add_hhs <- function(.dataset,
+add_eg_hhs <- function(.dataset,
                     hhs_nofoodhh_1 = "fs_hhs_nofood_yn",
                     hhs_nofoodhh_1a = "fs_hhs_nofood_freq",
                     hhs_sleephungry_2 = "fs_hhs_sleephungry_yn",

@@ -9,7 +9,7 @@ testthat::test_that("test error", {
     rCSIMealNb = c(2, 5, NA_character_)
   )
 
-  testthat::expect_error(add_rcsi(test_data))
+  testthat::expect_error(add_eg_rcsi(test_data))
 
   ## expect no error
 
@@ -20,9 +20,9 @@ testthat::test_that("test error", {
     rCSIMealAdult = c(4, 3, 5, 0),
     rCSIMealNb = c(2, 5, NA_integer_, 1)
   )
-  testthat::expect_no_error(add_rcsi(test_data))
+  testthat::expect_no_error(add_eg_rcsi(test_data))
 
-  actual <- add_rcsi(test_data)
+  actual <- add_eg_rcsi(test_data)
 
   expected <- structure(
     list(
@@ -52,12 +52,12 @@ testthat::test_that("test error", {
     rcsi_cat = NA_character_
   )
 
-  testthat::expect_warning(add_rcsi(test_data))
+  testthat::expect_warning(add_eg_rcsi(test_data))
 
   ### wrong entry
 
   test_data <- test_data |> dplyr::select(-rcsi_cat)
-  testthat::expect_error(add_rcsi(test_data, rCSILessQlty = "a"))
+  testthat::expect_error(add_eg_rcsi(test_data, rCSILessQlty = "a"))
 
 
   ## check no default value
@@ -71,12 +71,12 @@ testthat::test_that("test error", {
   )
 
   testthat::expect_no_error(
-    test_data |> add_rcsi(rCSILessQlty = "a", rCSIBorrow = "b", rCSIMealSize = "c", rCSIMealAdult = "d", rCSIMealNb = "e")
+    test_data |> add_eg_rcsi(rCSILessQlty = "a", rCSIBorrow = "b", rCSIMealSize = "c", rCSIMealAdult = "d", rCSIMealNb = "e")
   )
   ### check non default new_column
 
   testthat::expect_equal(
-    names(add_rcsi(test_data,
+    names(add_eg_rcsi(test_data,
       rCSILessQlty = "a", rCSIBorrow = "b", rCSIMealSize = "c",
       rCSIMealAdult = "d", rCSIMealNb = "e", new_colname = "abcd"
     )),
@@ -93,7 +93,7 @@ testthat::test_that("test error", {
     class = "data.frame",
     row.names = c(NA, -4L)
   )
-  actual <- add_rcsi(test_data,
+  actual <- add_eg_rcsi(test_data,
     rCSILessQlty = "a", rCSIBorrow = "b", rCSIMealSize = "c",
     rCSIMealAdult = "d", rCSIMealNb = "e", new_colname = "abcd"
   )
@@ -110,5 +110,5 @@ testthat::test_that("test error", {
     rCSIMealNb = c(2, 5, NA_integer_)
   )
 
-  testthat::expect_error(test_data |> add_rcsi())
+  testthat::expect_error(test_data |> add_eg_rcsi())
 })
